@@ -1,0 +1,31 @@
+{
+  "name": "@tencent/bot-node-sdk",
+  "version": "1.0.0",
+  "description": "QQ频道机器人NodeSDK",
+  "main": "src/index.js",
+  "publishConfig": {
+    "registry": "https://mirrors.tencent.com/npm/"
+  },
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "bufferutil": "^4.0.3",
+    "form-data": "^4.0.0",
+    "node-fetch": "^2.6.1",
+    "setimmediate": "^1.0.5",
+    "utf-8-validate": "^5.0.4",
+    "ws": "^7.4.4",
+    "typescript": "^4.3.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint-config-alloy": "^4.4.0",
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://git.woa.com/qq-channel-bot/bot-node-sdk.git"
+  },
+  "author": "joyqwang",
+  "license": "ISC",
+  "homepage": ""
+}
