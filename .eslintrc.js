@@ -1,49 +1,35 @@
 module.exports = {
-    extends: [
-      'alloy',
-      'alloy/typescript',
-    ],
-    root: true,
-    env: {
-      browser: true,
-      es6: true,
-      mocha: true,
+  extends: ['alloy', 'alloy/typescript'],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
     },
-    globals: {
-      cy: true,
-      NodeJS: true,
-    },
-    rules: {
-      complexity: ['error', { max: 20 }],
-      'max-len': ['error', { code: 120 }],
-      '@typescript-eslint/no-explicit-any': 'off',
-      "@typescript-eslint/explicit-member-accessibility": "off",
-    },
-    // js默认解析器
-    parser: 'babel-eslint',
-    // js默认解析器配置
-    parserOptions: {
-      requireConfigFile: true,
-      ecmaVersion: '6',
-      sourceType: 'module',
-    },
-    plugins: [
-      '@typescript-eslint', // 处理ts文件
-    ],
-    overrides: [
+  },
+  plugins: ['jest'],
+  env: {
+    jest: true,
+  },
+  rules: {
+    '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/explicit-member-accessibility': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/typedef': 'off',
+    'no-new-func': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+    complexity: 'off',
+    '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/no-require-imports': 'off',
+    '@typescript-eslint/prefer-optional-chain': 'off',
+    'max-params': 'off',
+    'no-param-reassign': 'off',
+    'no-trailing-spaces': [
+      'error',
       {
-        files: ['*.ts', "*.tsx", '*.js'],
-        parser: '@typescript-eslint/parser',
-        extends: [
-          // 'plugin:@typescript-eslint/recommended', // 基础的ts规范，来自ts plugin
-          'alloy/typescript',
-        ],
-      },
-      {
-        "files": ["*.ts", "*.tsx"],
-        "rules": {
-          "@typescript-eslint/explicit-member-accessibility": ["error"]
-        }
+        skipBlankLines: true,
       },
     ],
-  };
+  },
+};
