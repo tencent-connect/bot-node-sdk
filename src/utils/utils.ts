@@ -1,5 +1,3 @@
-'use strict';
-
 // 延迟
 export const delayTime = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -13,11 +11,18 @@ export const randomDelay =(min: number, max: number) => {
   return delayTime(ms);
 }
 
-// 字符串解析
+// 转为字符串
 export const resolveString = (data: any) => {
   if (typeof data === 'string') return data;
   if (Array.isArray(data)) return data.join('\n');
   return String(data);
 }
 
-export const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+// 转为对象
+export const toObject = (data: any) => {
+  if (typeof data === 'object') return data;
+  if (typeof data === 'string') return JSON.parse(data);
+  // return String(data);
+}
+
+export const has = (o: any, k: any) => Object.prototype.hasOwnProperty.call(o, k);

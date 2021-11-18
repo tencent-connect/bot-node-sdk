@@ -7,35 +7,54 @@
     "registry": "https://mirrors.tencent.com/npm/"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "es-checker": "^1.4.2"
-  },
-  "dependencies": {
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-typescript": "^7.15.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/setimmediate": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "abort-controller": "^3.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "bufferutil": "^4.0.3",
+    "es-checker": "^1.4.2",
     "eslint-config-alloy": "^4.4.0",
+    "husky": "^7.0.2",
+    "node-fetch": "^2.6.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "@types/ws": "^8.2.0",
     "form-data": "^4.0.0",
     "lodash.clonedeep": "^4.5.0",
-    "node-fetch": "^2.6.1",
     "setimmediate": "^1.0.5",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.4",
     "utf-8-validate": "^5.0.4",
+    "websocket-heartbeat-js": "^1.0.13",
     "ws": "^7.4.4"
   },
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "rollup -c rollup.config.js -w",
+    "build": "rimraf dist & rollup -c rollup.config.js",
+    "eslint:fix": "eslint  --color --fix ./src",
+    "format": "prettier --write ./src",
+    "test": "jest --config jest.config.json",
+    "gc": "git-cz",
+    "example": "cd example && npm run dev",
+    "release": "standard-version"
+  },
   "repository": {
     "type": "git",
     "url": "https://git.woa.com/qq-channel-bot/bot-node-sdk.git"
   },
   "author": "joyqwang",
   "license": "ISC",
-  "homepage": "",
-  "type": "module"
+  "homepage": ""
 }

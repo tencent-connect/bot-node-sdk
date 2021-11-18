@@ -1,7 +1,13 @@
-'use strict';
+import { QQBot } from './qqbot';
 
-import { qqBot } from './qqbot';
+const testConfig = {
+  BotAppID: '101934825',
+  BotToken: 'BcnzkI99QUkFkRzBq237eQGvI4zooul1',
+};
 
-export {
-  qqBot,
-}
+const QQ = new QQBot();
+QQ.newClient(testConfig);
+
+// export {
+//   qqBot,
+// }
