@@ -1,16 +1,9 @@
-import { IOpenAPI } from '../../types/openapi';
+import { register } from '@src/openapi/openapi';
 
-export default class OpenAPI implements IOpenAPI {
-  token: any;
-  timeout: number;
-  body: any;
-  sandbox: boolean;
-  debug: boolean;
-  New() {}
-  WithTimeout() {}
-  WithBody() {}
-  Transport() {}
-  Version() {}
-  request() {}
-  respInfo() {}
+export const apiVersion = 1;
+
+// TODO 全部的聚合API
+const openapi = {} as any;
+export function v1Setup() {
+  register(apiVersion, openapi);
 }
