@@ -40,7 +40,7 @@ export class Wss {
         // websocket连接成功，拿到心跳周期
         this.heartbeatInterval = wssRes?.d?.heartbeat_interval;
         // 非断线重连时，需要鉴权
-        if (!this.isreconnect) this.authWss();
+        this.isreconnect ? this.reconnect() : this.authWss();
         return;
       }
 
@@ -61,7 +61,14 @@ export class Wss {
 
       // 断线重连
       if (wssRes.op === OpCode.RESUME) {
-        this.reconnect();
+        console.log('开始断线重连');
+        this.isreconnect = true;
+        this.creat();
+      }
+
+      // 断线重连后的补发事件
+      if (wssRes.op === OpCode.DISPATCH) {
+        console.log(`断线重连后的补发事件: ${wssRes.d}`);
       }
     });
 
@@ -134,9 +141,15 @@ export class Wss {
 
   // 断线重连
   reconnect() {
-    console.log('断线重连');
-    this.isreconnect = true;
-    this.creat();
+    const recconectParam = {
+      op: OpCode.RESUME,
+      d: {
+        token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`,
+        session_id: 'session_id_i_stored',
+        seq: 1337,
+      },
+    };
+    this.sendWss(recconectParam);
   }
 }
 
