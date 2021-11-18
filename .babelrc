@@ -1,14 +1,58 @@
+
 {
   "presets": [
-    "es2015",
+    "@babel/env",
+    "@babel/typescript",
+    "@babel/preset-typescript",
+    "stage-2",
+    ["env", {
+      "targets": {
+        "node": "current"
+      },
+      "modules": false
+    }]
+  ],
+  "plugins": [
+    // [
+    //   "@babel/plugin-transform-runtime",
+    //   {
+    //     "absoluteRuntime": false,
+    //     "corejs": false,
+    //     "helpers": true,
+    //     "regenerator": true,
+    //     "version": "7.0.0-beta.0"
+    //   }
+    // ],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/transform-runtime",
     [
-      "env",
+      "transform-runtime",
       {
-        "targets": {
-          "node": "current"
-        }
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
       }
     ]
-  ],
-  "plugins": []
+  ]
+  // "env": {
+  //   "esm": {
+  //     "presets": [
+  //       [
+  //         "@babel/env",
+  //         {
+  //           "modules": false
+  //         }
+  //       ]
+  //     ],
+  //     "plugins": [
+  //       [
+  //         "@babel/plugin-transform-runtime",
+  //         {
+  //           "useESModules": true
+  //         }
+  //       ]
+  //     ]
+  //   }
+  // }
 }
