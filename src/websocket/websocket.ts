@@ -1,6 +1,6 @@
-import WebSocket from 'ws';
+import WebSocket, { EventEmitter } from 'ws';
 import { WssAddressObj, GetWssParam } from '../types/qqbot-types';
-import { WssParam, OpCode } from '../types/websocket-types';
+import { wssResData, OpCode, WsEventType } from '../types/websocket-types';
 import { toObject } from '../utils/utils';
 import { HttpsService } from '../rest/api-request';
 
@@ -13,7 +13,7 @@ export class Wss {
   // 心跳参数，默认为心跳测试
   heartbeatParam = {
     op: OpCode.HEARTBEAT,
-    d: 'test',
+    d: null, // 心跳唯一值
   };
   // 是否是断线重连，如果是断线重连的话，不需要走鉴权
   isreconnect: boolean;
@@ -31,7 +31,7 @@ export class Wss {
     });
 
     // 接受消息
-    this.ws.on('message', (data: any) => {
+    this.ws.on('message', (data: wssResData) => {
       console.log(`[CLIENT] 收到消息: ${data}`);
       // 先将消息解析
       const wssRes = toObject(data);
@@ -45,16 +45,16 @@ export class Wss {
       }
 
       // 鉴权通过
-      if (wssRes.t === 'READY') {
+      if (wssRes.t === WsEventType.READY) {
         // 第一次发送心跳
-        console.log(`发送第一次心跳： ${this.heartbeatInterval}`);
+        console.log(`发送第一次心跳`, this.heartbeatParam);
         this.sendWss(this.heartbeatParam);
       }
 
       // 心跳测试
       if (wssRes.op === OpCode.HEARTBEAT_ACK) {
         setTimeout(() => {
-          console.log(`发送心跳： ${this.heartbeatInterval}`);
+          console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
           this.sendWss(this.heartbeatParam);
         }, this.heartbeatInterval);
       }
@@ -66,20 +66,24 @@ export class Wss {
         this.creat();
       }
 
-      // 断线重连后的补发事件
+      // 服务端主动推送的消息
       if (wssRes.op === OpCode.DISPATCH) {
-        console.log(`断线重连后的补发事件: ${wssRes.d}`);
+        console.log(`服务端主动推送的消息: ${data}`);
+        // 更新心跳唯一值
+        this.heartbeatParam.d = wssRes?.s;
+        // OpenAPI事件分发
+        this.eventMap(wssRes.t, wssRes.d);
       }
     });
 
     // websocket关闭
     this.ws.on('onclose', () => {
-      console.log(`[CLIENT] 关闭`);
+      console.log(`[CLIENT] 连接关闭`);
     });
 
     // websocket错误
     this.ws.on('onerror', () => {
-      console.log(`[CLIENT] 错误`);
+      console.log(`[CLIENT] 连接错误`);
     });
   }
 
@@ -97,7 +101,7 @@ export class Wss {
     // 模拟数据
     const testWss: WssAddressObj = {
       url: 'wss://api.sgroup.qq.com/websocket',
-      shards: 1,
+      shards: 4,
       session_start_limit: {
         total: 1000,
         remaining: 1000,
@@ -151,6 +155,9 @@ export class Wss {
     };
     this.sendWss(recconectParam);
   }
+
+  // OpenAPI事件分发
+  eventMap(eventType: string, eventMsg: any) {}
 }
 
 // const WebSocketClient = require('ws').client;
