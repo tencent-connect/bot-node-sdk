@@ -1,9 +1,10 @@
-import { QQBot } from '@tencent/bot-node-sdk';
+import { Bot } from '@tencent/bot-node-sdk';
 
 const testConfig = {
   BotAppID: '',
   BotToken: '',
 };
 
-const QQ = new QQBot();
-QQ.newClient(testConfig);
+const QQBot = new Bot();
+QQBot.newClient(testConfig);
+QQBot.onmessage();
