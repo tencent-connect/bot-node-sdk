@@ -7,4 +7,8 @@ const testConfig = {
 
 const QQBot = new Bot();
 QQBot.newClient(testConfig);
-QQBot.onmessage();
+// 用户获取频道
+// QQBot.getGuild();
+QQBot.onmessage((data) => {
+  console.log('机器人实例收到的消息', data);
+});

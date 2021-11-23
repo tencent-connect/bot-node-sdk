@@ -1,12 +1,13 @@
 import WebSocket, { EventEmitter } from 'ws';
 import { WssAddressObj, GetWssParam } from '../types/qqbot-types';
-import { wssResData, OpCode, WsEventType } from '../types/websocket-types';
+import { wssResData, OpCode, SessionEvents } from '../types/websocket-types';
 import { toObject } from '../utils/utils';
 import { HttpsService } from '../rest/api-request';
 
 // websocket连接
 export class Wss {
   ws: any;
+  event: any;
   // wssData: WssAddressObj;
   config: GetWssParam;
   heartbeatInterval!: number;
@@ -17,14 +18,20 @@ export class Wss {
   };
   // 是否是断线重连，如果是断线重连的话，不需要走鉴权
   isreconnect: boolean;
-  constructor(config: GetWssParam) {
+  constructor(config: GetWssParam, event: any) {
     this.config = config;
     this.isreconnect = false;
+    this.event = event;
   }
   // 创建一个websocket连接
-  async creat() {
-    await this.connectWss();
-
+  async creatWebsocket(wssData: WssAddressObj) {
+    // 先链接到wss
+    await this.connectWss(wssData);
+    // 对消息进行监听
+    this.creatLstening();
+  }
+  // 创建监听
+  async creatLstening() {
     // websocket连接已开启
     this.ws.on('open', () => {
       console.log(`[CLIENT] 开启`);
@@ -32,7 +39,8 @@ export class Wss {
 
     // 接受消息
     this.ws.on('message', (data: wssResData) => {
-      console.log(`[CLIENT] 收到消息: ${data}`);
+      // console.log(`[CLIENT] 收到消息: ${data}`);
+
       // 先将消息解析
       const wssRes = toObject(data);
       // 先判断websocket连接是否成功
@@ -40,12 +48,12 @@ export class Wss {
         // websocket连接成功，拿到心跳周期
         this.heartbeatInterval = wssRes?.d?.heartbeat_interval;
         // 非断线重连时，需要鉴权
-        this.isreconnect ? this.reconnect() : this.authWss();
+        this.isreconnect ? this.reconnectWss() : this.authWss();
         return;
       }
 
       // 鉴权通过
-      if (wssRes.t === WsEventType.READY) {
+      if (wssRes.t === SessionEvents.READY) {
         // 第一次发送心跳
         console.log(`发送第一次心跳`, this.heartbeatParam);
         this.sendWss(this.heartbeatParam);
@@ -53,17 +61,18 @@ export class Wss {
 
       // 心跳测试
       if (wssRes.op === OpCode.HEARTBEAT_ACK) {
+        console.log('[websokect心跳校验]', this.heartbeatParam);
+        this.eventMap('1111', wssRes.op);
         setTimeout(() => {
           console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
           this.sendWss(this.heartbeatParam);
         }, this.heartbeatInterval);
       }
 
-      // 断线重连
+      // 断线
       if (wssRes.op === OpCode.RESUME) {
-        console.log('开始断线重连');
-        this.isreconnect = true;
-        this.creat();
+        // 通知会话，当前已断线
+        this.event.emit('Event_Wss', { eventType: SessionEvents.DISCONNECT });
       }
 
       // 服务端主动推送的消息
@@ -88,28 +97,9 @@ export class Wss {
   }
 
   // 连接wss
-  async connectWss() {
-    const wssData = await this.getWss();
+  async connectWss(wssData: WssAddressObj) {
+    // 创建websocket连接
     this.ws = new WebSocket(wssData.url);
-  }
-
-  // 拿到wss
-  async getWss() {
-    await HttpsService.getWss(this.config).then((res) => {
-      console.log(`res: ${res}`);
-    });
-    // 模拟数据
-    const testWss: WssAddressObj = {
-      url: 'wss://api.sgroup.qq.com/websocket',
-      shards: 4,
-      session_start_limit: {
-        total: 1000,
-        remaining: 1000,
-        reset_after: 86400000,
-        max_concurrency: 1,
-      },
-    };
-    return testWss;
   }
 
   // 鉴权
@@ -120,7 +110,7 @@ export class Wss {
       d: {
         token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`, // 根据配置转换token
         intents: 513, // todo 接受的类型
-        shard: [0, 4], // 分片信息
+        shard: this.checkShards() || [0, 2], // 分片信息,给一个默认值
         properties: {
           $os: 'linux',
           $browser: 'my_library',
@@ -128,8 +118,23 @@ export class Wss {
         },
       },
     };
+    console.log('开始鉴权');
     // 发送鉴权请求
     this.sendWss(authOp);
+  }
+
+  // 校验shards
+  checkShards() {
+    const shardsArr = this.config.shards;
+    // 没有传shards进来
+    if (!shardsArr || shardsArr === undefined) {
+      return console.log('shards 不存在');
+    }
+    // 传进来的符合要求
+    if (Array.isArray(shardsArr) && shardsArr.length === 2 && shardsArr[0] < shardsArr[1]) {
+      return shardsArr;
+    }
+    return console.log('shards 错误');
   }
 
   // 发送websocket
@@ -143,8 +148,15 @@ export class Wss {
     }
   }
 
-  // 断线重连
+  // 重新连接
   reconnect() {
+    console.log('开始断线重连');
+    this.isreconnect = true;
+    this.creatLstening();
+  }
+
+  // 重新重连Wss
+  reconnectWss() {
     const recconectParam = {
       op: OpCode.RESUME,
       d: {
@@ -157,39 +169,7 @@ export class Wss {
   }
 
   // OpenAPI事件分发
-  eventMap(eventType: string, eventMsg: any) {}
+  eventMap(eventType: string, eventMsg: unknown) {
+    this.event.emit('Event_Wss', { eventType, eventMsg });
+  }
 }
-
-// const WebSocketClient = require('ws').client;
-
-// const client = new WebSocketClient();
-
-// client.on('connectFailed', function(error) {
-//     console.log('Connect Error: ' + error.toString());
-// });
-
-// client.on('connect', function(connection) {
-//     console.log('WebSocket Client Connected');
-//     connection.on('error', function(error) {
-//         console.log("Connection Error: " + error.toString());
-//     });
-//     connection.on('close', function() {
-//         console.log('echo-protocol Connection Closed');
-//     });
-//     connection.on('message', function(message) {
-//         if (message.type === 'utf8') {
-//             console.log("Received: '" + message.utf8Data + "'");
-//         }
-//     });
-
-//     function sendNumber() {
-//         if (connection.connected) {
-//             var number = Math.round(Math.random() * 0xFFFFFF);
-//             connection.sendUTF(number.toString());
-//             setTimeout(sendNumber, 1000);
-//         }
-//     }
-//     sendNumber();
-// });
-
-// client.connect('ws://api.sgroup.qq.com/', 'echo-protocol');
