@@ -2,6 +2,7 @@
 export interface GetWssParam {
   BotAppID: string;
   BotToken: string;
+  shards: Array<number>;
 }
 
 // 请求wss地址回包对象
@@ -13,5 +14,5 @@ export interface WssAddressObj {
     remaining: number;
     reset_after: number;
     max_concurrency: number;
-  }
+  };
 }
