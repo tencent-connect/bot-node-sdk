@@ -4,8 +4,8 @@ import Client from './websocket/client/client';
 import { EventTypes } from '@src/types/websocket-types';
 
 export class Bot {
-  client: any;
-  event: any;
+  client!: Client;
+  event!: EventEmitter;
   // 新建一个连接
   async newClient(config: GetWssParam) {
     // 事件监听

@@ -7,8 +7,8 @@ export default class Session {
   // wssData: WssAddressObj;
   config: GetWssParam;
   heartbeatInterval!: number;
+  wss!: Wss;
   event: any;
-  wss: any;
   constructor(config: GetWssParam, event: any) {
     this.config = config;
     this.event = event;
