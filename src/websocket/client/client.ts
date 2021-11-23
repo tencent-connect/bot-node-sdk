@@ -3,8 +3,7 @@ import Session from '@src/session/session';
 import { EventEmitter } from 'ws';
 
 export default class Client {
-  client: any;
-
+  session!: Session;
   // 连接
   async connect(config: GetWssParam, event: unknown) {
     // const event = new EventEmitter();
@@ -13,10 +12,10 @@ export default class Client {
     // })
 
     // 新建一个会话
-    this.client = new Session(config, event);
-    this.client.creatSession();
+    this.session = new Session(config, event);
+    this.session.creatSession();
 
-    return this.client;
+    return this.session;
   }
 
   // 获取频道功能
