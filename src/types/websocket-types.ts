@@ -1,3 +1,4 @@
+import { WebsocketAPI } from './openapi';
 // websocket建立成功回包
 export interface wssResData {
   op: number; // opcode wss的类型
@@ -19,6 +20,11 @@ export interface HeartbeatParam {
 export interface EventTypes {
   eventType: string;
   eventMsg?: object;
+}
+
+// websocket关闭
+export interface WssCloseType {
+  code: number;
 }
 
 // 心跳参数
@@ -78,6 +84,63 @@ export const enum WebsocketCode {
   ERROR = 4900, // 内部错误，请重连
 }
 
+// websocket错误原因
+export const WebsocketCloseReason = [
+  {
+    code: 4001,
+    reason: '无效的opcode',
+  },
+  {
+    code: 4002,
+    reason: '无效的payload',
+  },
+  {
+    code: 4007,
+    reason: 'seq错误',
+  },
+  {
+    code: 4008,
+    reason: '发送 payload 过快，请重新连接，并遵守连接后返回的频控信息',
+  },
+  {
+    code: 4009,
+    reason: '连接过期，请重连',
+  },
+  {
+    code: 4010,
+    reason: '无效的shard',
+  },
+  {
+    code: 4011,
+    reason: '连接需要处理的guild过多，请进行合理分片',
+  },
+  {
+    code: 4012,
+    reason: '无效的version',
+  },
+  {
+    code: 4013,
+    reason: '无效的intent',
+  },
+  {
+    code: 4014,
+    reason: 'intent无权限',
+  },
+  {
+    code: 4900,
+    reason: '内部错误，请重连',
+  },
+];
+
+// 用户输入的intents类型
+export const IntentEvents = {
+  GUILDS: 1 << 0,
+  GUILD_MEMBERS: 1 << 1,
+  DIRECT_MESSAGE: 1 << 12,
+  AUDIO_ACTION: 1 << 29,
+  AT_MESSAGES: 1 << 30,
+};
+
 // intents
 export const Intents = {
   GUILDS: 0,
@@ -96,97 +159,6 @@ export const Intents = {
   DIRECT_MESSAGE_REACTIONS: 13,
   DIRECT_MESSAGE_TYPING: 14,
 };
-
-export const IntentEvents = [
-  [
-    // 0
-    'GUILD_CREATE',
-    'GUILD_UPDATE',
-    'GUILD_DELETE',
-    'GUILD_ROLE_CREATE',
-    'GUILD_ROLE_UPDATE',
-    'GUILD_ROLE_DELETE',
-    'CHANNEL_CREATE',
-    'CHANNEL_UPDATE',
-    'CHANNEL_DELETE',
-    'CHANNEL_PINS_UPDATE',
-  ],
-  [
-    // 1
-    'GUILD_MEMBER_ADD',
-    'GUILD_MEMBER_UPDATE',
-    'GUILD_MEMBER_REMOVE',
-  ],
-  [
-    // 2
-    'GUILD_BAN_ADD',
-    'GUILD_BAN_REMOVE',
-  ],
-  [
-    // 3
-    'GUILD_EMOJIS_UPDATE',
-  ],
-  [
-    // 4
-    'GUILD_INTEGRATIONS_UPDATE',
-    'INTEGRATION_CREATE',
-    'INTEGRATION_UPDATE',
-    'INTEGRATION_DELETE',
-  ],
-  [
-    // 5
-    'WEBHOOKS_UPDATE',
-  ],
-  [
-    // 6
-    'INVITE_CREATE',
-    'INVITE_DELETE',
-  ],
-  [
-    // 7
-    'VOICE_STATE_UPDATE',
-  ],
-  [
-    // 8
-    'PRESENCE_UPDATE',
-  ],
-  [
-    // 9
-    'MESSAGE_CREATE',
-    'MESSAGE_UPDATE',
-    'MESSAGE_DELETE',
-    'MESSAGE_DELETE_BULK',
-  ],
-  [
-    // 10
-    'MESSAGE_REACTION_ADD',
-    'MESSAGE_REACTION_REMOVE',
-    'MESSAGE_REACTION_REMOVE_ALL',
-    'MESSAGE_REACTION_REMOVE_EMOJI',
-  ],
-  [
-    // 11
-    'TYPING_START',
-  ],
-  [
-    // 12
-    'MESSAGE_CREATE',
-    'MESSAGE_UPDATE',
-    'MESSAGE_DELETE',
-    'CHANNEL_PINS_UPDATE',
-  ],
-  [
-    // 13
-    'MESSAGE_REACTION_ADD',
-    'MESSAGE_REACTION_REMOVE',
-    'MESSAGE_REACTION_REMOVE_ALL',
-    'MESSAGE_REACTION_REMOVE_EMOJI',
-  ],
-  [
-    // 14
-    'TYPING_START',
-  ],
-];
 
 // Session事件
 export const SessionEvents = {
