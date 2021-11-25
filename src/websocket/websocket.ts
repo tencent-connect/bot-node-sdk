@@ -1,8 +1,15 @@
 import WebSocket, { EventEmitter } from 'ws';
 import { WssAddressObj, GetWssParam } from '../types/qqbot-types';
-import { wssResData, OpCode, SessionEvents } from '../types/websocket-types';
+import {
+  wssResData,
+  OpCode,
+  SessionEvents,
+  WssCloseType,
+  WebsocketCode,
+  WebsocketCloseReason,
+  IntentEvents,
+} from '../types/websocket-types';
 import { toObject } from '../utils/utils';
-import { HttpsService } from '../rest/api-request';
 
 // websocket连接
 export class Wss {
@@ -86,8 +93,10 @@ export class Wss {
     });
 
     // websocket关闭
-    this.ws.on('onclose', () => {
-      console.log(`[CLIENT] 连接关闭`);
+    this.ws.on('onclose', (data: WssCloseType) => {
+      if (data.code) {
+        this.wsCloseReason(data.code);
+      }
     });
 
     // websocket错误
@@ -109,7 +118,7 @@ export class Wss {
       op: OpCode.IDENTIFY, // 鉴权参数
       d: {
         token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`, // 根据配置转换token
-        intents: 513, // todo 接受的类型
+        intents: this.checkIntents(), // todo 接受的类型
         shard: this.checkShards() || [0, 2], // 分片信息,给一个默认值
         properties: {
           $os: 'linux',
@@ -121,6 +130,23 @@ export class Wss {
     console.log('开始鉴权');
     // 发送鉴权请求
     this.sendWss(authOp);
+  }
+
+  // 校验intents类型
+  checkIntents() {
+    // 判断用户有没有给到需要监听的事件类型，暂时开启全部监听
+    const intentsIn = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'];
+    if (intentsIn && intentsIn.length > 0) {
+      const intents = { value: 0 };
+      if (intentsIn.length === 1) {
+        intents.value = IntentEvents[intentsIn[0]];
+        return intents.value;
+      }
+      intentsIn.forEach((e) => {
+        intents.value = IntentEvents[e] | intents.value;
+      });
+      return intents.value;
+    }
   }
 
   // 校验shards
@@ -171,5 +197,14 @@ export class Wss {
   // OpenAPI事件分发
   eventMap(eventType: string, eventMsg: unknown) {
     this.event.emit('Event_Wss', { eventType, eventMsg });
+  }
+
+  // ws关闭的原因
+  wsCloseReason(code: number) {
+    WebsocketCloseReason.forEach((e) => {
+      if (e.code === code) {
+        console.log(`[websokect] 连接错误`, e.reason);
+      }
+    });
   }
 }

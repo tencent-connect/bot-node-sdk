@@ -12,6 +12,7 @@ export default class Session {
   constructor(config: GetWssParam, event: any) {
     this.config = config;
     this.event = event;
+    this.creatSession();
   }
 
   // 新建会话

@@ -69,7 +69,6 @@
     "setimmediate": "^1.0.5",
     "ts-node": "^10.4.0",
     "utf-8-validate": "^5.0.4",
-    "websocket-heartbeat-js": "^1.0.13",
     "ws": "^7.4.4"
   },
   "repository": {

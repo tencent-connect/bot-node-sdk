@@ -5,8 +5,7 @@ const testConfig = {
   BotToken: '',
 };
 
-const QQBot = new Bot();
-QQBot.newClient(testConfig);
+const QQBot = new Bot(testConfig);
 // 用户获取频道
 // QQBot.getGuild();
 QQBot.onmessage((data) => {

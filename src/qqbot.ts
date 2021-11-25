@@ -6,14 +6,15 @@ import { EventTypes } from '@src/types/websocket-types';
 export class Bot {
   client!: Client;
   event!: EventEmitter;
+  constructor(config: GetWssParam) {
+    this.newClient(config);
+  }
   // 新建一个连接
   async newClient(config: GetWssParam) {
     // 事件监听
     this.event = new EventEmitter();
     // 构造连接
-    this.client = new Client();
-    // 开始连接
-    this.client.connect(config, this.event);
+    this.client = new Client(config, this.event);
     return this.client;
   }
 

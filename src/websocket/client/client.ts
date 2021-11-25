@@ -4,6 +4,9 @@ import { EventEmitter } from 'ws';
 
 export default class Client {
   session!: Session;
+  constructor(config: GetWssParam, event: any) {
+    this.connect(config, event);
+  }
   // 连接
   async connect(config: GetWssParam, event: unknown) {
     // const event = new EventEmitter();
@@ -13,7 +16,6 @@ export default class Client {
 
     // 新建一个会话
     this.session = new Session(config, event);
-    this.session.creatSession();
 
     return this.session;
   }
