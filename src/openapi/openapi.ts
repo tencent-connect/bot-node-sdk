@@ -1,26 +1,6 @@
-import { IOpenAPI } from '@src/types/openapi';
-
+import { OpenAPI } from './v1/openapi';
 export const versionMapping = Object.create(null);
 
-// TODO 去除magic number
-const successStatusSet = {
-  // StatusOK
-  200: true,
-  // StatusCreated
-  201: true,
-  // StatusAccepted
-  202: true,
-  // StatusNoContent
-  204: true,
-};
-
-export function register(version: number, api: IOpenAPI) {
+export function register(version: string, api: typeof OpenAPI) {
   versionMapping[version] = api;
-}
-
-export function isSuccessStatus(code: number): boolean {
-  if (successStatusSet[code as keyof typeof successStatusSet]) {
-    return true;
-  }
-  return false;
 }

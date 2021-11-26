@@ -3,20 +3,20 @@ const sandBoxDomain = 'sandbox.api.sgroup.qq.com';
 const scheme = 'https';
 
 const apiMap = {
-  guildURI: '/guilds/${guildId}',
-  guildMembersURI: '/guilds/${guildId}/members',
-  guildMemberURI: '/guilds/${guildId}/members/${userId}',
-  channelsURI: '/guilds/${guildId}/channels',
-  channelURI: '/channels/${channelId}',
-  messagesURI: '/channels/${channelId}/messages',
-  messageURI: '/channels/${channelId}/messages/${messageId}',
+  guildURI: '/guilds/${guildID}',
+  guildMembersURI: '/guilds/${guildID}/members',
+  guildMemberURI: '/guilds/${guildID}/members/${userID}',
+  channelsURI: '/guilds/${guildID}/channels',
+  channelURI: '/channels/${channelID}',
+  messagesURI: '/channels/${channelID}/messages',
+  messageURI: '/channels/${channelID}/messages/${messageID}',
   userMeURI: '/users/@me',
   userMeGuildsURI: '/users/@me/guilds',
   gatewayURI: '/gateway',
   gatewayBotURI: '/gateway/bot',
   audioControlURI: '/channels/${channelId}/audio',
-  rolesURI: '/guilds/${guildId}/roles/${roleId}',
-  memberRoleURI: '/guilds/${guildId}/members/${userId}/roles/${roleId}',
+  rolesURI: '/guilds/${guildID}/roles/${roleID}',
+  memberRoleURI: '/guilds/${guildID}/members/${userID}/roles/${roleID}',
 };
 
 export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {

@@ -1,40 +1,49 @@
 import { AudioControl } from '@src/openapi/v1/audio';
 import { GuildRes } from '@src/openapi/v1/guild';
 
-// TODO 补充TS interface
-export interface IOpenAPI
-  extends IBase,
-    WebsocketAPI,
-    UserAPI,
-    MessageAPI,
-    GuildAPI,
-    ChannelAPI,
-    AudioAPI,
-    RoleAPI,
-    MemberAPI {}
+export interface Options {
+  method:
+    | 'get'
+    | 'GET'
+    | 'post'
+    | 'POST'
+    | 'put'
+    | 'PUT'
+    | 'delete'
+    | 'DELETE'
+    | 'options'
+    | 'OPTIONS'
+    | 'patch'
+    | 'PATCH'
+    | 'head'
+    | 'HEAD';
+  url: string;
+  path: Object;
+  headers: Object;
+  data?: Object;
+  parameters?: Object;
+  requestConfig?: Object;
+  responseConfig?: Object;
+}
+export interface Config {
+  appID: string;
+  token: string;
+  timeout?: number;
+}
 
-export type APIVersion = number;
+// TODO 补充TS interface
+export interface IOpenAPI {
+  config: Config;
+  request: (options: Options) => Promise<any>;
+  guildApi: GuildAPI;
+}
+
+export type APIVersion = `v${number}`;
 
 export interface Token {
   appID: number;
   accessToken: string;
   type: string;
-}
-
-// Base 基础能力接口
-export interface IBase {
-  token: any;
-  timeout: number;
-  body: any;
-  sandbox: boolean;
-  debug: boolean;
-  version: () => any;
-  // new: () => any;
-  withTimeout: () => any;
-  // WithBody 设置 body，如果 openapi 提供设置 body 的功能，则需要自行识别 body 类型
-  withBody: (body: any) => any;
-  // Transport 透传请求，如果 sdk 没有及时跟进新的接口的变更，可以使用该方法进行透传，openapi 实现时可以按需选择是否实现该接口
-  transport: (method: string, url: string, bod: any) => any;
 }
 
 // WebsocketAPI websocket 接入地址
