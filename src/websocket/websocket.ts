@@ -61,17 +61,18 @@ export class Wss {
 
       // 鉴权通过
       if (wssRes.t === SessionEvents.READY) {
+        console.log(`[CLIENT] 鉴权通过`);
         // 第一次发送心跳
-        console.log(`发送第一次心跳`, this.heartbeatParam);
+        console.log(`[CLIENT] 发送第一次心跳`, this.heartbeatParam);
         this.sendWss(this.heartbeatParam);
       }
 
       // 心跳测试
       if (wssRes.op === OpCode.HEARTBEAT_ACK) {
-        console.log('[websokect心跳校验]', this.heartbeatParam);
+        console.log('[CLIENT] 心跳校验', this.heartbeatParam);
         this.eventMap('1111', wssRes.op);
         setTimeout(() => {
-          console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
+          // console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
           this.sendWss(this.heartbeatParam);
         }, this.heartbeatInterval);
       }
@@ -84,7 +85,7 @@ export class Wss {
 
       // 服务端主动推送的消息
       if (wssRes.op === OpCode.DISPATCH) {
-        console.log(`服务端主动推送的消息: ${data}`);
+        console.log('[CLIENT] 服务端消息', data);
         // 更新心跳唯一值
         this.heartbeatParam.d = wssRes?.s;
         // OpenAPI事件分发
@@ -92,15 +93,16 @@ export class Wss {
       }
     });
 
-    // websocket关闭
-    this.ws.on('onclose', (data: WssCloseType) => {
+    // 监听websocket关闭事件
+    this.ws.on('close', (data: WssCloseType) => {
+      console.log('[CLIENT] 连接关闭', data);
       if (data.code) {
         this.wsCloseReason(data.code);
       }
     });
 
-    // websocket错误
-    this.ws.on('onerror', () => {
+    // 监听websocket错误
+    this.ws.on('error', () => {
       console.log(`[CLIENT] 连接错误`);
     });
   }
@@ -127,7 +129,7 @@ export class Wss {
         },
       },
     };
-    console.log('开始鉴权');
+    console.log(`[CLIENT] 开始鉴权`);
     // 发送鉴权请求
     this.sendWss(authOp);
   }
@@ -197,6 +199,11 @@ export class Wss {
   // OpenAPI事件分发
   eventMap(eventType: string, eventMsg: unknown) {
     this.event.emit('Event_Wss', { eventType, eventMsg });
+  }
+
+  // 主动关闭会话
+  closeWs() {
+    this.ws.close();
   }
 
   // ws关闭的原因

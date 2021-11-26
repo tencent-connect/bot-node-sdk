@@ -1,3 +1,6 @@
+import { AudioControl } from '@src/openapi/v1/audio';
+import { GuildRes } from '@src/openapi/v1/guild';
+
 // TODO 补充TS interface
 export interface IOpenAPI
   extends IBase,
@@ -26,7 +29,7 @@ export interface IBase {
   sandbox: boolean;
   debug: boolean;
   version: () => any;
-  new: () => any;
+  // new: () => any;
   withTimeout: () => any;
   // WithBody 设置 body，如果 openapi 提供设置 body 的功能，则需要自行识别 body 类型
   withBody: (body: any) => any;
@@ -54,7 +57,7 @@ export interface MessageAPI {
 
 // GuildAPI guild 相关接口
 export interface GuildAPI {
-  guild: () => any;
+  guild: (guildID: string) => Promise<GuildRes>;
   guildMember: () => any;
   guildMembers: () => any;
   deleteGuildMember: () => any;
@@ -71,7 +74,7 @@ export interface ChannelAPI {
 
 // AudioAPI 音频接口
 export interface AudioAPI {
-  postAudio: () => any;
+  postAudio: (channelID: string, value: AudioControl) => any;
 }
 
 // RoleAPI 用户组相关接口

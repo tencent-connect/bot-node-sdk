@@ -2,8 +2,6 @@ import { IOpenAPI } from '@src/types/openapi';
 
 export const versionMapping = Object.create(null);
 
-export let defaultImpl: null | IOpenAPI = null;
-
 // TODO 去除magic number
 const successStatusSet = {
   // StatusOK
@@ -18,13 +16,6 @@ const successStatusSet = {
 
 export function register(version: number, api: IOpenAPI) {
   versionMapping[version] = api;
-  setDefaultOnce(api);
-}
-
-export function setDefaultOnce(api: IOpenAPI) {
-  if (!defaultImpl) {
-    defaultImpl = api;
-  }
 }
 
 export function isSuccessStatus(code: number): boolean {
