@@ -1,5 +1,4 @@
-import { GuildAPI } from '@src/types/openapi';
-import Base from './base';
+import { Config, GuildAPI } from '@src/types/openapi';
 import { getURL } from './resource';
 
 export interface GuildRes {
@@ -20,22 +19,26 @@ export interface GuildRes {
 // TODO 抛出错误
 export default class Guild implements GuildAPI {
   request: any;
-  constructor(request: any) {
+  config: Config;
+  constructor(request: any, config: Config) {
     this.request = request;
+    this.config = config;
   }
   // Guild 对象
-  async guild(guildID: string): Promise<GuildRes> {
+  public async guild(guildID: string): Promise<GuildRes> {
+    // TODO 进行参数校验
     const options = {
+      method: 'get',
       path: {
         guildID,
       },
-      url: getURL('guildMemberURI'),
+      url: getURL('guildURI'),
     };
     // TODO 泛型处理
     const [res, err] = await this.request(options);
     return res;
   }
-  guildMember() {}
-  guildMembers() {}
-  deleteGuildMember() {}
+  public guildMember() {}
+  public guildMembers() {}
+  public deleteGuildMember() {}
 }

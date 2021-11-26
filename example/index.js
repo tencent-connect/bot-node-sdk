@@ -1,4 +1,4 @@
-import { newOpenAPI } from '@tencent/bot-node-sdk';
+import { newOpenAPI, Bot } from '@tencent/bot-node-sdk';
 
 const testConfig = {
   BotAppID: '',
@@ -10,12 +10,12 @@ const QQBot = new Bot(testConfig);
 // console.log(QQBot);
 // QQBot.getGuild();
 QQBot.onmessage();
-const api = newOpenAPI(testConfig);
+const client = newOpenAPI(testConfig);
 
-api.guild(123).then((data) => {
+client.guildApi.guild('').then((data) => {
   console.log(data);
 });
-// // 用户获取频道
+// // 用户获取频道clear
 // // QQBot.getGuild();
 // QQBot.onmessage((data) => {
 //   console.log('机器人实例收到的消息', data);
