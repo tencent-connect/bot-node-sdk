@@ -25,11 +25,9 @@ export default class Client {
     console.log('Guild频道为: 测试频道');
   }
 
-  // 销毁
-  destroy() {}
-
   // 断开连接
   disconnect() {
-    this.destroy();
+    // 关闭会话
+    this.session.closeSession();
   }
 }

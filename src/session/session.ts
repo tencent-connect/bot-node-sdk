@@ -24,10 +24,12 @@ export default class Session {
     this.wss.creatWebsocket(wssData);
     // 监听会话事件
     this.onmessage();
+    return this.wss;
   }
 
   // 监听会话事件，用于处理断线重连
   onmessage() {
+    console.log('监听会话事件，用于处理断线重连');
     this.event.on('Event_Wss', (data: EventTypes) => {
       // 断线了，需要重新连接
       if (data.eventType === SessionEvents.DISCONNECT) {
@@ -37,12 +39,14 @@ export default class Session {
   }
 
   // 关闭会话
-  async closeSession() {}
+  async closeSession() {
+    this.wss.closeWs();
+  }
 
   // 拿到 wss地址等信息
   async getWss() {
     await HttpsService.getWss(this.config).then((res) => {
-      console.log(`res: ${res}`);
+      // console.log(`res: ${res}`);
     });
     // 模拟数据
     const testWss: WssAddressObj = {

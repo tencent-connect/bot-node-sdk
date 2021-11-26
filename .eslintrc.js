@@ -31,5 +31,6 @@ module.exports = {
         skipBlankLines: true,
       },
     ],
+    'no-template-curly-in-string': 'off',
   },
 };
