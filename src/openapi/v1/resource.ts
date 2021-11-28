@@ -18,6 +18,8 @@ const apiMap = {
   rolesURI: '/guilds/:guildID/roles',
   roleURI: '/guilds/:guildID/roles/:roleID',
   memberRoleURI: '/guilds/:guildID/members/:userID/roles/:roleID',
+  userMeDMURI: '/users/@me/dms',
+  dmsURI: '/dms/:guildID/messages',
 };
 
 export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {

@@ -1,4 +1,5 @@
 import { AudioControl } from '@src/openapi/v1/audio';
+import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { IGuild, IMember } from '@src/openapi/v1/guild';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/member';
 import { IMessage, IUser, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
@@ -85,4 +86,11 @@ export interface MemberAPI {
     userID: string,
     channel?: IChannel,
   ) => Promise<RestyResponse<any>>;
+}
+
+export interface DirectMessageAPI {
+  // CreateDirectMessage 创建私信频道
+  CreateDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<DirectMessage>>;
+  // PostDirectMessage 在私信频道内发消息
+  PostDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
 }
