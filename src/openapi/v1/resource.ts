@@ -15,8 +15,9 @@ const apiMap = {
   gatewayURI: '/gateway',
   gatewayBotURI: '/gateway/bot',
   audioControlURI: '/channels/:channelID/audio',
-  rolesURI: '/guilds/:guildID/roles/:roleID',
-  memberRoleURI: '/guilds/:guildID}/members/:userID/roles/:roleID',
+  rolesURI: '/guilds/:guildID/roles',
+  roleURI: '/guilds/:guildID/roles/:roleID',
+  memberRoleURI: '/guilds/:guildID/members/:userID/roles/:roleID',
 };
 
 export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
@@ -24,5 +25,5 @@ export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string 
   if (sanbox) {
     d = sandBoxDomain;
   }
-  return `:scheme}://:d}:apiMap[endpoint]}`;
+  return `${scheme}://${d}${apiMap[endpoint]}`;
 }
