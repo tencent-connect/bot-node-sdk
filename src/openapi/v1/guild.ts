@@ -28,14 +28,14 @@ export default class Guild implements GuildAPI {
   public async guild(guildID: string): Promise<GuildRes> {
     // TODO 进行参数校验
     const options = {
-      method: 'get',
-      path: {
+      method: 'GET',
+      url: getURL('guildURI'),
+      rest: {
         guildID,
       },
-      url: getURL('guildURI'),
     };
     // TODO 泛型处理
-    const [res, err] = await this.request(options);
+    const res = await this.request(options);
     return res;
   }
   public guildMember() {}

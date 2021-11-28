@@ -5,11 +5,11 @@ const testConfig = {
   BotToken: '',
 };
 
-const QQBot = new Bot(testConfig);
-// 用户获取频道
-// console.log(QQBot);
-// QQBot.getGuild();
-QQBot.onmessage();
+// const QQBot = new Bot(testConfig);
+// // 用户获取频道
+// // console.log(QQBot);
+// // QQBot.getGuild();
+// QQBot.onmessage();
 const client = newOpenAPI(testConfig);
 
 client.guildApi.guild('').then((data) => {
