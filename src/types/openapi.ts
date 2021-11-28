@@ -1,4 +1,5 @@
 import { AudioControl } from '@src/openapi/v1/audio';
+import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/channel-permissions';
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { IGuild, IMember } from '@src/openapi/v1/guild';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/member';
@@ -14,7 +15,6 @@ export interface Config {
   timeout?: number;
 }
 
-// TODO 补充TS interface
 export interface IOpenAPI {
   config: Config;
   request: OpenAPIRequest;
@@ -93,4 +93,15 @@ export interface DirectMessageAPI {
   CreateDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<DirectMessage>>;
   // PostDirectMessage 在私信频道内发消息
   PostDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
+}
+
+export interface ChannelPermissionsAPI {
+  // ChannelPermissions 获取指定子频道的权限
+  ChannelPermissions: (channelID: string, userID: string) => Promise<RestyResponse<IChannelPermissions>>;
+  // PutChannelPermissions 修改指定子频道的权限
+  PutChannelPermissions: (
+    channelID: string,
+    userID: string,
+    p: UpdateChannelPermissions,
+  ) => Promise<RestyResponse<any>>;
 }

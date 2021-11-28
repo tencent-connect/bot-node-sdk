@@ -20,6 +20,7 @@ const apiMap = {
   memberRoleURI: '/guilds/:guildID/members/:userID/roles/:roleID',
   userMeDMURI: '/users/@me/dms',
   dmsURI: '/dms/:guildID/messages',
+  channelPermissionsURI: '/channels/:channelID/members/:userID/permissions',
 };
 
 export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
