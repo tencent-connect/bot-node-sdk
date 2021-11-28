@@ -1,6 +1,6 @@
 import { register } from '@src/openapi/openapi';
-import { Config, GuildAPI, IOpenAPI, Options } from '@src/types/openapi';
-import resty from 'resty-client';
+import { Config, GuildAPI, IOpenAPI } from '@src/types/openapi';
+import resty, { RestyResponse } from 'resty-client';
 import Guild from './guild';
 
 export const apiVersion = 'v1';
@@ -28,7 +28,7 @@ export class OpenAPI implements IOpenAPI {
     client.guildApi = guildApi;
   }
   // 基础rest请求
-  public request(options: any): Promise<any> {
+  public request<T extends Record<any, any> = any>(options: any): Promise<RestyResponse<T>> {
     const { appID, token, timeout } = this.config;
     options.headers = {
       ...options.headers,
@@ -36,7 +36,7 @@ export class OpenAPI implements IOpenAPI {
       Authorization: `Bot ${appID}.${token}`,
     };
     const client = resty.create(options);
-    return client.request(options.url, options as any);
+    return client.request<T>(options.url, options);
   }
 }
 
