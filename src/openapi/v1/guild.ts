@@ -3,7 +3,7 @@ import { RestyResponse } from 'resty-client';
 import { IUser } from './message';
 import { getURL } from './resource';
 
-export interface GuildRes {
+export interface IGuild {
   id: string; // 频道ID（与客户端上看到的频道ID不同）
   name: string; // 频道名称
   icon: string; // 频道头像
@@ -37,7 +37,7 @@ export default class Guild implements GuildAPI {
     this.config = config;
   }
   // Guild 对象
-  public async guild(guildID: string): Promise<RestyResponse<GuildRes>> {
+  public async guild(guildID: string): Promise<RestyResponse<IGuild>> {
     const options = {
       method: 'GET' as const,
       url: getURL('guildURI'),
@@ -45,7 +45,7 @@ export default class Guild implements GuildAPI {
         guildID,
       },
     };
-    return this.request<GuildRes>(options);
+    return this.request<IGuild>(options);
   }
   public guildMember(guildID: string, userID: string): Promise<RestyResponse<IMember>> {
     const options = {

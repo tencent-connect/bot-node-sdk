@@ -1,7 +1,7 @@
 import { AudioControl } from '@src/openapi/v1/audio';
-import { GuildRes, IMember } from '@src/openapi/v1/guild';
+import { IGuild, IMember } from '@src/openapi/v1/guild';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/member';
-import { IMessage, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
+import { IMessage, IUser, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
 import { GuildRoles, IRole } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
 
@@ -34,9 +34,9 @@ export interface WebsocketAPI {
 }
 
 // UserAPI 用户相关接口
-export interface UserAPI {
-  me: () => any;
-  meGuilds: () => any;
+export interface MeAPI {
+  me: () => Promise<RestyResponse<IUser>>;
+  meGuilds: () => Promise<RestyResponse<IGuild[]>>;
 }
 
 // MessageAPI 消息相关接口
@@ -48,7 +48,7 @@ export interface MessageAPI {
 
 // GuildAPI guild 相关接口
 export interface GuildAPI {
-  guild: (guildID: string) => Promise<RestyResponse<GuildRes>>;
+  guild: (guildID: string) => Promise<RestyResponse<IGuild>>;
   guildMember: (guildID: string, userID: string) => Promise<RestyResponse<IMember>>;
   guildMembers: (guildID: string) => Promise<RestyResponse<IMember[]>>;
   deleteGuildMember: (guildID: string, userID: string) => Promise<RestyResponse<any>>;
