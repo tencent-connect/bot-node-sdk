@@ -1,6 +1,6 @@
 import { register } from '@src/openapi/openapi';
 import { Config, GuildAPI, IOpenAPI, Options } from '@src/types/openapi';
-import { Client } from 'node-rest-client'; // REST API client from node.js
+import resty from 'resty-client';
 import Guild from './guild';
 
 export const apiVersion = 'v1';
@@ -28,30 +28,15 @@ export class OpenAPI implements IOpenAPI {
     client.guildApi = guildApi;
   }
   // 基础rest请求
-  public request(options: Options): Promise<any> {
+  public request(options: any): Promise<any> {
     const { appID, token, timeout } = this.config;
-    const client = new Client();
     options.headers = {
       ...options.headers,
       'User-Agent': 'v1',
       Authorization: `Bot ${appID}.${token}`,
     };
-    options.requestConfig = {
-      timeout,
-    };
-    options.responseConfig = {
-      timeout,
-    };
-    return new Promise((resolve, reject) => {
-      // TODO catch处理
-      client[options.method.toLocaleLowerCase()](options.url, options, (data: any, response: any) => {
-        // 调试
-        if (process.env.NODE_ENV === 'dev') {
-          console.log('options', options);
-        }
-        resolve([data, null]);
-      });
-    });
+    const client = resty.create(options);
+    return client.request(options.url, options as any);
   }
 }
 
