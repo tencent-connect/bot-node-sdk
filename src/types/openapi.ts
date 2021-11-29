@@ -2,7 +2,7 @@ import { AudioControl } from '@src/openapi/v1/audio';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/channel';
 import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/channel-permissions';
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
-import { IGuild, IMember } from '@src/openapi/v1/guild';
+import { GuildMembersPager, IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
 import { IMessage, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
 import { GuildRoles, IRole, UpdateResult } from '@src/openapi/v1/role';
@@ -59,7 +59,7 @@ export interface MessageAPI {
 export interface GuildAPI {
   guild: (guildID: string) => Promise<RestyResponse<IGuild>>;
   guildMember: (guildID: string, userID: string) => Promise<RestyResponse<IMember>>;
-  guildMembers: (guildID: string) => Promise<RestyResponse<IMember[]>>;
+  guildMembers: (guildID: string, pager?: GuildMembersPager) => Promise<RestyResponse<IMember[]>>;
   deleteGuildMember: (guildID: string, userID: string) => Promise<RestyResponse<any>>;
 }
 
