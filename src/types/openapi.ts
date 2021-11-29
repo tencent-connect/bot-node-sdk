@@ -1,11 +1,11 @@
 import { AudioControl } from '@src/openapi/v1/audio';
+import { ChannelValueObject, IChannel } from '@src/openapi/v1/channel';
 import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/channel-permissions';
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
-import { ChannelValueObject, IChannel } from '@src/openapi/v1/member';
 import { IMessage, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
-import { GuildRoles, IRole } from '@src/openapi/v1/role';
+import { GuildRoles, IRole, UpdateResult } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
 
 export type OpenAPIRequest = <T extends Record<any, any> = any>(options: RequestOptions) => Promise<RestyResponse<T>>;
@@ -13,7 +13,6 @@ export type OpenAPIRequest = <T extends Record<any, any> = any>(options: Request
 export interface Config {
   appID: string;
   token: string;
-  timeout?: number;
 }
 
 export interface IOpenAPI {
@@ -21,6 +20,9 @@ export interface IOpenAPI {
   request: OpenAPIRequest;
   guildApi: GuildAPI;
   meApi: MeAPI;
+  messageApi: MessageAPI;
+  memberApi: MemberAPI;
+  roleApi: RoleAPI;
 }
 
 export type APIVersion = `v${number}`;
@@ -74,8 +76,8 @@ export interface AudioAPI {
 // RoleAPI 用户组相关接口
 export interface RoleAPI {
   roles: (guildID: string) => Promise<RestyResponse<GuildRoles>>;
-  postRole: (guildID: string, role: IRole) => Promise<RestyResponse<string>>;
-  patchRole: (guildID: string, roleID: string, role: IRole) => Promise<RestyResponse<string>>;
+  postRole: (guildID: string, role: IRole) => Promise<RestyResponse<UpdateResult>>;
+  patchRole: (guildID: string, roleID: string, role: IRole) => Promise<RestyResponse<UpdateResult>>;
   deleteRole: (guildID: string, roleID: string) => Promise<RestyResponse<any>>;
 }
 

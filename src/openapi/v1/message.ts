@@ -38,6 +38,8 @@ export interface ArkObjKV {
   key: string;
   value: string;
 }
+
+// 消息对象(Message)
 export interface IMessage {
   id: string; // 消息ID
   channel_id: string; // 子频道ID
@@ -57,9 +59,10 @@ export interface IMessage {
 
 // MessagesPager 消息分页
 export interface MessagesPager {
-  Type: string; // 拉取类型
-  ID: string; // 消息ID
-  limit: string; // 最大 20
+  // around: 读此id前后的消息	before:读此id之前的消息 after:读此id之后的消息
+  type: 'around' | 'before' | 'after'; // 拉取类型
+  id: string; // 消息ID
+  limit: string; // 最大20
 }
 
 export interface MessageToCreate {
@@ -70,8 +73,8 @@ export interface MessageToCreate {
   msg_id: string; // 要回复的消息id,不为空则认为是被动消息
 }
 export default class Message implements MessageAPI {
-  request: OpenAPIRequest;
-  config: Config;
+  public request: OpenAPIRequest;
+  public config: Config;
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
@@ -88,6 +91,7 @@ export default class Message implements MessageAPI {
     };
     return this.request<IMessage>(options);
   }
+  // 获取消息列表
   public messages(channelID: string, pager: MessagesPager): Promise<RestyResponse<IMessage[]>> {
     const options = {
       method: 'GET' as const,
@@ -95,12 +99,15 @@ export default class Message implements MessageAPI {
       rest: {
         channelID,
       },
-      // TODO
-      params: pager,
+      params: {
+        [pager.type]: pager.id,
+        limit: pager.limit,
+      },
     };
     return this.request<IMessage[]>(options);
   }
 
+  // 发送消息
   public postMessage(channelID: string, message: MessageToCreate): Promise<RestyResponse<IMessage>> {
     const options = {
       method: 'POST' as const,

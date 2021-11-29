@@ -5,7 +5,6 @@ import { APIVersion, Config } from './types/openapi';
 function init() {
   // 注册v1接口
   v1Setup();
-  // TODO 注册websocket client实现
 }
 // 进行初始化
 init();
