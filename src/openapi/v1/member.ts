@@ -26,9 +26,7 @@ export default class Member implements MemberAPI {
         userID,
         roleID,
       },
-      data: {
-        channel,
-      },
+      data: channel,
     };
     return this.request(options);
   }
@@ -47,9 +45,7 @@ export default class Member implements MemberAPI {
         userID,
         roleID,
       },
-      data: {
-        channel,
-      },
+      data: channel,
     };
     return this.request(options);
   }

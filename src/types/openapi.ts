@@ -19,10 +19,14 @@ export interface IOpenAPI {
   config: Config;
   request: OpenAPIRequest;
   guildApi: GuildAPI;
+  channelApi: ChannelAPI;
   meApi: MeAPI;
   messageApi: MessageAPI;
   memberApi: MemberAPI;
   roleApi: RoleAPI;
+  directMessageApi: DirectMessageAPI;
+  channelPermissionsApi: ChannelPermissionsAPI;
+  audioApi: AudioAPI;
 }
 
 export type APIVersion = `v${number}`;
@@ -94,16 +98,16 @@ export interface MemberAPI {
 
 export interface DirectMessageAPI {
   // CreateDirectMessage 创建私信频道
-  CreateDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<DirectMessage>>;
+  createDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<DirectMessage>>;
   // PostDirectMessage 在私信频道内发消息
-  PostDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
+  postDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
 }
 
 export interface ChannelPermissionsAPI {
   // ChannelPermissions 获取指定子频道的权限
-  ChannelPermissions: (channelID: string, userID: string) => Promise<RestyResponse<IChannelPermissions>>;
+  channelPermissions: (channelID: string, userID: string) => Promise<RestyResponse<IChannelPermissions>>;
   // PutChannelPermissions 修改指定子频道的权限
-  PutChannelPermissions: (
+  putChannelPermissions: (
     channelID: string,
     userID: string,
     p: UpdateChannelPermissions,
