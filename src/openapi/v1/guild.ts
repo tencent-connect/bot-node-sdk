@@ -1,7 +1,7 @@
 import { Config, GuildAPI, OpenAPIRequest } from '@src/types/openapi';
 import { RestyResponse } from 'resty-client';
+import { IChannel } from './channel';
 import { IUser } from './me';
-import { IChannel } from './member';
 import { getURL } from './resource';
 
 // 频道对象(Guild)
