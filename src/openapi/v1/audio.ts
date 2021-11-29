@@ -10,8 +10,8 @@ export interface AudioControl {
 }
 
 export default class Audio implements AudioAPI {
-  request: OpenAPIRequest;
-  config: Config;
+  public request: OpenAPIRequest;
+  public config: Config;
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;

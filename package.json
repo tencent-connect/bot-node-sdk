@@ -67,7 +67,7 @@
   "dependencies": {
     "form-data": "^4.0.0",
     "lodash.clonedeep": "^4.5.0",
-    "resty-client": "^0.0.3",
+    "resty-client": "^0.0.4",
     "setimmediate": "^1.0.5",
     "utf-8-validate": "^5.0.4",
     "ws": "^7.4.4"

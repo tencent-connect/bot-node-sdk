@@ -15,6 +15,14 @@ const client = newOpenAPI(testConfig);
 client.guildApi.guild('').then((data) => {
   console.log(data);
 });
+
+client.meApi.me().then((res) => {
+  console.log(res);
+});
+
+client.meApi.meGuilds().then((res) => {
+  console.log(res);
+});
 // // 用户获取频道clear
 // // QQBot.getGuild();
 // QQBot.onmessage((data) => {
