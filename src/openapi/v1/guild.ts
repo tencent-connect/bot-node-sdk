@@ -31,6 +31,12 @@ export interface IMember {
   mute: boolean;
 }
 
+export interface GuildMembersPager {
+  // 上一次回包中最大的用户ID， 如果是第一次请求填0，默认为0
+  after: string;
+  limit: number;
+}
+
 export default class Guild implements GuildAPI {
   public request: OpenAPIRequest;
   public config: Config;
@@ -62,13 +68,15 @@ export default class Guild implements GuildAPI {
     return this.request<IMember>(options);
   }
   // 获取频道成员列表
-  public guildMembers(guildID: string): Promise<RestyResponse<IMember[]>> {
+  public guildMembers(guildID: string, pager?: GuildMembersPager): Promise<RestyResponse<IMember[]>> {
+    pager = pager || { after: '0', limit: 1 };
     const options = {
       method: 'GET' as const,
       url: getURL('guildMembersURI'),
       rest: {
         guildID,
       },
+      params: pager,
     };
     return this.request<IMember[]>(options);
   }
