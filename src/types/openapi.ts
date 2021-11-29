@@ -2,8 +2,9 @@ import { AudioControl } from '@src/openapi/v1/audio';
 import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/channel-permissions';
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { IGuild, IMember } from '@src/openapi/v1/guild';
+import { IUser } from '@src/openapi/v1/me';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/member';
-import { IMessage, IUser, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
+import { IMessage, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
 import { GuildRoles, IRole } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
 
@@ -19,6 +20,7 @@ export interface IOpenAPI {
   config: Config;
   request: OpenAPIRequest;
   guildApi: GuildAPI;
+  meApi: MeAPI;
 }
 
 export type APIVersion = `v${number}`;

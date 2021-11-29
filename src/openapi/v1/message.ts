@@ -1,16 +1,8 @@
 import { Config, MessageAPI, OpenAPIRequest } from '@src/types/openapi';
 import { RestyResponse } from 'resty-client';
 import { IMember } from './guild';
+import { IUser } from './me';
 import { getURL } from './resource';
-
-export interface IUser {
-  id: string;
-  username: string;
-  avatar: string;
-  bot: boolean;
-  union_openid: string; // 特殊关联应用的 openid
-  union_user_account: string; // 机器人关联的用户信息，与union_openid关联的应用是同一个
-}
 
 // MessageAttachment 附件定义
 export interface MessageAttachment {
