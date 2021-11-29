@@ -65,9 +65,7 @@ export default class Channel implements ChannelAPI {
       rest: {
         guildID,
       },
-      data: {
-        channel,
-      },
+      data: channel,
     };
     return this.request<IChannel>(options);
   }
@@ -82,9 +80,7 @@ export default class Channel implements ChannelAPI {
       rest: {
         guildID,
       },
-      data: {
-        channel,
-      },
+      data: channel,
     };
     return this.request<IChannel>(options);
   }

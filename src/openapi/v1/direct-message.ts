@@ -9,39 +9,38 @@ export interface DirectMessageToCreate {
   recipient_id: string; // 用户ID
 }
 
+// 子频道权限对象(ChannelPermissions)
 export interface IDirectMessage {
   guild_id: string; // 频道ID
   channel_id: string; // 子频道id
   create_time: string; // 私信频道创建的时间戳
 }
 export default class DirectMessage implements DirectMessageAPI {
-  request: OpenAPIRequest;
-  config: Config;
+  public request: OpenAPIRequest;
+  public config: Config;
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
   }
-  public CreateDirectMessage(dm: DirectMessageToCreate): Promise<RestyResponse<DirectMessage>> {
+  // 创建私信频道
+  public createDirectMessage(dm: DirectMessageToCreate): Promise<RestyResponse<DirectMessage>> {
     const options = {
       method: 'POST' as const,
       url: getURL('userMeDMURI'),
-      data: {
-        dm,
-      },
+      data: dm,
     };
     return this.request<DirectMessage>(options);
   }
 
-  public PostDirectMessage(dm: IDirectMessage, msg: MessageToCreate): Promise<RestyResponse<IMessage>> {
+  // 在私信频道内发消息
+  public postDirectMessage(dm: IDirectMessage, msg: MessageToCreate): Promise<RestyResponse<IMessage>> {
     const options = {
       method: 'POST' as const,
       url: getURL('dmsURI'),
       rest: {
         guildID: dm.guild_id,
       },
-      data: {
-        msg,
-      },
+      data: msg,
     };
     return this.request<IMessage>(options);
   }

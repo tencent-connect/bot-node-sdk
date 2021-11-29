@@ -24,9 +24,7 @@ export default class Audio implements AudioAPI {
       rest: {
         channelID,
       },
-      data: {
-        audioControl,
-      },
+      data: audioControl,
     };
     return this.request<AudioControl>(options);
   }

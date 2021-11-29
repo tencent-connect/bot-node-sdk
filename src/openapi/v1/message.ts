@@ -115,9 +115,7 @@ export default class Message implements MessageAPI {
       rest: {
         channelID,
       },
-      data: {
-        msg: message,
-      },
+      data: message,
     };
     return this.request<IMessage>(options);
   }
