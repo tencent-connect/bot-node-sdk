@@ -1,15 +1,15 @@
 import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
-import { Wss } from '@src/websocket/websocket';
+import { Wss } from '@src/client/websocket/websocket';
 import { SessionEvents, EventTypes, WssObjRequestOptions } from '@src/types/websocket-types';
 import resty, { RestyResponse } from 'resty-client';
+import { EventEmitter } from 'ws';
 
 export default class Session {
-  // wssData: WssAddressObj;
   config: GetWssParam;
   heartbeatInterval!: number;
   wss!: Wss;
   event: any;
-  constructor(config: GetWssParam, event: any) {
+  constructor(config: GetWssParam, event: unknown) {
     this.config = config;
     this.event = event;
     this.creatSession();
@@ -23,19 +23,8 @@ export default class Session {
     // 连接到 wss
     this.wss.creatWebsocket(wssData);
     // 监听会话事件
-    this.onmessage();
+    // this.onmessage();
     return this.wss;
-  }
-
-  // 监听会话事件，用于处理断线重连
-  onmessage() {
-    console.log('监听会话事件，用于处理断线重连');
-    this.event.on('Event_Wss', (data: EventTypes) => {
-      // 断线了，需要重新连接
-      if (data.eventType === SessionEvents.DISCONNECT) {
-        this.wss.reconnect();
-      }
-    });
   }
 
   // 关闭会话

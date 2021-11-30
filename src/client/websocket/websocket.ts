@@ -1,5 +1,5 @@
 import WebSocket, { EventEmitter } from 'ws';
-import { WssAddressObj, GetWssParam } from '../types/qqbot-types';
+import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
 import {
   wssResData,
   OpCode,
@@ -8,8 +8,8 @@ import {
   WebsocketCode,
   WebsocketCloseReason,
   IntentEvents,
-} from '../types/websocket-types';
-import { toObject } from '../utils/utils';
+} from '../../types/websocket-types';
+import { toObject } from '../../utils/utils';
 
 // websocket连接
 export class Wss {
@@ -25,7 +25,7 @@ export class Wss {
   };
   // 是否是断线重连，如果是断线重连的话，不需要走鉴权
   isreconnect: boolean;
-  constructor(config: GetWssParam, event: any) {
+  constructor(config: GetWssParam, event: unknown) {
     this.config = config;
     this.isreconnect = false;
     this.event = event;
@@ -70,7 +70,7 @@ export class Wss {
       // 心跳测试
       if (wssRes.op === OpCode.HEARTBEAT_ACK) {
         console.log('[CLIENT] 心跳校验', this.heartbeatParam);
-        this.eventMap('1111', wssRes.op);
+        // this.eventMap('1111', wssRes.op);
         setTimeout(() => {
           // console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
           this.sendWss(this.heartbeatParam);
@@ -78,7 +78,7 @@ export class Wss {
       }
 
       // 断线
-      if (wssRes.op === OpCode.RESUME) {
+      if (wssRes.op === OpCode.RESUME || wssRes.op === OpCode.RECONNECT) {
         // 通知会话，当前已断线
         this.event.emit('Event_Wss', { eventType: SessionEvents.DISCONNECT });
       }
@@ -89,7 +89,7 @@ export class Wss {
         // 更新心跳唯一值
         this.heartbeatParam.d = wssRes?.s;
         // OpenAPI事件分发
-        this.eventMap(wssRes.t, wssRes.d);
+        this.eventMap(wssRes.t, wssRes);
       }
     });
 
@@ -137,14 +137,14 @@ export class Wss {
   // 校验intents类型
   checkIntents() {
     // 判断用户有没有给到需要监听的事件类型，暂时开启全部监听
-    const intentsIn = ['GUILDS'] as const;
-    // const intentsIn = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'] as const;
+    // const intentsIn = ['GUILDS'] as const;
+    const intentsIn = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'] as const;
     if (intentsIn && intentsIn.length > 0) {
       const intents = { value: 0 };
-      if (intentsIn.length === 1) {
-        intents.value = IntentEvents[intentsIn[0]];
-        return intents.value;
-      }
+      // if (intentsIn.length === 1) {
+      //   intents.value = IntentEvents[intentsIn[0]];
+      //   return intents.value;
+      // }
       intentsIn.forEach((e) => {
         intents.value = IntentEvents[e] | intents.value;
       });
@@ -197,8 +197,10 @@ export class Wss {
   }
 
   // OpenAPI事件分发
-  eventMap(eventType: string, eventMsg: unknown) {
-    this.event.emit('Event_Wss', { eventType, eventMsg });
+  eventMap(eventType: string, wssRes: wssResData) {
+    const msg = wssRes.d;
+    if (!msg) return;
+    this.event.emit('Event_Wss', { eventType, msg });
   }
 
   // 主动关闭会话

@@ -1,4 +1,4 @@
-import { Wss } from '@src/websocket/websocket';
+import { Wss } from '@src/client/websocket/websocket';
 
 describe('websocket测试', () => {
   const config = {
@@ -50,4 +50,4 @@ describe('websocket测试', () => {
     const res = wss.checkShards(shardsArr);
     expect(res).toStrictEqual([0, 4]);
   });
-})
+});
