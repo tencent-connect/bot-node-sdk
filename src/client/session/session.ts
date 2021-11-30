@@ -1,8 +1,7 @@
 import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
 import { Wss } from '@src/client/websocket/websocket';
 import { SessionEvents, EventTypes, WssObjRequestOptions } from '@src/types/websocket-types';
-import resty, { RestyResponse } from 'resty-client';
-import { EventEmitter } from 'ws';
+import resty from 'resty-client';
 
 export default class Session {
   config: GetWssParam;

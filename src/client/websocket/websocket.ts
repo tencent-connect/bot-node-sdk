@@ -1,4 +1,4 @@
-import WebSocket, { EventEmitter } from 'ws';
+import WebSocket from 'ws';
 import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
 import {
   wssResData,
