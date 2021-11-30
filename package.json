@@ -26,7 +26,8 @@
     "example": "cd example && npm run dev",
     "gc": "git-cz",
     "release": "standard-version",
-    "clean": "rimraf lib es typings"
+    "clean": "rimraf lib es typings",
+    "linkdev": "node scripts/dev.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
