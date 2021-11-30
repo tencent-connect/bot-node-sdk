@@ -45,7 +45,7 @@ export default class Role implements RoleAPI {
   }
 
   // 创建频道身份组
-  public postRole(guildID: string, role: IRole): Promise<RestyResponse<UpdateResult>> {
+  public postRole(guildID: string, role: Omit<IRole, 'id'>): Promise<RestyResponse<UpdateResult>> {
     if (role.color === 0) {
       role.color = defaultColor;
     }

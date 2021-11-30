@@ -70,7 +70,7 @@ export default class Channel implements ChannelAPI {
     return this.request<IChannel>(options);
   }
   // 修改子频道信息
-  public patchChannel(guildID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
+  public patchChannel(channelID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
     if (channel.position === 0) {
       channel.position = Number(new Date());
     }
@@ -78,7 +78,7 @@ export default class Channel implements ChannelAPI {
       method: 'PATCH' as const,
       url: getURL('channelURI'),
       rest: {
-        guildID,
+        channelID,
       },
       data: channel,
     };

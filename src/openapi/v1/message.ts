@@ -92,17 +92,20 @@ export default class Message implements MessageAPI {
     return this.request<IMessage>(options);
   }
   // 获取消息列表
-  public messages(channelID: string, pager: MessagesPager): Promise<RestyResponse<IMessage[]>> {
+  public messages(channelID: string, pager?: MessagesPager): Promise<RestyResponse<IMessage[]>> {
+    const params = Object.create(null);
+    if (pager && pager.type && pager.id) {
+      params[pager.type] = pager.id;
+      params.limit = pager.limit || 20;
+    }
+
     const options = {
       method: 'GET' as const,
       url: getURL('messagesURI'),
       rest: {
         channelID,
       },
-      params: {
-        [pager.type]: pager.id,
-        limit: pager.limit,
-      },
+      params,
     };
     return this.request<IMessage[]>(options);
   }
