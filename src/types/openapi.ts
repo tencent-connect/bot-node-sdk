@@ -68,7 +68,7 @@ export interface ChannelAPI {
   channel: (channelID: string) => Promise<RestyResponse<IChannel>>;
   channels: (guildID: string) => Promise<RestyResponse<IChannel[]>>;
   postChannel: (guildID: string, channel: ChannelValueObject) => Promise<RestyResponse<IChannel>>;
-  patchChannel: (guildID: string, channel: ChannelValueObject) => Promise<RestyResponse<IChannel>>;
+  patchChannel: (channelID: string, channel: ChannelValueObject) => Promise<RestyResponse<IChannel>>;
   deleteChannel: (channelID: string) => Promise<RestyResponse<any>>;
 }
 
@@ -80,7 +80,7 @@ export interface AudioAPI {
 // RoleAPI 用户组相关接口
 export interface RoleAPI {
   roles: (guildID: string) => Promise<RestyResponse<GuildRoles>>;
-  postRole: (guildID: string, role: IRole) => Promise<RestyResponse<UpdateResult>>;
+  postRole: (guildID: string, role: Omit<IRole, 'id'>) => Promise<RestyResponse<UpdateResult>>;
   patchRole: (guildID: string, roleID: string, role: IRole) => Promise<RestyResponse<UpdateResult>>;
   deleteRole: (guildID: string, roleID: string) => Promise<RestyResponse<any>>;
 }
