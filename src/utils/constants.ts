@@ -4,7 +4,9 @@ console.log(`sdk version: ${Package.version}`);
 
 const keyMirror = (arr: Array<string>) => {
   const tmp = Object.create(null);
-  arr.forEach(value => tmp[value] = value);
+  arr.forEach((value) => {
+    tmp[value] = value;
+  });
   return tmp;
 };
 
@@ -20,7 +22,6 @@ export const WSCodes = {
   4014: 'DISALLOWED_INTENTS',
 };
 
-
 export const Status = {
   READY: 0,
   CONNECTING: 1,
@@ -32,7 +33,6 @@ export const Status = {
   IDENTIFYING: 7,
   RESUMING: 8,
 };
-
 
 export const WebsocketEvent = {
   RAW_PACKET: 'rawPacket',
@@ -136,7 +136,6 @@ export const RoleNames = {
   2: 'OWNER',
 };
 
-
 export const Intents = {
   GUILDS: 0,
   GUILD_MEMBERS: 1,
@@ -156,7 +155,8 @@ export const Intents = {
 };
 
 export const IntentEvents = [
-  [  // 0
+  [
+    // 0
     'GUILD_CREATE',
     'GUILD_UPDATE',
     'GUILD_DELETE',
@@ -168,75 +168,79 @@ export const IntentEvents = [
     'CHANNEL_DELETE',
     'CHANNEL_PINS_UPDATE',
   ],
-  [  // 1
+  [
+    // 1
     'GUILD_MEMBER_ADD',
     'GUILD_MEMBER_UPDATE',
     'GUILD_MEMBER_REMOVE',
   ],
-  [  // 2
+  [
+    // 2
     'GUILD_BAN_ADD',
     'GUILD_BAN_REMOVE',
   ],
-  [  // 3
+  [
+    // 3
     'GUILD_EMOJIS_UPDATE',
   ],
-  [  // 4
+  [
+    // 4
     'GUILD_INTEGRATIONS_UPDATE',
     'INTEGRATION_CREATE',
     'INTEGRATION_UPDATE',
     'INTEGRATION_DELETE',
-
   ],
-  [  // 5
+  [
+    // 5
     'WEBHOOKS_UPDATE',
-
   ],
-  [  // 6
+  [
+    // 6
     'INVITE_CREATE',
     'INVITE_DELETE',
-
   ],
-  [  // 7
+  [
+    // 7
     'VOICE_STATE_UPDATE',
-
   ],
-  [  // 8
+  [
+    // 8
     'PRESENCE_UPDATE',
-
   ],
-  [  // 9
+  [
+    // 9
     'MESSAGE_CREATE',
     'MESSAGE_UPDATE',
     'MESSAGE_DELETE',
     'MESSAGE_DELETE_BULK',
-
   ],
-  [  // 10
+  [
+    // 10
     'MESSAGE_REACTION_ADD',
     'MESSAGE_REACTION_REMOVE',
     'MESSAGE_REACTION_REMOVE_ALL',
     'MESSAGE_REACTION_REMOVE_EMOJI',
-
   ],
-  [  // 11
+  [
+    // 11
     'TYPING_START',
-
   ],
-  [  // 12
+  [
+    // 12
     'MESSAGE_CREATE',
     'MESSAGE_UPDATE',
     'MESSAGE_DELETE',
     'CHANNEL_PINS_UPDATE',
-
   ],
-  [  // 13
+  [
+    // 13
     'MESSAGE_REACTION_ADD',
     'MESSAGE_REACTION_REMOVE',
     'MESSAGE_REACTION_REMOVE_ALL',
     'MESSAGE_REACTION_REMOVE_EMOJI',
-
   ],
-  [  // 14
+  [
+    // 14
     'TYPING_START',
   ],
 ];
