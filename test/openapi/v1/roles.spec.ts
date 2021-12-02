@@ -1,6 +1,5 @@
 import { defaultColor } from '@src/openapi/v1/role';
-import { REQUEST_SUCCESS_CODE_WITH_NO_CONTENT } from './../config';
-import { client, REQUEST_SUCCESS_CODE, guildID } from '../config';
+import { client, REQUEST_SUCCESS_CODE, guildID, REQUEST_SUCCESS_CODE_WITH_NO_CONTENT } from '../config';
 
 describe('roles测试', () => {
   test('【 roles方法 】=== 获取频道身份组列表', async () => {
