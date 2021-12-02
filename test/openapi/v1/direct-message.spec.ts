@@ -1,5 +1,5 @@
 import { MessageToCreate } from '@src/openapi/v1/message';
-import { client, newWsClient, userID, guildID, REQUEST_SUCCESS_CODE } from '../config';
+import { client, userID, guildID, REQUEST_SUCCESS_CODE } from '../config';
 
 describe('directMessage测试', () => {
   test('【 createDirectMessage、postDirectMessage方法 】=== 创建私信频道、发送私信', async () => {

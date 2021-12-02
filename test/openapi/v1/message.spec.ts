@@ -1,6 +1,5 @@
-import { newWsClient } from './../config';
 import { MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
-import { client, channelID, REQUEST_SUCCESS_CODE } from '../config';
+import { client, channelID, REQUEST_SUCCESS_CODE, newWsClient } from '../config';
 
 describe('message测试', () => {
   test('【 messages方法 】=== 获取消息列表(pager默认)', async () => {
