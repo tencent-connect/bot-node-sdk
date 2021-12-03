@@ -15,7 +15,7 @@ const testConfigWs = {
 }
 const ws = newWebsocket(testConfigWs);
 ws.on('Event_Wss', (data) => {
-  console.log('-----接口暴露收到消息-----', data);
+  console.log('[Event_Wss] 事件接收 :', data);
 })
 
 client.guildApi.guild('').then((data) => {
