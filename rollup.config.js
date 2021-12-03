@@ -7,7 +7,7 @@ import dts from 'rollup-plugin-dts';
 
 const ENV = process.env.NODE_ENV;
 const extensions = ['.ts', '.js'];
-const external = ['form-data', 'lodash.clonedeep', 'setimmediate', 'utf-8-validate', 'ws', 'resty-client'];
+const external = ['form-data', 'lodash.clonedeep', 'utf-8-validate', 'ws', 'resty-client'];
 
 export default [
   {

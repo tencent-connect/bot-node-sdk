@@ -1,6 +1,6 @@
-import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
+import { GetWssParam } from '@src/types/qqbot-types';
 import { Wss } from '@src/client/websocket/websocket';
-import { SessionEvents, EventTypes, WssObjRequestOptions } from '@src/types/websocket-types';
+import { WssObjRequestOptions, EventTypes, SessionEvents } from '@src/types/websocket-types';
 import resty from 'resty-client';
 
 export default class Session {
@@ -21,8 +21,14 @@ export default class Session {
     const wssData = await this.getWss(WssObjRequestOptions);
     // 连接到 wss
     this.wss.creatWebsocket(wssData);
-    // 监听会话事件
-    // this.onmessage();
+
+    this.event.on('Event_Wss', (data: EventTypes) => {
+      // 断线重连
+      if (data.eventType === SessionEvents.DISCONNECT) {
+        console.log('监听到断线，发消息需要重连');
+        this.wss.reconnect();
+      }
+    });
     return this.wss;
   }
 
@@ -41,17 +47,5 @@ export default class Session {
       wssData.data = res.data;
     });
     return wssData.data;
-    // 模拟数据
-    // const testWss: WssAddressObj = {
-    //   url: 'wss://api.sgroup.qq.com/websocket',
-    //   shards: 1,
-    //   session_start_limit: {
-    //     total: 1000,
-    //     remaining: 1000,
-    //     reset_after: 86400000,
-    //     max_concurrency: 1,
-    //   },
-    // };
-    // return testWss;
   }
 }

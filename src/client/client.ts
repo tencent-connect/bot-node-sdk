@@ -1,4 +1,4 @@
-import { GetWssParam, WssAddressObj } from '@src/types/qqbot-types';
+import { GetWssParam } from '@src/types/qqbot-types';
 import Session from '@src/client/session/session';
 import { EventEmitter } from 'ws';
 

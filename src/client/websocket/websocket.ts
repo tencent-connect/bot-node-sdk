@@ -5,7 +5,6 @@ import {
   OpCode,
   SessionEvents,
   WssCloseType,
-  WebsocketCode,
   WebsocketCloseReason,
   IntentEvents,
 } from '../../types/websocket-types';
@@ -15,7 +14,6 @@ import { toObject } from '../../utils/utils';
 export class Wss {
   ws: any;
   event: any;
-  // wssData: WssAddressObj;
   config: GetWssParam;
   heartbeatInterval!: number;
   // 心跳参数，默认为心跳测试
@@ -46,7 +44,7 @@ export class Wss {
 
     // 接受消息
     this.ws.on('message', (data: wssResData) => {
-      console.log(`[CLIENT] 收到消息: ${data}`);
+      // console.log(`[CLIENT] 收到消息: ${data}`);
 
       // 先将消息解析
       const wssRes = toObject(data);
@@ -70,9 +68,7 @@ export class Wss {
       // 心跳测试
       if (wssRes.op === OpCode.HEARTBEAT_ACK) {
         console.log('[CLIENT] 心跳校验', this.heartbeatParam);
-        // this.eventMap('1111', wssRes.op);
         setTimeout(() => {
-          // console.log(`发送心跳： ${this.heartbeatInterval}`, this.heartbeatParam);
           this.sendWss(this.heartbeatParam);
         }, this.heartbeatInterval);
       }
@@ -121,7 +117,7 @@ export class Wss {
       d: {
         token: `Bot ${this.config.appID}.${this.config.token}`, // 根据配置转换token
         intents: this.checkIntents(), // todo 接受的类型
-        shard: this.checkShards(this.config.shards) || [0, 2], // 分片信息,给一个默认值
+        shard: this.checkShards(this.config.shards) || [0, 1], // 分片信息,给一个默认值
         properties: {
           $os: 'linux',
           $browser: 'my_library',
@@ -178,9 +174,11 @@ export class Wss {
 
   // 重新连接
   reconnect() {
-    console.log('开始断线重连');
+    console.log('[CLIENT] 开始断线重连');
     this.isreconnect = true;
-    this.creatLstening();
+    setTimeout(() => {
+      this.creatLstening();
+    }, 1000);
   }
 
   // 重新重连Wss
