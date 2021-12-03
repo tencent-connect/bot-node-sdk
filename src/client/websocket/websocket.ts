@@ -1,4 +1,4 @@
-import WebSocket from 'ws';
+import WebSocket, { EventEmitter } from 'ws';
 import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
 import {
   wssResData,
@@ -12,8 +12,8 @@ import { toObject } from '../../utils/utils';
 
 // websocket连接
 export class Wss {
-  ws: any;
-  event: any;
+  ws!: WebSocket;
+  event!: EventEmitter;
   config: GetWssParam;
   heartbeatInterval!: number;
   // 心跳参数，默认为心跳测试
@@ -23,7 +23,7 @@ export class Wss {
   };
   // 是否是断线重连，如果是断线重连的话，不需要走鉴权
   isreconnect: boolean;
-  constructor(config: GetWssParam, event: unknown) {
+  constructor(config: GetWssParam, event: EventEmitter) {
     this.config = config;
     this.isreconnect = false;
     this.event = event;
@@ -81,7 +81,6 @@ export class Wss {
 
       // 服务端主动推送的消息
       if (wssRes.op === OpCode.DISPATCH) {
-        console.log('[CLIENT] 服务端消息', data);
         // 更新心跳唯一值
         this.heartbeatParam.d = wssRes?.s;
         // OpenAPI事件分发
@@ -125,7 +124,6 @@ export class Wss {
         },
       },
     };
-    console.log(`[CLIENT] 开始鉴权`, authOp);
     // 发送鉴权请求
     this.sendWss(authOp);
   }
