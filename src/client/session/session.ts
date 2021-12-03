@@ -1,14 +1,15 @@
 import { GetWssParam } from '@src/types/qqbot-types';
 import { Wss } from '@src/client/websocket/websocket';
 import { WssObjRequestOptions, EventTypes, SessionEvents } from '@src/types/websocket-types';
+import { EventEmitter } from 'ws';
 import resty from 'resty-client';
 
 export default class Session {
   config: GetWssParam;
   heartbeatInterval!: number;
   wss!: Wss;
-  event: any;
-  constructor(config: GetWssParam, event: unknown) {
+  event!: EventEmitter;
+  constructor(config: GetWssParam, event: EventEmitter) {
     this.config = config;
     this.event = event;
     this.creatSession();
