@@ -23,6 +23,7 @@ export default class Session {
   async creatSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
+    WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
     const wsData = await this.getWsInfo(WsObjRequestOptions);
     // 连接到 ws
     this.ws.creatWebsocket(wsData);
