@@ -1,6 +1,6 @@
 {
   "name": "@tencent/bot-node-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
     "registry": "https://mirrors.tencent.com/npm/"

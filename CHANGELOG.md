@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://git.woa.com/qq-channel-bot/bot-node-sdk/compare/v1.0.0...v1.1.0) (2021-12-09)
+
+
+### Features
+
+* 去除APPID/token等信息 ([9997c5b](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/9997c5b4a972cbb3c1e399f3ee6259594d8af587))
+* 修改ws信息获取时的鉴权信息 ([bcd1521](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/bcd152139458243628b1582c7719c2878b09b4be))
+* ws断线优化,事件分发优化 ([ccfab14](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/ccfab14faa843156c543e8526a1226df26d22622))
+
 ## 1.0.0 (2021-12-03)
 
 
