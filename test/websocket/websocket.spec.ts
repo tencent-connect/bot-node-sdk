@@ -1,4 +1,5 @@
 import { Ws } from '@src/client/websocket/websocket';
+import { apiTestConfig } from '../../test-config/api-config';
 
 describe('websocket测试', () => {
   const config = {
@@ -7,7 +8,7 @@ describe('websocket测试', () => {
     shards: [0, 10],
   };
   const event = null;
-  const ws = new Ws(config, event);
+  const ws = new Ws(apiTestConfig, event);
 
   test('【 checkShards方法 】=== shards不合法', () => {
     const shardsArr = null;
