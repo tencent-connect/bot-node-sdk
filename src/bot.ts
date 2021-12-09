@@ -1,7 +1,7 @@
 import { apiVersion, OpenAPI, v1Setup } from '@src/openapi/v1/openapi';
 import { versionMapping } from '@src/openapi/openapi';
 import { APIVersion, Config } from './types/openapi';
-import { GetWssParam } from './types/qqbot-types';
+import { GetWsParam } from './types/websocket-types';
 import WebsocketClient from './client/client';
 
 function init() {
@@ -21,10 +21,10 @@ export function selectOpenAPIVersion(version: APIVersion) {
   defaultImpl = versionMapping[version];
 }
 // 如果需要使用其他版本的实现，需要在调用这个方法之前调用 SelectOpenAPIVersion 方法
-export function newOpenAPI(config: Config) {
+export function creatOpenAPI(config: Config) {
   return defaultImpl.newClient(config);
 }
-// wss连接新建
-export function newWebsocket(config: GetWssParam) {
+// ws连接新建
+export function creatWebsocket(config: GetWsParam) {
   return new WebsocketClient(config);
 }

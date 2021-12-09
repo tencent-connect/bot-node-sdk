@@ -21,7 +21,7 @@ const apiMap = {
   userMeDMURI: '/users/@me/dms',
   dmsURI: '/dms/:guildID/messages',
   channelPermissionsURI: '/channels/:channelID/members/:userID/permissions',
-  wssInfo: '/gateway/bot',
+  wsInfo: '/gateway/bot',
 };
 
 export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
