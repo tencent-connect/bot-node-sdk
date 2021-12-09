@@ -1,8 +1,8 @@
-import { WebsocketAPI } from './openapi';
+import { apiVersion } from '@src/openapi/v1/openapi';
 import { getURL } from '@src/openapi/v1/resource';
 // websocket建立成功回包
-export interface wssResData {
-  op: number; // opcode wss的类型
+export interface wsResData {
+  op: number; // opcode ws的类型
   d?: {
     // 事件内容
     heartbeat_interval?: number; // 心跳时间间隔
@@ -23,9 +23,35 @@ export interface EventTypes {
   eventMsg?: object;
 }
 
-// websocket关闭
-export interface WssCloseType {
-  code: number;
+// 请求得到ws地址的参数
+export interface GetWsParam {
+  appID: string;
+  token: string;
+  shards: Array<number>;
+  intents: Array<string>;
+}
+
+// 请求ws地址回包对象
+export interface WsAddressObj {
+  url: string;
+  shards: number;
+  session_start_limit: {
+    total: number;
+    remaining: number;
+    reset_after: number;
+    max_concurrency: number;
+  };
+}
+
+// ws信息
+export interface WsDataInfo {
+  data: WsAddressObj;
+}
+
+// 会话记录
+export interface SessionRecord {
+  sessionID: string;
+  seq: number;
 }
 
 // 心跳参数
@@ -40,26 +66,24 @@ export enum OpCode {
   HEARTBEAT_ACK = 11, // 当发送心跳成功之后，就会收到该消息
 }
 
-// wss回包数据
-
 // OpenAPI传过来的事件类型
-export enum WsEventType {
-  EVENT_GUILD_CREATE = 'GUILD_CREATE', // 频道创建
-  EVENT_GUILD_UPDATE = 'GUILD_UPDATE', // 频道更新
-  EVENT_GUILD_DELETE = 'GUILD_DELETE', // 频道删除
-  EVENT_CHANNEL_CREATE = 'CHANNEL_CREATE', // 子频道创建
-  EVENT_CHANNEL_UPDATE = 'CHANNEL_UPDATE', // 子频道更新
-  EVENT_CHANNEL_DELETE = 'CHANNEL_DELETE', // 子频道删除
-  EVENT_GUILD_MEMBER_ADD = 'GUILD_MEMBER_ADD', // 频道成员加入
-  EVENT_GUILD_MEMBER_UPDATE = 'GUILD_MEMBER_UPDATE', // 频道成员更新
-  EVENT_GUILD_MEMBER_REMOVE = 'GUILD_MEMBER_REMOVE', // 频道成员移除
-  EVENT_MESSAGE_CREATE = 'MESSAGE_CREATE', // 消息创建
-  EVENT_AT_MESSAGE_CREATE = 'AT_MESSAGE_CREATE', // 机器人被@时触发
-  EVENT_AUDIO_START = 'AUDIO_START', // 音频开始播放
-  EVENT_AUDIO_FINISH = 'AUDIO_FINISH', // 音频结束播放
-  EVENT_AUDIO_ON_MIC = 'AUDIO_ON_MIC', // 机器人上麦
-  EVENT_AUDIO_OFF_MIC = 'AUDIO_OFF_MIC', // 机器人下麦
-}
+export const WsEventType: { [key: string]: string } = {
+  GUILD_CREATE: 'GUILDS', // 频道创建
+  GUILD_UPDATE: 'GUILDS', // 频道更新
+  GUILD_DELETE: 'GUILDS', // 频道删除
+  CHANNEL_CREATE: 'GUILDS', // 子频道创建
+  CHANNEL_UPDATE: 'GUILDS', // 子频道更新
+  CHANNEL_DELETE: 'GUILDS', // 子频道删除
+  GUILD_MEMBER_ADD: 'GUILD_MEMBERS', // 频道成员加入
+  GUILD_MEMBER_UPDATE: 'GUILD_MEMBERS', // 频道成员更新
+  GUILD_MEMBER_REMOVE: 'GUILD_MEMBERS', // 频道成员移除
+  DIRECT_MESSAGE_CREATE: 'DIRECT_MESSAGE', // 当收到用户发给机器人的私信消息时
+  AT_MESSAGE_CREATE: 'AT_MESSAGES', // 机器人被@时触发
+  AUDIO_START: 'AUDIO_ACTION', // 音频开始播放
+  AUDIO_FINISH: 'AUDIO_ACTION', // 音频结束播放
+  AUDIO_ON_MIC: 'AUDIO_ACTION', // 机器人上麦
+  AUDIO_OFF_MIC: 'AUDIO_ACTION', // 机器人下麦
+};
 
 export const WSCodes = {
   1000: 'WS_CLOSE_REQUESTED',
@@ -134,7 +158,7 @@ export const WebsocketCloseReason = [
 ];
 
 // 用户输入的intents类型
-export const IntentEvents = {
+export const IntentEvents: { [key: string]: number } = {
   GUILDS: 1 << 0,
   GUILD_MEMBERS: 1 << 1,
   DIRECT_MESSAGE: 1 << 12,
@@ -163,24 +187,26 @@ export const Intents = {
 
 // Session事件
 export const SessionEvents = {
-  DEBUG: 'DEBUG',
   CLOSED: 'CLOSED',
-  PACKET: 'PACKET',
-  READY: 'READY', // 鉴权已通过
+  READY: 'READY', // 已经可以通信
+  ERROR: 'ERROR', // 会话错误
   INVALID_SESSION: 'INVALID_SESSION',
+  RECONNECT: 'RECONNECT', // 服务端通知重新连接
   DISCONNECT: 'DISCONNECT', // 断线
+  EVENT_WS: 'EVENT_WS', // 内部通信
+  RESUMED: 'RESUMED', // 重连
 };
 
-// wss地址配置
-export const WssObjRequestOptions = {
+// ws地址配置
+export const WsObjRequestOptions = {
   method: 'GET' as const,
-  url: getURL('wssInfo'),
+  url: getURL('wsInfo'),
   headers: {
     Accept: '*/*',
     'Accept-Encoding': 'utf-8',
     'Accept-Language': 'zh-CN,zh;q=0.8',
     Connection: 'keep-alive',
-    'User-Agent': 'v1',
+    'User-Agent': apiVersion,
     Authorization: '',
   },
 };

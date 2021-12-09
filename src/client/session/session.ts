@@ -1,52 +1,55 @@
-import { GetWssParam } from '@src/types/qqbot-types';
-import { Wss } from '@src/client/websocket/websocket';
-import { WssObjRequestOptions, EventTypes, SessionEvents } from '@src/types/websocket-types';
+import { WsObjRequestOptions, EventTypes, SessionEvents, GetWsParam, SessionRecord } from '@src/types/websocket-types';
+import { Ws } from '@src/client/websocket/websocket';
 import { EventEmitter } from 'ws';
-import resty from 'resty-client';
+import resty, { RequestOptions } from 'resty-client';
 
 export default class Session {
-  config: GetWssParam;
+  config: GetWsParam;
   heartbeatInterval!: number;
-  wss!: Wss;
+  ws!: Ws;
   event!: EventEmitter;
-  constructor(config: GetWssParam, event: EventEmitter) {
+  sessionRecord: SessionRecord | undefined;
+  constructor(config: GetWsParam, event: EventEmitter, sessionRecord?: SessionRecord) {
     this.config = config;
     this.event = event;
+    // 如果会话记录存在的话，继续透传
+    if (sessionRecord) {
+      this.sessionRecord = sessionRecord;
+    }
     this.creatSession();
   }
 
   // 新建会话
   async creatSession() {
-    this.wss = new Wss(this.config, this.event);
-    // 拿到 wss地址等信息
-    const wssData = await this.getWss(WssObjRequestOptions);
-    // 连接到 wss
-    this.wss.creatWebsocket(wssData);
+    this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
+    // 拿到 ws地址等信息
+    const wsData = await this.getWsInfo(WsObjRequestOptions);
+    // 连接到 ws
+    this.ws.creatWebsocket(wsData);
 
-    this.event.on('Event_Wss', (data: EventTypes) => {
-      // 断线重连
-      if (data.eventType === SessionEvents.DISCONNECT) {
-        console.log('监听到断线，发消息需要重连');
-        this.wss.reconnect();
+    this.event.on(SessionEvents.EVENT_WS, (data: EventTypes) => {
+      // 服务端通知重连
+      if (data.eventType === SessionEvents.RECONNECT) {
+        this.ws.reconnect();
       }
     });
-    return this.wss;
+    return this.ws;
   }
 
   // 关闭会话
   async closeSession() {
-    this.wss.closeWs();
+    this.ws.closeWs();
   }
 
-  // 拿到 wss地址等信息
-  async getWss(options: any) {
-    const wssService = resty.create(options);
-    const wssData: any = {
+  // 拿到 ws地址等信息
+  async getWsInfo(options: RequestOptions) {
+    const wsService = resty.create(options);
+    const wsData: any = {
       data: {},
     };
-    await wssService.get(options.url, {}).then((res) => {
-      wssData.data = res.data;
+    await wsService.get(options.url as string, {}).then((res) => {
+      wsData.data = res.data;
     });
-    return wssData.data;
+    return wsData.data;
   }
 }

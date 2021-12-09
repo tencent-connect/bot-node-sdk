@@ -1,4 +1,4 @@
-import { newWebsocket } from '@src/bot';
+import { creatWebsocket } from '@src/bot';
 import { OpenAPI } from '@src/openapi/v1/openapi';
 
 // openapi测试使用的config
@@ -6,6 +6,7 @@ const testConfig = {
   appID: '',
   token: '',
   timeout: 3000,
+  intents: ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'],
   shards: [0, 10],
 };
 
@@ -20,4 +21,4 @@ export const ROLE_GOOLDEN_ADMIN_ID = '';
 
 export const client = OpenAPI.newClient(testConfig);
 
-export const newWsClient = () => newWebsocket(testConfig);
+export const newWsClient = () => creatWebsocket(testConfig);
