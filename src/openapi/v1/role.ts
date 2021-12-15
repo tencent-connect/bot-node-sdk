@@ -13,6 +13,13 @@ export interface IRole {
   number: number; // 人数 不会被修改，创建接口修改
   member_limit: number; // 成员上限 不会被修改，创建接口修改
 }
+
+// 指定创建、更新频道身份组涉及的字段
+export interface IRoleFilter {
+  name?: number;
+  color?: number;
+  hoist?: number;
+}
 export interface GuildRoles {
   guild_id: string; // 频道ID
   roles: IRole[]; // 一组频道身份组对象
@@ -25,6 +32,13 @@ export interface UpdateResult {
   guild_id: string; // 频道ID
   role: IRole; // 所创建的频道身份组对象
 }
+
+// 默认的filter：0 1 代表是否设置 0-否 1-是
+export const defaultFilter: IRoleFilter = {
+  name: 1,
+  color: 1,
+  hoist: 1,
+};
 export default class Role implements RoleAPI {
   public request: OpenAPIRequest;
   public config: Config;
@@ -45,17 +59,14 @@ export default class Role implements RoleAPI {
   }
 
   // 创建频道身份组
-  public postRole(guildID: string, role: Omit<IRole, 'id'>): Promise<RestyResponse<UpdateResult>> {
+  public postRole(
+    guildID: string,
+    role: Omit<IRole, 'id'>,
+    filter = defaultFilter,
+  ): Promise<RestyResponse<UpdateResult>> {
     if (role.color === 0) {
       role.color = defaultColor;
     }
-    // openapi 上修改哪个字段，就需要传递哪个filter
-    // 0 1 代表是否设置 0-否 1-是
-    const filter = {
-      name: 1,
-      color: 1,
-      hoist: 1,
-    };
     const options = {
       method: 'POST' as const,
       url: getURL('rolesURI'),
@@ -72,16 +83,16 @@ export default class Role implements RoleAPI {
   }
 
   // 修改频道身份组
-  public patchRole(guildID: string, roleID: string, role: IRole): Promise<RestyResponse<UpdateResult>> {
+  public patchRole(
+    guildID: string,
+    roleID: string,
+    role: IRole,
+    filter = defaultFilter,
+  ): Promise<RestyResponse<UpdateResult>> {
     if (role.color === 0) {
       role.color = defaultColor;
     }
-    // openapi 上修改哪个字段，就需要传递哪个 filter
-    const filter = {
-      name: 1,
-      color: 1,
-      hoist: 1,
-    };
+
     const options = {
       method: 'PATCH' as const,
       url: getURL('roleURI'),

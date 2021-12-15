@@ -5,7 +5,7 @@ import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/opena
 import { GuildMembersPager, IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
 import { IMessage, IMessageRes, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
-import { GuildRoles, IRole, UpdateResult } from '@src/openapi/v1/role';
+import { GuildRoles, IRole, UpdateResult, IRoleFilter } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
 
 export type OpenAPIRequest = <T extends Record<any, any> = any>(options: RequestOptions) => Promise<RestyResponse<T>>;
@@ -80,8 +80,13 @@ export interface AudioAPI {
 // RoleAPI 用户组相关接口
 export interface RoleAPI {
   roles: (guildID: string) => Promise<RestyResponse<GuildRoles>>;
-  postRole: (guildID: string, role: Omit<IRole, 'id'>) => Promise<RestyResponse<UpdateResult>>;
-  patchRole: (guildID: string, roleID: string, role: IRole) => Promise<RestyResponse<UpdateResult>>;
+  postRole: (guildID: string, role: Omit<IRole, 'id'>, filter?: IRoleFilter) => Promise<RestyResponse<UpdateResult>>;
+  patchRole: (
+    guildID: string,
+    roleID: string,
+    role: IRole,
+    filter?: IRoleFilter,
+  ) => Promise<RestyResponse<UpdateResult>>;
   deleteRole: (guildID: string, roleID: string) => Promise<RestyResponse<any>>;
 }
 
