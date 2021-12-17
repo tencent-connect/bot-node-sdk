@@ -1,4 +1,5 @@
 import { WebsocketAPI } from './openapi';
+import { getURL } from '@src/openapi/v1/resource';
 // websocket建立成功回包
 export interface wssResData {
   op: number; // opcode wss的类型
@@ -168,4 +169,18 @@ export const SessionEvents = {
   READY: 'READY', // 鉴权已通过
   INVALID_SESSION: 'INVALID_SESSION',
   DISCONNECT: 'DISCONNECT', // 断线
+};
+
+// wss地址配置
+export const WssObjRequestOptions = {
+  method: 'GET' as const,
+  url: getURL('wssInfo'),
+  headers: {
+    Accept: '*/*',
+    'Accept-Encoding': 'utf-8',
+    'Accept-Language': 'zh-CN,zh;q=0.8',
+    Connection: 'keep-alive',
+    'User-Agent': 'v1',
+    Authorization: '',
+  },
 };

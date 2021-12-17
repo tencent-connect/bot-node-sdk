@@ -17,18 +17,18 @@ client.guildApi.guild('').then((data) => {
   console.log(data);
 });
 
-client.meApi.me().then((res) => {
-  console.log(res);
-});
+// client.meApi.me().then((res) => {
+//   console.log(res);
+// });
 
-client.meApi.meGuilds().then((res) => {
-  console.log(res);
-});
+// client.meApi.meGuilds().then((res) => {
+//   console.log(res);
+// });
 
-client.meApi.message().then((res) => {
-  console.log(res);
-});
+// client.meApi.message().then((res) => {
+//   console.log(res);
+// });
 
-client.memberApi.memberAddRole().then((res)=>{
-  console.log(res)
-})
+// client.memberApi.memberAddRole().then((res)=>{
+//   console.log(res)
+// })
