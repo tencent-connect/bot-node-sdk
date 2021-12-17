@@ -46,7 +46,7 @@ export class Wss {
 
     // 接受消息
     this.ws.on('message', (data: wssResData) => {
-      // console.log(`[CLIENT] 收到消息: ${data}`);
+      console.log(`[CLIENT] 收到消息: ${data}`);
 
       // 先将消息解析
       const wssRes = toObject(data);
@@ -119,7 +119,7 @@ export class Wss {
     const authOp = {
       op: OpCode.IDENTIFY, // 鉴权参数
       d: {
-        token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`, // 根据配置转换token
+        token: `Bot ${this.config.appID}.${this.config.token}`, // 根据配置转换token
         intents: this.checkIntents(), // todo 接受的类型
         shard: this.checkShards(this.config.shards) || [0, 2], // 分片信息,给一个默认值
         properties: {
@@ -129,7 +129,7 @@ export class Wss {
         },
       },
     };
-    console.log(`[CLIENT] 开始鉴权`);
+    console.log(`[CLIENT] 开始鉴权`, authOp);
     // 发送鉴权请求
     this.sendWss(authOp);
   }

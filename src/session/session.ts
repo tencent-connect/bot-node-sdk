@@ -2,6 +2,8 @@ import { HttpsService } from '@src/rest/api-request';
 import { WssAddressObj, GetWssParam } from '@src/types/qqbot-types';
 import { Wss } from '@src/websocket/websocket';
 import { SessionEvents, EventTypes } from '@src/types/websocket-types';
+import resty, { RestyResponse } from 'resty-client';
+import { getURL } from '@src/openapi/v1/resource';
 
 export default class Session {
   // wssData: WssAddressObj;
@@ -18,8 +20,13 @@ export default class Session {
   // 新建会话
   async creatSession() {
     this.wss = new Wss(this.config, this.event);
+    const options = {
+      method: 'GET' as const,
+      url: getURL('wssInfo'),
+    };
     // 拿到 wss地址等信息
-    const wssData = await this.getWss();
+    const wssData = await this.getWss(options);
+    // console.log(wssData)
     // 连接到 wss
     this.wss.creatWebsocket(wssData);
     // 监听会话事件
@@ -44,9 +51,22 @@ export default class Session {
   }
 
   // 拿到 wss地址等信息
-  async getWss() {
-    await HttpsService.getWss(this.config).then((res) => {
-      // console.log(`res: ${res}`);
+  async getWss(options: any) {
+    // await HttpsService.getWss(this.config).then(data => {
+    //   console.log(`a:::`, data);
+    // });
+    const { appID, token } = this.config;
+    options.headers = {
+      Accept: '*/*',
+      'Accept-Encoding': 'utf-8',
+      'Accept-Language': 'zh-CN,zh;q=0.8',
+      Connection: 'keep-alive',
+      'User-Agent': 'v1',
+      Authorization: '',
+    };
+    const wssService = resty.create(options);
+    wssService.get(options.url, {}).then((res) => {
+      // console.log(`wssInfo`, res.data);
     });
     // 模拟数据
     const testWss: WssAddressObj = {
