@@ -56,16 +56,22 @@ ws.on('AUDIO_ACTION', (eventData) => {
 ws.on('AT_MESSAGES', (eventData) => {
   console.log('[AT_MESSAGES] 事件接收 :', eventData);
 })
-
+```
 
 ## 如何贡献
 
+### 本地运行
 ```shell
-// 本地运行
 npm run dev
 npm link
-// cd exmaple
+```
+
+### cd exmaple
+```
 npm link @tencent/bot-node-sdk
-// 调试
+```
+
+### 调试
+```
 npm run example
 ```
