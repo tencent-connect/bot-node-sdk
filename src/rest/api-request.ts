@@ -4,8 +4,8 @@ import { GetWssParam } from '../types/qqbot-types';
 export class HttpsService {
   static async getWss(config: GetWssParam): Promise<any> {
     // 如果没有传入机器人信息，直接返回
-    if (!config.BotAppID || !config.BotToken) return;
-    const apiToken = `Bot ${config.BotAppID}.${config.BotToken}`;
+    if (!config.appID || !config.token) return;
+    const apiToken = `Bot ${config.appID}.${config.token}`;
     const option = {
       hostname: 'api.sgroup.qq.com',
       path: '/gateway/bot',
@@ -18,20 +18,21 @@ export class HttpsService {
         Authorization: apiToken,
       },
     };
-    return await https
-      .get(option, (response) => {
-        response.on('data', (data: any) => {
-          // console.log(`data: ${data}`);
-          // return data;
-        });
+    // console.log(`option:`, option);
+    // await https
+    //   .get(option, (response) => {
+    //     response.on('data', (data: any) => {
+    //       console.log(`data: ${data}`);
+    //       // return data;
+    //     });
 
-        response.on('end', (data1: any) => {
-          // console.log(`data1: ${data1}`);
-          // return data1;
-        });
-      })
-      .on('error', (error) => {
-        console.log(`error: ${error.message}`);
-      });
+    //     response.on('end', (data1: any) => {
+    //       console.log(`data1: ${data1}`);
+    //       // return data1;
+    //     });
+    //   })
+    //   .on('error', (error) => {
+    //     console.log(`error: ${error.message}`);
+    //   });
   }
 }

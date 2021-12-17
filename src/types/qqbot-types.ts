@@ -1,7 +1,7 @@
 // 请求得到wss地址的参数
 export interface GetWssParam {
-  BotAppID: string;
-  BotToken: string;
+  appID: string;
+  token: string;
   shards: Array<number>;
 }
 

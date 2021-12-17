@@ -1,16 +1,16 @@
-import { GetWssParam } from './types/qqbot-types';
+import { GetWssParam } from '@src/types/qqbot-types';
 import { EventEmitter } from 'ws';
-import Client from './websocket/client/client';
+import Client from './client/client';
 import { EventTypes } from '@src/types/websocket-types';
 
-export class Bot {
+export class WssClient {
   client!: Client;
   event!: EventEmitter;
   constructor(config: GetWssParam) {
-    this.newClient(config);
+    this.newWsClient(config);
   }
   // 新建一个连接
-  async newClient(config: GetWssParam) {
+  async newWsClient(config: GetWssParam) {
     // 事件监听
     this.event = new EventEmitter();
     // 构造连接
