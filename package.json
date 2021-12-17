@@ -1,6 +1,6 @@
 {
   "name": "@tencent/bot-node-sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
     "registry": "https://mirrors.tencent.com/npm/"
@@ -20,7 +20,7 @@
     "prepare": "husky install",
     "dev": "npm run clean & cross-env NODE_ENV=dev rollup -c rollup.config.js -w",
     "build": "npm run clean &cross-env NODE_ENV=production rollup -c rollup.config.js",
-    "eslint:fix": "eslint  --color --fix ./src",
+    "lint": "npx eslint \"./**/*.{js,ts}\" --fix",
     "format": "prettier --write ./src",
     "test": "jest --config jest.config.json",
     "example": "cd example && npm run dev",

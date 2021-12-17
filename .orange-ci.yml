@@ -1,0 +1,138 @@
+# 安装依赖
+.install: &install
+  - name: install
+    script: npm install --registry=http://r.tnpm.oa.com
+
+# eslint代码检查
+.codeCheck: &codeCheck
+  - name: CCK-codeCheck
+    script: npm run lint
+  - name: code-scan
+    type: security:code-scan
+  # - name: commit-lint
+  #   type: git:commit-lint
+
+# 单元测试覆盖率
+.unitTest: &unitTest
+  - name: unit test
+    script: npm run test
+  - name: qcoverage
+    type: qcoverage:upload
+    options:
+      lines: ge # 覆盖率行结果不能下降
+      functions: gt # 覆盖率函数结果必须上升
+      branches: gt # 覆盖率分支结果必须上升
+      diffLines: '30' # 每次提交变更增量覆盖率必须达到80或以上
+    envExport:
+      url: QCOV_LINE_URL
+      lines: COV_PCT
+      diff_pct: DIFF_PCT
+      diff_total: DIFF_TOTAL
+      diff_covered: DIFF_COVERED
+  - name: notify
+    type: wework:message
+    options:
+      robot: xxx====xxxx
+      message: |
+        > [${ORANGE_EVENT_URL}](${ORANGE_EVENT_URL})
+        >
+        > [全量覆盖率](${QCOV_LINE_URL}): ${COV_PCT}%
+        > 增量覆盖率: ${DIFF_PCT}% (${DIFF_COVERED}/${DIFF_TOTAL})
+        > 　
+        > from ${ORANGE_BUILD_USER}
+
+# autoCR
+.autoCR: &autoCR
+  - name: read list
+    type: orange-ci:readFile
+    options:
+      # 负责 CR 的人员名单
+      filePath: ''
+    exports:
+      CRUser: CRUSER
+  - name: add reviewer
+    type: git:review
+    options:
+      type: add-reviewer
+      reviewers: ${CRUSER}
+    exports:
+      reviewersForAt: CURR_REVIEWER_FOR_AT
+
+# 通用发送消息
+.sendMessage: &sendMessage
+  - name: make message
+    script:
+      - echo 提交日志：${ORANGE_LATEST_COMMIT_MESSAGE} >> message.txt
+      - echo 提交分支：${ORANGE_BRANCH}
+      - echo 项目地址：https://git.woa.com/${ORANGE_REPO_SLUG} >> message.txt
+      - echo 触发人：${ORANGE_BUILD_USER} >> message.txt
+      - echo 构建次数：当前第${ORANGE_TOTAL_BUILD_COUNT}次构建 >> message.txt
+  - name: 构建摘要
+    type: wework:message
+    options:
+      fromFile: message.txt
+  - name: 同步 git commit
+    type: git:comment
+    options:
+      fromFile: message.txt
+
+# 打包发布
+.publish: &publish
+  - name: set
+    script: npm config set registry https://mirrors.tencent.com/npm/
+  - name: build
+    script: npm run build
+  - name: publish
+    script: npm publish
+
+master:
+  merge_request:
+    - stages:
+        - *install
+        - *codeCheck
+        # - *unitTest
+        - *autoCR
+        - *sendMessage
+
+  # review:
+  #   - stages:
+
+  push:
+    # - services:
+    #     - docker
+    #   imports: https://git.woa.com/joyqwang/oci-key-demo/blob/master/envs
+    #   stages:
+    #     - name: docker info
+    #       script: docker info
+    #     - name: docker login
+    #       script: docker login ${imageDomain} -u $NPM_USERNAME -p $NPM_PASSWORD
+    - stages:
+        - name: test
+          script: echo -n "hello push"
+      # - *publish
+      # - *codeCheck
+      # - *unitTest
+      # - *sendMessage
+      # - name: semantic-release
+      #   type: git:semantic-release
+      #   options:
+      #     changelog:
+      #       changelogFile: 'CHANGELOG.md'
+      #       changelogTitle: '-'
+      #     npm:
+      #       npmPublish: true
+      #       pkgRoot: '.'
+      #       tarballDir: false
+      #     git:
+      #       assets:
+      #         - package.json
+      #         - CHANGELOG.md
+      #       message: 'chore(release): ${nextRelease.version}'
+      # - *install
+      # - *publish
+
+  merged:
+    - stages:
+        - name: test
+          script: echo -n "hello merged"
+      # - *publish
