@@ -4,7 +4,7 @@ import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/c
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { GuildMembersPager, IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
-import { IMessage, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
+import { IMessage, IMessageRes, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
 import { GuildRoles, IRole, UpdateResult } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
 
@@ -50,7 +50,7 @@ export interface MeAPI {
 
 // MessageAPI 消息相关接口
 export interface MessageAPI {
-  message: (channelID: string, messageID: string) => Promise<RestyResponse<IMessage>>;
+  message: (channelID: string, messageID: string) => Promise<RestyResponse<IMessageRes>>;
   messages: (channelID: string, pager: MessagesPager) => Promise<RestyResponse<IMessage[]>>;
   postMessage: (channelID: string, message: MessageToCreate) => Promise<RestyResponse<IMessage>>;
 }
@@ -98,7 +98,7 @@ export interface MemberAPI {
 
 export interface DirectMessageAPI {
   // CreateDirectMessage 创建私信频道
-  createDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<DirectMessage>>;
+  createDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<IDirectMessage>>;
   // PostDirectMessage 在私信频道内发消息
   postDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
 }

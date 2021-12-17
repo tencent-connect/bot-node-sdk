@@ -1,4 +1,5 @@
 import { ChannelAPI, Config, OpenAPIRequest } from '@src/types/openapi';
+import { getTimeStampNumber } from '@src/utils/utils';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -57,7 +58,7 @@ export default class Channel implements ChannelAPI {
   // 创建子频道
   public postChannel(guildID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
     if (channel.position === 0) {
-      channel.position = Number(new Date());
+      channel.position = getTimeStampNumber();
     }
     const options = {
       method: 'POST' as const,
@@ -72,7 +73,7 @@ export default class Channel implements ChannelAPI {
   // 修改子频道信息
   public patchChannel(channelID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
     if (channel.position === 0) {
-      channel.position = Number(new Date());
+      channel.position = getTimeStampNumber();
     }
     const options = {
       method: 'PATCH' as const,
