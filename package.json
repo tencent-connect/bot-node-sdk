@@ -1,9 +1,9 @@
 {
-  "name": "@tencent/bot-node-sdk",
+  "name": "@tencent-connect/bot-node-sdk",
   "version": "1.1.0",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
-    "registry": "https://mirrors.tencent.com/npm/"
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "bot-sdk"
@@ -71,7 +71,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.woa.com/qq-channel-bot/bot-node-sdk.git"
+    "url": "https://github.com/tencent-connect/bot-node-sdk.git"
   },
   "author": "joyqwang",
   "license": "ISC",
