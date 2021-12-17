@@ -1,6 +1,10 @@
 'use strict';
 
-class qqBot {
+export class qqBot {
+  get() {
+    console.log('....aaa....')
+  }
 };
 
-module.exports = qqBot;
+// module.exports = qqBot;
+
