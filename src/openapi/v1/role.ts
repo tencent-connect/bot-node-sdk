@@ -3,7 +3,7 @@ import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
 // 用户组默认颜色值
-const defaultColor = 4278245297;
+export const defaultColor = 4278245297;
 // 所创建的频道身份组对象
 export interface IRole {
   id: string; // 身份组ID, 默认值可参考DefaultRoles
@@ -54,7 +54,7 @@ export default class Role implements RoleAPI {
     const filter = {
       name: 1,
       color: 1,
-      moist: 1,
+      hoist: 1,
     };
     const options = {
       method: 'POST' as const,
@@ -80,7 +80,7 @@ export default class Role implements RoleAPI {
     const filter = {
       name: 1,
       color: 1,
-      moist: 1,
+      hoist: 1,
     };
     const options = {
       method: 'PATCH' as const,

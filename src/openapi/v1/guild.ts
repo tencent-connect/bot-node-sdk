@@ -45,7 +45,7 @@ export default class Guild implements GuildAPI {
     this.config = config;
   }
   // 获取频道信息
-  public async guild(guildID: string): Promise<RestyResponse<IGuild>> {
+  public guild(guildID: string): Promise<RestyResponse<IGuild>> {
     const options = {
       method: 'GET' as const,
       url: getURL('guildURI'),

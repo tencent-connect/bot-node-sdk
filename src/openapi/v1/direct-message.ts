@@ -23,13 +23,13 @@ export default class DirectMessage implements DirectMessageAPI {
     this.config = config;
   }
   // 创建私信频道
-  public createDirectMessage(dm: DirectMessageToCreate): Promise<RestyResponse<DirectMessage>> {
+  public createDirectMessage(dm: DirectMessageToCreate): Promise<RestyResponse<IDirectMessage>> {
     const options = {
       method: 'POST' as const,
       url: getURL('userMeDMURI'),
       data: dm,
     };
-    return this.request<DirectMessage>(options);
+    return this.request<IDirectMessage>(options);
   }
 
   // 在私信频道内发消息

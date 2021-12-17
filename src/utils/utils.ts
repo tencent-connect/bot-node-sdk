@@ -28,3 +28,6 @@ export const toObject = (data: any) => {
 };
 
 export const has = (o: any, k: any) => Object.prototype.hasOwnProperty.call(o, k);
+
+// 获取number类型的10位时间戳
+export const getTimeStampNumber = () => Number(new Date().getTime().toString().substr(0, 10));

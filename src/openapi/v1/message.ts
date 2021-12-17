@@ -57,6 +57,11 @@ export interface IMessage {
   direct_message: boolean; // 私信消息
 }
 
+// 接口返回的数据多一层message
+export interface IMessageRes {
+  message: IMessage;
+}
+
 // MessagesPager 消息分页
 export interface MessagesPager {
   // around: 读此id前后的消息	before:读此id之前的消息 after:读此id之后的消息
@@ -80,7 +85,7 @@ export default class Message implements MessageAPI {
     this.config = config;
   }
   // 获取指定消息
-  public message(channelID: string, messageID: string): Promise<RestyResponse<IMessage>> {
+  public message(channelID: string, messageID: string): Promise<RestyResponse<IMessageRes>> {
     const options = {
       method: 'GET' as const,
       url: getURL('messageURI'),
@@ -89,7 +94,7 @@ export default class Message implements MessageAPI {
         messageID,
       },
     };
-    return this.request<IMessage>(options);
+    return this.request<IMessageRes>(options);
   }
   // 获取消息列表
   public messages(channelID: string, pager?: MessagesPager): Promise<RestyResponse<IMessage[]>> {
