@@ -188,7 +188,7 @@ export class Wss {
     const recconectParam = {
       op: OpCode.RESUME,
       d: {
-        token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`,
+        token: `Bot ${this.config.appID}.${this.config.token}`,
         session_id: 'session_id_i_stored',
         seq: 1337,
       },
