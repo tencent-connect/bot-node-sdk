@@ -119,7 +119,7 @@ export class Wss {
       d: {
         token: `Bot ${this.config.BotAppID}.${this.config.BotToken}`, // 根据配置转换token
         intents: this.checkIntents(), // todo 接受的类型
-        shard: this.checkShards() || [0, 2], // 分片信息,给一个默认值
+        shard: this.checkShards(this.config.shards) || [0, 2], // 分片信息,给一个默认值
         properties: {
           $os: 'linux',
           $browser: 'my_library',
@@ -135,7 +135,8 @@ export class Wss {
   // 校验intents类型
   checkIntents() {
     // 判断用户有没有给到需要监听的事件类型，暂时开启全部监听
-    const intentsIn = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'];
+    const intentsIn = ['GUILDS'] as const;
+    // const intentsIn = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'] as const;
     if (intentsIn && intentsIn.length > 0) {
       const intents = { value: 0 };
       if (intentsIn.length === 1) {
@@ -150,8 +151,7 @@ export class Wss {
   }
 
   // 校验shards
-  checkShards() {
-    const shardsArr = this.config.shards;
+  checkShards(shardsArr: Array<number>) {
     // 没有传shards进来
     if (!shardsArr || shardsArr === undefined) {
       return console.log('shards 不存在');
