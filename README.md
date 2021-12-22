@@ -1,4 +1,5 @@
 # QQ频道机器人bot-node-sdk
+
 用于开发QQ频道机器人
 
 ## 使用文档
@@ -6,15 +7,21 @@
 [https://bot.q.qq.com/wiki/develop/nodesdk/](https://bot.q.qq.com/wiki/develop/nodesdk/)
 
 ## 使用方式
-### 1、安装：
+
+### 1、安装
+
 ```ts
 npm install --save-dev @tencent-connect/bot-node-sdk
 ```
-### 2、引用：
+
+### 2、引用
+
 ```ts
 import { creatOpenAPI, creatWebsocket } from '@tencent-connect/bot-node-sdk';
 ```
+
 ### 3、配置入参
+
 ```ts
 const botConfig = {
   appID: '',
@@ -22,12 +29,15 @@ const botConfig = {
   shards: [0, 1],
 };
 ```
+
 appID: [QQ频道机器人开发者管理端](https://bot.q.qq.com)申请机器人时获取到的机器人ID
 
 token: [QQ频道机器人开发者管理端](https://bot.q.qq.com)申请机器人时获取到的机器人token
 
 shards: Websocket分片信息，暂时默认为1，即为单例模式，后续会进行优化
-### 4、方法引用：
+
+### 4、方法引用
+
 ```ts
 const client = creatOpenAPI(botConfig);
 const ws = creatWebsocket(botConfig);
@@ -61,17 +71,20 @@ ws.on('AT_MESSAGES', (eventData) => {
 ## 如何贡献
 
 ### 本地运行
+
 ```shell
 npm run dev
 npm link
 ```
 
 ### cd exmaple
-```
-npm link @tencent/bot-node-sdk
+
+```shell
+npm link @tencent-connect/bot-node-sdk
 ```
 
 ### 调试
-```
+
+```shell
 npm run example
 ```

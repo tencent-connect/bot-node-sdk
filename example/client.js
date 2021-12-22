@@ -1,8 +1,8 @@
-import { newOpenAPI } from '@tencent/bot-node-sdk';
+import { creatOpenAPI } from '@tencent-connect/bot-node-sdk';
 
 const testConfig = {
   appID: '',
   token: '',
 };
 
-export const client = newOpenAPI(testConfig);
+export const client = creatOpenAPI(testConfig);

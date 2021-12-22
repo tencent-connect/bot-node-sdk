@@ -68,7 +68,13 @@ export class OpenAPI implements IOpenAPI {
       'User-Agent': apiVersion,
       Authorization: `Bot ${appID}.${token}`,
     };
-    // TODO resty-client提供中间件注册机制 用于调试
+
+    // 简化错误信息
+    resty.useRes(
+      (result) => result,
+      (error) => Promise.reject(error.response.data),
+    );
+
     const client = resty.create(options);
     return client.request<T>(options.url!, options);
   }

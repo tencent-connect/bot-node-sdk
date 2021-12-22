@@ -1,4 +1,4 @@
-import { creatOpenAPI, creatWebsocket } from '@tencent/bot-node-sdk';
+import { creatOpenAPI, creatWebsocket } from '@tencent-connect/bot-node-sdk';
 
 const testConfig = {
   BotAppID: '',
