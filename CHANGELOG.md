@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.2) (2021-12-22)
+
+
+### Bug Fixes
+
+* 配置文件修改 ([ea84dd7](https://github.com/tencent-connect/bot-node-sdk/commit/ea84dd7c083258ea334d3792bbd141114b2266f2))
+* 去除多余文件 ([ae367b4](https://github.com/tencent-connect/bot-node-sdk/commit/ae367b42d9a894fbf12baadf27b95a1cdde1caef))
+* support for  passing  filter params when post & patch role ([1f66b6c](https://github.com/tencent-connect/bot-node-sdk/commit/1f66b6cf0ec3b7c903092e364365b9d738de2531))
+
+### [1.1.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.1) (2021-12-22)
+
+
+### Bug Fixes
+
+* support for  passing  filter params when post & patch role ([1f66b6c](https://github.com/tencent-connect/bot-node-sdk/commit/1f66b6cf0ec3b7c903092e364365b9d738de2531))
+* 去除多余文件 ([ae367b4](https://github.com/tencent-connect/bot-node-sdk/commit/ae367b42d9a894fbf12baadf27b95a1cdde1caef))
+* 配置文件修改 ([ea84dd7](https://github.com/tencent-connect/bot-node-sdk/commit/ea84dd7c083258ea334d3792bbd141114b2266f2))
+
 ## [1.1.0](https://git.woa.com/qq-channel-bot/bot-node-sdk/compare/v1.0.0...v1.1.0) (2021-12-09)
 
 
