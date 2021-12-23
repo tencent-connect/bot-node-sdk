@@ -9,7 +9,4 @@
     "source.fixAll": true,
     "source.fixAll.stylelint": true
   },
-  "yaml.schemas": {
-    "https://orange-ci.cdn-go.cn/orange-ci/latest/conf-schema.json": ".orange-ci.yml"
-  },
 }
