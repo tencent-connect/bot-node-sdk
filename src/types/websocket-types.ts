@@ -27,8 +27,8 @@ export interface EventTypes {
 export interface GetWsParam {
   appID: string;
   token: string;
-  shards: Array<number>;
-  intents: Array<string>;
+  shards?: Array<number>;
+  intents?: Array<string>;
 }
 
 // 请求ws地址回包对象
