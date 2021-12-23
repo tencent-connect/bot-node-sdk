@@ -43,7 +43,7 @@ export class Ws {
     }
   }
   // 创建一个websocket连接
-  async creatWebsocket(wsData: WsAddressObj) {
+  async createWebsocket(wsData: WsAddressObj) {
     // 先链接到ws
     await this.connectWs(wsData);
     // 对消息进行监听

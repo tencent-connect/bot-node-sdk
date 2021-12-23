@@ -25,6 +25,6 @@ export function creatOpenAPI(config: Config) {
   return defaultImpl.newClient(config);
 }
 // ws连接新建
-export function creatWebsocket(config: GetWsParam) {
+export function createWebsocket(config: GetWsParam) {
   return new WebsocketClient(config);
 }

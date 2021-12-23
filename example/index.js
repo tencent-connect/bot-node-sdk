@@ -1,4 +1,4 @@
-import { creatOpenAPI, creatWebsocket } from '@tencent-connect/bot-node-sdk';
+import { creatOpenAPI, createWebsocket } from '@tencent-connect/bot-node-sdk';
 
 const testConfig = {
   BotAppID: '',
@@ -12,7 +12,7 @@ const testConfigWs = {
   token: '',
   timeout: 3000,
 };
-const ws = creatWebsocket(testConfigWs);
+const ws = createWebsocket(testConfigWs);
 ws.on('READY', (data) => {
   console.log('[READY] 事件接收 :', data);
 });

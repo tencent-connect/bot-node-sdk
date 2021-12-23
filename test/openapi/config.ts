@@ -1,4 +1,4 @@
-import { creatWebsocket } from '@src/bot';
+import { createWebsocket } from '@src/bot';
 import { OpenAPI } from '@src/openapi/v1/openapi';
 import {
   apiTestConfig,
@@ -32,4 +32,4 @@ export const ROLE_GOOLDEN_ADMIN_ID = '';
 
 export const client = OpenAPI.newClient(apiTestConfig);
 
-export const newWsClient = () => creatWebsocket(apiTestConfig);
+export const newWsClient = () => createWebsocket(apiTestConfig);
