@@ -26,7 +26,7 @@ export default class Session {
     WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
     const wsData = await this.getWsInfo(WsObjRequestOptions);
     // 连接到 ws
-    this.ws.creatWebsocket(wsData);
+    this.ws.createWebsocket(wsData);
 
     this.event.on(SessionEvents.EVENT_WS, (data: EventTypes) => {
       // 服务端通知重连
