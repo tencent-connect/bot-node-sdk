@@ -45,6 +45,7 @@ const ws = creatWebsocket(botConfig);
 // 消息监听
 ws.on('Event_Wss', (eventData) => {
   console.log('[Event_Wss] 事件接收 :', eventData);
+})
 ws.on('READY', (eventData) => {
   console.log('[READY] 事件接收 :', eventData);
 })
