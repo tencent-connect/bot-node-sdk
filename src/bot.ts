@@ -21,7 +21,7 @@ export function selectOpenAPIVersion(version: APIVersion) {
   defaultImpl = versionMapping[version];
 }
 // 如果需要使用其他版本的实现，需要在调用这个方法之前调用 SelectOpenAPIVersion 方法
-export function creatOpenAPI(config: Config) {
+export function createOpenAPI(config: Config) {
   return defaultImpl.newClient(config);
 }
 // ws连接新建

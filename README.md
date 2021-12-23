@@ -17,7 +17,7 @@ npm install --save-dev @tencent-connect/bot-node-sdk
 ### 2、引用
 
 ```ts
-import { creatOpenAPI, createWebsocket } from '@tencent-connect/bot-node-sdk';
+import { createOpenAPI, createWebsocket } from '@tencent-connect/bot-node-sdk';
 ```
 
 ### 3、配置入参
@@ -39,7 +39,7 @@ shards: Websocket分片信息，暂时默认为1，即为单例模式，后续�
 ### 4、方法引用
 
 ```ts
-const client = creatOpenAPI(botConfig);
+const client = createOpenAPI(botConfig);
 const ws = createWebsocket(botConfig);
 
 // 消息监听
