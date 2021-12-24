@@ -206,7 +206,7 @@ export class Ws {
   }
 
   // 校验shards
-  checkShards(shardsArr: Array<number>) {
+  checkShards(shardsArr: Array<number> | undefined) {
     // 没有传shards进来
     if (!shardsArr || shardsArr === undefined) {
       return console.log('shards 不存在');
