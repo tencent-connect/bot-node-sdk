@@ -47,10 +47,10 @@ export class Ws {
     // 先链接到ws
     await this.connectWs(wsData);
     // 对消息进行监听
-    this.creatListening();
+    this.createListening();
   }
   // 创建监听
-  async creatListening() {
+  async createListening() {
     // websocket连接已开启
     this.ws.on('open', () => {
       console.log(`[CLIENT] 开启`);
@@ -235,7 +235,7 @@ export class Ws {
     this.isReconnect = true;
     // 断线后需要 1s后再重新连接
     setTimeout(() => {
-      this.creatListening();
+      this.createListening();
     }, 1000);
   }
 

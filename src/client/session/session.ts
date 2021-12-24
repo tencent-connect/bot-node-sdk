@@ -16,11 +16,11 @@ export default class Session {
     if (sessionRecord) {
       this.sessionRecord = sessionRecord;
     }
-    this.creatSession();
+    this.createSession();
   }
 
   // 新建会话
-  async creatSession() {
+  async createSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
     WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
