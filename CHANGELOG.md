@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.2...v1.2.0) (2021-12-24)
+
+
+### Features
+
+* 修改shards与intents入参为可选 ([29d5c96](https://github.com/tencent-connect/bot-node-sdk/commit/29d5c961ee4fe11faea840264057ba8ddd4cb2da))
+
+
+### Bug Fixes
+
+* 修复ws模块拼写错误 ([dd3a85b](https://github.com/tencent-connect/bot-node-sdk/commit/dd3a85b97dcd044e679052e061d87ad1052939b7))
+* 修改错误拼写 ([56a7270](https://github.com/tencent-connect/bot-node-sdk/commit/56a7270d86221354a846d0603ba2ea70ced78467))
+* ws相关方法参数类型修复 ([2ed828d](https://github.com/tencent-connect/bot-node-sdk/commit/2ed828d95c6c9b1564524c3d3ca24d03ef6f7327))
+
 ### [1.1.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.2) (2021-12-22)
 
 
