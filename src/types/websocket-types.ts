@@ -78,6 +78,7 @@ export const WsEventType: { [key: string]: string } = {
   GUILD_MEMBER_UPDATE: 'GUILD_MEMBERS', // 频道成员更新
   GUILD_MEMBER_REMOVE: 'GUILD_MEMBERS', // 频道成员移除
   DIRECT_MESSAGE_CREATE: 'DIRECT_MESSAGE', // 当收到用户发给机器人的私信消息时
+  MESSAGE_CREATE: 'GUILD_MESSAGES', // 机器人收到频道消息时触发
   AT_MESSAGE_CREATE: 'AT_MESSAGES', // 机器人被@时触发
   AUDIO_START: 'AUDIO_ACTION', // 音频开始播放
   AUDIO_FINISH: 'AUDIO_ACTION', // 音频结束播放
@@ -161,6 +162,7 @@ export const WebsocketCloseReason = [
 export const IntentEvents: { [key: string]: number } = {
   GUILDS: 1 << 0,
   GUILD_MEMBERS: 1 << 1,
+  GUILD_MESSAGES: 1 << 9,
   DIRECT_MESSAGE: 1 << 12,
   AUDIO_ACTION: 1 << 29,
   AT_MESSAGES: 1 << 30,
