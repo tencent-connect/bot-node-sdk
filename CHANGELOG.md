@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.0...v1.2.1) (2021-12-25)
+
+
+### Bug Fixes
+
+* err返回值兼容response.data不存在的情况 ([fe7c7cc](https://github.com/tencent-connect/bot-node-sdk/commit/fe7c7cce93869e9a7d360b052d64394a57fe84be))
+
 ## [1.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.2...v1.2.0) (2021-12-24)
 
 
