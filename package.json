@@ -6,7 +6,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "bot-sdk"
+    "tencent",
+    "nodejs",
+    "qq",
+    "channel",
+    "guild",
+    "bot"
   ],
   "files": [
     "es",
