@@ -1,17 +1,44 @@
-
-
-name: PR Notifier
+name: PR Check & Notifier
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
+    types: [opened, edited, reopened, synchronize]
+
 jobs:
   add-assigness:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: wagoid/commitlint-github-action@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm i
+      - run: npm run lint
+
       - name: Work Weixin Notifier
         uses: jerray/work-weixin-notifier@v1.1.0
         with:
           key: ${{ secrets.weixin_bot_key }}
-          content: '**【NodeSDK】**`PR`有更新(${{github.event.pull_request.state}})，请关注@ostwindli@shaohuizuo [${{github.event.pull_request.html_url}}](${{github.event.pull_request.html_url}}) '
+          content: |
+            # 【NodeSDK】 <font color="warning">PR</font> [ <font color="info">${{github.event.pull_request.state}}</font> ] 
+
+            > Title： ${{ github.event.pull_request.title }} 
+            > Body： ${{ github.event.pull_request.body }} 
+            > User： ${{ github.event.pull_request.user.login }}
+            > Detail： [${{github.event.pull_request.html_url}}](${{github.event.pull_request.html_url}})
+            > Attention： <@shaohuizuo> <@ostwindli>
+
           type: markdown
           status: ${{ job.status }}

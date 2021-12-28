@@ -72,7 +72,7 @@ export class OpenAPI implements IOpenAPI {
     // 简化错误信息
     resty.useRes(
       (result) => result,
-      (error) => Promise.reject(error.response.data),
+      (error) => Promise.reject(error?.response?.data || error?.response || error),
     );
 
     const client = resty.create(options);

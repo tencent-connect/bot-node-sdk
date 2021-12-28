@@ -1,6 +1,6 @@
 {
   "name": "@tencent-connect/bot-node-sdk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
