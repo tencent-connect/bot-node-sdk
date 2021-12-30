@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.2...v1.3.0) (2021-12-30)
+
+
+### Features
+
+* 补充'身份组成员'接口传参方式 ([cb0ae47](https://github.com/tencent-connect/bot-node-sdk/commit/cb0ae47aea7c1edeebaec58d70e7f28f6a10417d))
+
 ### [1.2.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.0...v1.2.2) (2021-12-28)
 
 
