@@ -1,3 +1,6 @@
+import { AxiosRequestHeaders } from 'axios';
+import { version } from '../../package.json';
+
 // 延迟
 export const delayTime = (ms: number) => {
   return new Promise((resolve) => {
@@ -31,3 +34,9 @@ export const has = (o: any, k: any) => Object.prototype.hasOwnProperty.call(o, k
 
 // 获取number类型的10位时间戳
 export const getTimeStampNumber = () => Number(new Date().getTime().toString().substr(0, 10));
+
+// 添加 User-Agent
+export const addUserAgent = (header: AxiosRequestHeaders) => {
+  const sdkVersion = version;
+  header['User-Agent'] = `BotNodeSDK/v${sdkVersion}`;
+};

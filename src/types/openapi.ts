@@ -4,6 +4,7 @@ import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/c
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { GuildMembersPager, IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
+import { MemberAddRoleBody } from '@src/openapi/v1/member';
 import { IMessage, IMessageRes, MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
 import { GuildRoles, IRole, UpdateResult, IRoleFilter } from '@src/openapi/v1/role';
 import { RequestOptions, RestyResponse } from 'resty-client';
@@ -92,12 +93,19 @@ export interface RoleAPI {
 
 // MemberAPI 成员相关接口，添加成员到用户组等
 export interface MemberAPI {
-  memberAddRole: (guildID: string, roleID: string, userID: string, channel?: IChannel) => Promise<RestyResponse<any>>;
+  memberAddRole: (
+    guildID: string,
+    roleID: string,
+    userID: string,
+    /**  兼容原来传递 channel 对象的逻辑，后续仅支持 string */
+    channel?: string | MemberAddRoleBody,
+  ) => Promise<RestyResponse<any>>;
   memberDeleteRole: (
     guildID: string,
     roleID: string,
     userID: string,
-    channel?: IChannel,
+    /**  兼容原来传递 channel 对象的逻辑，后续仅支持 string */
+    channel?: string | MemberAddRoleBody,
   ) => Promise<RestyResponse<any>>;
 }
 
