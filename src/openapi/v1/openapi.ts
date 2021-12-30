@@ -22,6 +22,7 @@ import Role from './role';
 import DirectMessage from './direct-message';
 import ChannelPermissions from './channel-permissions';
 import Audio from './audio';
+import { addUserAgent } from '@src/utils/utils';
 
 export const apiVersion = 'v1';
 
@@ -65,9 +66,10 @@ export class OpenAPI implements IOpenAPI {
     const { appID, token } = this.config;
     options.headers = {
       ...options.headers,
-      'User-Agent': apiVersion,
       Authorization: `Bot ${appID}.${token}`,
     };
+    // 添加 UA
+    addUserAgent(options.headers);
 
     // 简化错误信息
     resty.useRes(
