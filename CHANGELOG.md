@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.3.0...v1.3.1) (2021-12-31)
+
+
+### Features
+
+* 异常返回带上traceid ([b151628](https://github.com/tencent-connect/bot-node-sdk/commit/b1516285bfe1ac3bed798266e5b40c7dcabf9900))
+
 ## [1.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.2...v1.3.0) (2021-12-30)
 
 
