@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { register } from '@src/openapi/openapi';
 import {
   AudioAPI,
@@ -71,10 +72,25 @@ export class OpenAPI implements IOpenAPI {
     // 添加 UA
     addUserAgent(options.headers);
 
-    // 简化错误信息
+    // 简化错误信息，后续可考虑通过中间件形式暴露给用户自行处理
     resty.useRes(
       (result) => result,
-      (error) => Promise.reject(error?.response?.data || error?.response || error),
+      (error) => {
+        let traceid = error?.response?.headers?.['x-tps-trace-id'];
+        if (error?.response?.data) {
+          return Promise.reject({
+            ...error.response.data,
+            traceid,
+          });
+        }
+        if (error?.response) {
+          return Promise.reject({
+            ...error.response,
+            traceid,
+          });
+        }
+        return Promise.reject(error);
+      },
     );
 
     const client = resty.create(options);
