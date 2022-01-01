@@ -1,4 +1,4 @@
-import { MessageToCreate } from '@src/openapi/v1/message';
+import { MessageToCreate } from '@src/types';
 import { client, userID, guildID, REQUEST_SUCCESS_CODE } from '../config';
 
 describe('directMessage测试', () => {

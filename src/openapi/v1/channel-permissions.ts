@@ -1,22 +1,13 @@
-import { ChannelPermissionsAPI, OpenAPIRequest, Config } from '@src/types/openapi';
+import {
+  OpenAPIRequest,
+  Config,
+  ChannelPermissionsAPI,
+  IChannelPermissions,
+  IChannelRolePermissions,
+  UpdateChannelPermissions,
+} from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
-
-export interface IChannelPermissions {
-  channel_id: string;
-  user_id: string;
-  permissions: string;
-}
-export interface IChannelRolePermissions {
-  channel_id: string;
-  role_id: string;
-  permissions: string;
-}
-
-export interface UpdateChannelPermissions {
-  add: string;
-  remove: string;
-}
 export default class ChannelPermissions implements ChannelPermissionsAPI {
   public request: OpenAPIRequest;
   public config: Config;

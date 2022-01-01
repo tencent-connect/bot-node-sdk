@@ -1,13 +1,6 @@
-import { AudioAPI, Config, OpenAPIRequest } from '@src/types/openapi';
+import { AudioAPI, AudioControl, Config, OpenAPIRequest } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
-
-// 语音对象-参数
-export interface AudioControl {
-  audioUrl: string;
-  text: string;
-  status: number;
-}
 
 export default class Audio implements AudioAPI {
   public request: OpenAPIRequest;

@@ -1,4 +1,4 @@
-import { MessagesPager, MessageToCreate } from '@src/openapi/v1/message';
+import { MessagesPager, MessageToCreate } from '@src/types';
 import { client, channelID, REQUEST_SUCCESS_CODE, newWsClient } from '../config';
 
 describe('message测试', () => {
