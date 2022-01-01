@@ -1,6 +1,10 @@
 import { AudioControl } from '@src/openapi/v1/audio';
 import { ChannelValueObject, IChannel } from '@src/openapi/v1/channel';
-import { IChannelPermissions, UpdateChannelPermissions } from '@src/openapi/v1/channel-permissions';
+import {
+  IChannelPermissions,
+  IChannelRolePermissions,
+  UpdateChannelPermissions,
+} from '@src/openapi/v1/channel-permissions';
 import DirectMessage, { DirectMessageToCreate, IDirectMessage } from '@src/openapi/v1/direct-message';
 import { GuildMembersPager, IGuild, IMember } from '@src/openapi/v1/guild';
 import { IUser } from '@src/openapi/v1/me';
@@ -123,6 +127,15 @@ export interface ChannelPermissionsAPI {
   putChannelPermissions: (
     channelID: string,
     userID: string,
+    p: UpdateChannelPermissions,
+  ) => Promise<RestyResponse<any>>;
+
+  // ChannelRolePermissions 获取指定子频道身份组的权限
+  channelRolePermissions: (channelID: string, roleID: string) => Promise<RestyResponse<IChannelRolePermissions>>;
+  // PutChannelRolePermissions 修改指定子频道身份组的权限
+  putChannelRolePermissions: (
+    channelID: string,
+    roleID: string,
     p: UpdateChannelPermissions,
   ) => Promise<RestyResponse<any>>;
 }
