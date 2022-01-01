@@ -21,6 +21,7 @@ const apiMap = {
   userMeDMURI: '/users/@me/dms',
   dmsURI: '/dms/:guildID/messages',
   channelPermissionsURI: '/channels/:channelID/members/:userID/permissions',
+  channelRolePermissionsURI: '/channels/:channelID/roles/:roleID/permissions',
   wsInfo: '/gateway/bot',
 };
 
