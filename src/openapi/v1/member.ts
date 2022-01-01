@@ -1,10 +1,6 @@
-import { Config, MemberAPI, OpenAPIRequest } from '@src/types/openapi';
+import { Config, OpenAPIRequest, MemberAddRoleBody, MemberAPI } from '@src/types';
 import { RestyResponse } from 'resty-client';
-import { IChannel } from './channel';
 import { getURL } from './resource';
-
-// 身份组添加、删除成员 只需要传id
-export type MemberAddRoleBody = Pick<IChannel, 'id'>;
 
 export default class Member implements MemberAPI {
   public request: OpenAPIRequest;

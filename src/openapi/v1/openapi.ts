@@ -1,18 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
 import { register } from '@src/openapi/openapi';
-import {
-  AudioAPI,
-  ChannelAPI,
-  ChannelPermissionsAPI,
-  Config,
-  DirectMessageAPI,
-  GuildAPI,
-  IOpenAPI,
-  MeAPI,
-  MemberAPI,
-  MessageAPI,
-  RoleAPI,
-} from '@src/types/openapi';
 import resty, { RequestOptions, RestyResponse } from 'resty-client';
 import Guild from './guild';
 import Channel from './channel';
@@ -24,6 +11,19 @@ import DirectMessage from './direct-message';
 import ChannelPermissions from './channel-permissions';
 import Audio from './audio';
 import { addUserAgent } from '@src/utils/utils';
+import {
+  GuildAPI,
+  ChannelAPI,
+  MeAPI,
+  MessageAPI,
+  Config,
+  IOpenAPI,
+  MemberAPI,
+  RoleAPI,
+  DirectMessageAPI,
+  ChannelPermissionsAPI,
+  AudioAPI,
+} from '@src/types';
 
 export const apiVersion = 'v1';
 
