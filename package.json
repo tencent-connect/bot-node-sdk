@@ -1,5 +1,5 @@
 {
-  "name": "@tencent-connect/bot-node-sdk",
+  "name": "qq-guild-bot",
   "version": "1.5.0",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {

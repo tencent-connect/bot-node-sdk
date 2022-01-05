@@ -1,4 +1,4 @@
-# QQ 频道机器人 bot-node-sdk
+# QQ 频道机器人SDK qq-guild-bot
 
 用于开发 QQ 频道机器人的 Node.js SDK。
 
@@ -28,3 +28,7 @@ npm run example
 - 👏 如果您有针对 SDK 的错误修复，请以分支`fix/xxx`向`main`分支发 PR
 - 👏 如果您有新的内容贡献，请以分支`feature/xxx`向`main`分支发起 PR
 - 👏 如果您有相关的建议或意见，请提[issues](https://github.com/tencent-connect/bot-node-sdk/issues)
+
+## 注意
+
+`qq-guild-bot`自`v2.0.0`开始，被用作 QQ 频道机器人官方 SDK。原`qq-guild-bot`对应的能力，已迁移到[qq-guild-bot-es](https://www.npmjs.com/package/qq-guild-bot-es)，请知晓!
