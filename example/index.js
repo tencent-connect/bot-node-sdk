@@ -1,4 +1,4 @@
-import { createOpenAPI, createWebsocket } from '@tencent-connect/bot-node-sdk';
+import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
 
 const testConfig = {
   BotAppID: '',

@@ -1,4 +1,4 @@
-import { createOpenAPI } from '@tencent-connect/bot-node-sdk';
+import { createOpenAPI } from 'qq-guild-bot';
 
 const testConfig = {
   appID: '',
