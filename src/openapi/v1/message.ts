@@ -57,7 +57,7 @@ export default class Message implements MessageAPI {
   public deleteMessage(channelID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('messagesURI'),
+      url: getURL('messageURI'),
       rest: {
         channelID,
         messageID,
