@@ -52,4 +52,17 @@ export default class Message implements MessageAPI {
     };
     return this.request<IMessage>(options);
   }
+
+  // 发送消息
+  public deleteMessage(channelID: string, messageID: string): Promise<RestyResponse<any>> {
+    const options = {
+      method: 'DELETE' as const,
+      url: getURL('messagesURI'),
+      rest: {
+        channelID,
+        messageID,
+      },
+    };
+    return this.request<IMessage>(options);
+  }
 }
