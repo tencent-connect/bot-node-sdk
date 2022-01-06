@@ -53,7 +53,7 @@ export default class Message implements MessageAPI {
     return this.request<IMessage>(options);
   }
 
-  // 发送消息
+  // 撤回消息
   public deleteMessage(channelID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
