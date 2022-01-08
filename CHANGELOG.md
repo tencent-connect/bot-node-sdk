@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.1.0...v2.2.0) (2022-01-08)
+
+
+### Features
+
+* 添加公告API ([dfd33c9](https://github.com/tencent-connect/bot-node-sdk/commit/dfd33c97b1475278c258cb3d992dcbc0108d839b))
+
 ## [2.1.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.5.0...v2.1.0) (2022-01-08)
 
 
