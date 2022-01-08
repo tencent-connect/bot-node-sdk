@@ -9,6 +9,7 @@ import { MemberAPI } from './v1/member';
 import { MessageAPI } from './v1/message';
 import { RoleAPI } from './v1/role';
 import { MuteAPI } from './v1/mute';
+import { AnnounceAPI } from './v1/announce';
 
 export type OpenAPIRequest = <T extends Record<any, any> = any>(options: RequestOptions) => Promise<RestyResponse<T>>;
 
@@ -27,6 +28,7 @@ export interface IOpenAPI {
   memberApi: MemberAPI;
   roleApi: RoleAPI;
   muteApi: MuteAPI;
+  announceApi: AnnounceAPI;
   directMessageApi: DirectMessageAPI;
   channelPermissionsApi: ChannelPermissionsAPI;
   audioApi: AudioAPI;
@@ -55,3 +57,4 @@ export * from './v1/member';
 export * from './v1/message';
 export * from './v1/role';
 export * from './v1/mute';
+export * from './v1/announce';
