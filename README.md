@@ -1,4 +1,4 @@
-# QQ 频道机器人SDK qq-guild-bot
+# QQ 频道机器人 SDK qq-guild-bot
 
 用于开发 QQ 频道机器人的 Node.js SDK。
 

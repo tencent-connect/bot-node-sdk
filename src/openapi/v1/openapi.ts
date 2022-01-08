@@ -23,7 +23,9 @@ import {
   DirectMessageAPI,
   ChannelPermissionsAPI,
   AudioAPI,
+  MuteAPI,
 } from '@src/types';
+import Mute from './mute';
 
 export const apiVersion = 'v1';
 
@@ -43,6 +45,7 @@ export class OpenAPI implements IOpenAPI {
   public messageApi!: MessageAPI;
   public memberApi!: MemberAPI;
   public roleApi!: RoleAPI;
+  public muteApi!: MuteAPI;
   public directMessageApi!: DirectMessageAPI;
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
@@ -58,6 +61,7 @@ export class OpenAPI implements IOpenAPI {
     client.messageApi = new Message(this.request, this.config);
     client.memberApi = new Member(this.request, this.config);
     client.roleApi = new Role(this.request, this.config);
+    client.muteApi = new Mute(this.request, this.config);
     client.directMessageApi = new DirectMessage(this.request, this.config);
     client.channelPermissionsApi = new ChannelPermissions(this.request, this.config);
     client.audioApi = new Audio(this.request, this.config);
