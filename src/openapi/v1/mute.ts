@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, MuteAPI, UpdateRoleRes, MuteOptions } from '@src/types';
+import { Config, OpenAPIRequest, MuteAPI, MuteOptions } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -28,7 +28,7 @@ export default class Mute implements MuteAPI {
         mute_seconds: options?.seconds,
       },
     };
-    return this.request<UpdateRoleRes>(reqOptions);
+    return this.request(reqOptions);
   }
 
   // 禁言所有人
@@ -48,6 +48,6 @@ export default class Mute implements MuteAPI {
         mute_seconds: options?.seconds,
       },
     };
-    return this.request<UpdateRoleRes>(reqOptions);
+    return this.request(reqOptions);
   }
 }
