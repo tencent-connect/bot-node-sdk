@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.5.0...v2.1.0) (2022-01-08)
+
+
+### Features
+
+* 添加禁言API ([9d5e47b](https://github.com/tencent-connect/bot-node-sdk/commit/9d5e47bf56ad90358c4c8cba1ceb7dc18e765ad4))
+* 重命名sdk ([5d7e22e](https://github.com/tencent-connect/bot-node-sdk/commit/5d7e22efb29c7d60a9432fb0d225db17415894fd))
+* sdk中添加撤回消息API ([69058d6](https://github.com/tencent-connect/bot-node-sdk/commit/69058d6a8a4ad20fa634f9d89c58470f415b0459))
+
+
+### Bug Fixes
+
+* 修复MuteAPI返回类型问题 ([7ab3a8f](https://github.com/tencent-connect/bot-node-sdk/commit/7ab3a8f45de62f6d9bfd7ed29c706b4c7fefba5b))
+
 ## [2.0.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.5.0...v2.0.0) (2022-01-05)
 
 
