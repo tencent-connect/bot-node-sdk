@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, IUser, MeAPI, IGuild } from '@src/types';
+import { Config, OpenAPIRequest, IUser, MeAPI, IGuild, MeGuildsReq } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -9,6 +9,7 @@ export default class Me implements MeAPI {
     this.request = request;
     this.config = config;
   }
+
   // 获取当前用户信息
   public me(): Promise<RestyResponse<IUser>> {
     const options = {
@@ -17,12 +18,14 @@ export default class Me implements MeAPI {
     };
     return this.request<IUser>(options);
   }
+
   // 获取当前用户频道列表
-  public meGuilds(): Promise<RestyResponse<IGuild[]>> {
-    const options = {
+  public meGuilds(options?: MeGuildsReq): Promise<RestyResponse<IGuild[]>> {
+    const reqOptions = {
       method: 'GET' as const,
       url: getURL('userMeGuildsURI'),
+      params: options,
     };
-    return this.request<IGuild[]>(options);
+    return this.request<IGuild[]>(reqOptions);
   }
 }
