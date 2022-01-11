@@ -28,6 +28,8 @@ const apiMap = {
   dmsURI: '/dms/:guildID/messages',
   channelPermissionsURI: '/channels/:channelID/members/:userID/permissions',
   channelRolePermissionsURI: '/channels/:channelID/roles/:roleID/permissions',
+  schedulesURI: '/channels/:channelID/schedules',
+  scheduleURI: '/channels/:channelID/schedules/:scheduleID',
   wsInfo: '/gateway/bot',
 };
 
