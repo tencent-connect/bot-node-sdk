@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.2.0...v2.3.0) (2022-01-11)
+
+
+### Features
+
+* 添加日程API ([ad05262](https://github.com/tencent-connect/bot-node-sdk/commit/ad05262947b045c93dd68502f7f74c0c0bf7d478))
+
 ## [2.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.1.0...v2.2.0) (2022-01-08)
 
 
