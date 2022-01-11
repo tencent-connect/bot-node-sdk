@@ -12,6 +12,7 @@ import ChannelPermissions from './channel-permissions';
 import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
+import Schedule from './schedule';
 import { addUserAgent } from '@src/utils/utils';
 import {
   GuildAPI,
@@ -26,6 +27,7 @@ import {
   ChannelPermissionsAPI,
   AudioAPI,
   MuteAPI,
+  ScheduleAPI,
   AnnounceAPI,
 } from '@src/types';
 
@@ -49,6 +51,7 @@ export class OpenAPI implements IOpenAPI {
   public roleApi!: RoleAPI;
   public muteApi!: MuteAPI;
   public announceApi!: AnnounceAPI;
+  public scheduleApi!: ScheduleAPI;
   public directMessageApi!: DirectMessageAPI;
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
@@ -66,6 +69,7 @@ export class OpenAPI implements IOpenAPI {
     client.roleApi = new Role(this.request, this.config);
     client.muteApi = new Mute(this.request, this.config);
     client.announceApi = new Announce(this.request, this.config);
+    client.scheduleApi = new Schedule(this.request, this.config);
     client.directMessageApi = new DirectMessage(this.request, this.config);
     client.channelPermissionsApi = new ChannelPermissions(this.request, this.config);
     client.audioApi = new Audio(this.request, this.config);
