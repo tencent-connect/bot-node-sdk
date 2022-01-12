@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.3.0...v2.4.0) (2022-01-12)
+
+
+### Features
+
+* 获取频道列表参数补齐 ([bbfc4e7](https://github.com/tencent-connect/bot-node-sdk/commit/bbfc4e72c9766a1487089cfda4f0897dbb53eb08))
+* 扩展创建子频道参数，支持创建私密子频道 ([38ee7a4](https://github.com/tencent-connect/bot-node-sdk/commit/38ee7a42237d0deb7ae70a8ca2aeb2d826fe8d16))
+
 ## [2.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.2.0...v2.3.0) (2022-01-11)
 
 
