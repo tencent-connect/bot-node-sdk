@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, ChannelAPI, ChannelValueObject, IChannel } from '@src/types';
+import { Config, OpenAPIRequest, ChannelAPI, PostChannelObj, IChannel, PatchChannelObj } from '@src/types';
 import { getTimeStampNumber } from '@src/utils/utils';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
@@ -33,8 +33,9 @@ export default class Channel implements ChannelAPI {
     };
     return this.request<IChannel[]>(options);
   }
+
   // 创建子频道
-  public postChannel(guildID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
+  public postChannel(guildID: string, channel: PostChannelObj): Promise<RestyResponse<IChannel>> {
     if (channel.position === 0) {
       channel.position = getTimeStampNumber();
     }
@@ -48,8 +49,9 @@ export default class Channel implements ChannelAPI {
     };
     return this.request<IChannel>(options);
   }
+
   // 修改子频道信息
-  public patchChannel(channelID: string, channel: ChannelValueObject): Promise<RestyResponse<IChannel>> {
+  public patchChannel(channelID: string, channel: PatchChannelObj): Promise<RestyResponse<IChannel>> {
     if (channel.position === 0) {
       channel.position = getTimeStampNumber();
     }

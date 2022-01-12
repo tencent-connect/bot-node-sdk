@@ -6,8 +6,8 @@ import { RestyResponse } from 'resty-client';
 export interface ChannelAPI {
   channel: (channelID: string) => Promise<RestyResponse<IChannel>>;
   channels: (guildID: string) => Promise<RestyResponse<IChannel[]>>;
-  postChannel: (guildID: string, channel: ChannelValueObject) => Promise<RestyResponse<IChannel>>;
-  patchChannel: (channelID: string, channel: ChannelValueObject) => Promise<RestyResponse<IChannel>>;
+  postChannel: (guildID: string, channel: PostChannelObj) => Promise<RestyResponse<IChannel>>;
+  patchChannel: (channelID: string, channel: PatchChannelObj) => Promise<RestyResponse<IChannel>>;
   deleteChannel: (channelID: string) => Promise<RestyResponse<any>>;
 }
 
@@ -20,16 +20,20 @@ export type ChannelType = 0 | 1 | 2 | 3 | 4 | 10005;
 export type ChannelSubType = 0 | 1 | 2 | 3;
 
 // 子频道对象(Channel)
-export interface IChannel extends ChannelValueObject {
-  id: string; // 频道ID
-  guild_id: string; // 群ID
+export interface IChannel extends PostChannelObj {
+  id: string; // 频道 ID
+  guild_id: string; // 群 ID
+  owner_id: string; // 拥有者 ID
 }
 
-export interface ChannelValueObject {
+export interface PostChannelObj {
   name: string; // 频道名称
   type: ChannelType; // 频道类型
+  sub_type?: ChannelSubType; // 子频道子类型
   position: number; // 排序位置
   parent_id: string; // 父频道的ID
-  owner_id: string; // 拥有者ID
-  sub_type: ChannelSubType; // 子频道子类型
+  private_type?: number; // 子频道私密类型
+  private_user_ids?: string[]; // 子频道私密类型成员 ID
 }
+
+export type PatchChannelObj = Partial<Omit<PostChannelObj, 'sub_type' | 'private_user_ids'>>;
