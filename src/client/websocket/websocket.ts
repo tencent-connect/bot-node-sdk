@@ -1,5 +1,6 @@
 import {
   wsResData,
+  AvailableIntentsEventsEnum,
   OpCode,
   SessionEvents,
   WebsocketCloseReason,
@@ -42,6 +43,7 @@ export class Ws {
       this.isReconnect = true;
     }
   }
+
   // 创建一个websocket连接
   async createWebsocket(wsData: WsAddressObj) {
     // 先链接到ws
@@ -49,6 +51,7 @@ export class Ws {
     // 对消息进行监听
     this.createListening();
   }
+
   // 创建监听
   async createListening() {
     // websocket连接已开启
@@ -177,10 +180,10 @@ export class Ws {
   }
 
   // 校验intents格式
-  getValidIntentsType() {
+  getValidIntentsType(): AvailableIntentsEventsEnum[] {
     const intentsIn = this.config.intents;
     // 全部可监听事件
-    const defaultIntents = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'];
+    const defaultIntents = Object.keys(AvailableIntentsEventsEnum) as AvailableIntentsEventsEnum[];
     // 如果开发者没传intents，我们默认给他开启全部监听事件
     if (!intentsIn) {
       console.log('[CLIENT] intents不存在，默认开启全部监听事件');

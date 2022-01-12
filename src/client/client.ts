@@ -8,6 +8,7 @@ export default class WebsocketClient extends EventEmitter {
     super();
     this.connect(config);
   }
+
   // 连接
   async connect(config: GetWsParam) {
     const event = this;
