@@ -80,7 +80,7 @@
     "url": "https://github.com/tencent-connect/bot-node-sdk.git"
   },
   "author": "joyqwang",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "",
   "lint-staged": {
     "src/**/*.ts?(x)": [
