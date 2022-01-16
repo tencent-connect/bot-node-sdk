@@ -1,7 +1,7 @@
 import { apiVersion, OpenAPI, v1Setup } from '@src/openapi/v1/openapi';
 import { versionMapping } from '@src/openapi/openapi';
 import { APIVersion, Config } from './types/openapi';
-import { GetWsParam } from './types/websocket-types';
+import { GetWsParam } from '@src/types';
 import WebsocketClient from './client/client';
 
 function init() {

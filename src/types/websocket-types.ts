@@ -19,6 +19,7 @@ export interface HeartbeatParam {
 
 // 事件分发类型
 export interface EventTypes {
+  retry?: number;
   eventType: string;
   eventMsg?: object;
 }

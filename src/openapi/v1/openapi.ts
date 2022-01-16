@@ -1,6 +1,6 @@
 /* eslint-disable prefer-promise-reject-errors */
-import { register } from '@src/openapi/openapi';
-import resty, { RequestOptions, RestyResponse } from 'resty-client';
+import {register} from '@src/openapi/openapi';
+import resty, {RequestOptions, RestyResponse} from 'resty-client';
 import Guild from './guild';
 import Channel from './channel';
 import Me from './me';
@@ -13,30 +13,29 @@ import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
-import { addUserAgent } from '@src/utils/utils';
+import {addUserAgent} from '@src/utils/utils';
 import {
-  GuildAPI,
-  ChannelAPI,
-  MeAPI,
-  MessageAPI,
-  Config,
-  IOpenAPI,
-  MemberAPI,
-  RoleAPI,
-  DirectMessageAPI,
-  ChannelPermissionsAPI,
-  AudioAPI,
-  MuteAPI,
-  ScheduleAPI,
   AnnounceAPI,
+  AudioAPI,
+  ChannelAPI,
+  ChannelPermissionsAPI,
+  Config,
+  DirectMessageAPI,
+  GuildAPI,
+  IOpenAPI,
+  MeAPI,
+  MemberAPI,
+  MessageAPI,
+  MuteAPI,
+  RoleAPI,
+  ScheduleAPI,
 } from '@src/types';
 
 export const apiVersion = 'v1';
 
 export class OpenAPI implements IOpenAPI {
   static newClient(config: Config) {
-    const client = new OpenAPI(config);
-    return client;
+    return new OpenAPI(config);
   }
 
   config: Config = {
