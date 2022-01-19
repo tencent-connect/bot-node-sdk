@@ -33,9 +33,9 @@ const apiMap = {
   wsInfo: '/gateway/bot',
 };
 
-export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
+export const getURL = (sandbox?: boolean) => (endpoint: keyof typeof apiMap): string => {
   let d = domain;
-  if (sanbox) {
+  if (sandbox) {
     d = sandBoxDomain;
   }
   return `${scheme}://${d}${apiMap[endpoint]}`;

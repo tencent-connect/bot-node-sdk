@@ -1,19 +1,21 @@
-import { Config, OpenAPIRequest, IMessage, IMessageRes, MessageAPI, MessagesPager, MessageToCreate } from '@src/types';
-import { RestyResponse } from 'resty-client';
-import { getURL } from './resource';
+import {Config, OpenAPIRequest, IMessage, IMessageRes, MessageAPI, MessagesPager, MessageToCreate} from '@src/types';
+import {RestyResponse} from 'resty-client';
+import {getURL} from './resource';
 
 export default class Message implements MessageAPI {
   public request: OpenAPIRequest;
   public config: Config;
+
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
   }
+
   // 获取指定消息
   public message(channelID: string, messageID: string): Promise<RestyResponse<IMessageRes>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('messageURI'),
+      url: getURL(this.config.sandbox)('messageURI'),
       rest: {
         channelID,
         messageID,
@@ -21,6 +23,7 @@ export default class Message implements MessageAPI {
     };
     return this.request<IMessageRes>(options);
   }
+
   // 获取消息列表
   public messages(channelID: string, pager?: MessagesPager): Promise<RestyResponse<IMessage[]>> {
     const params = Object.create(null);
@@ -31,7 +34,7 @@ export default class Message implements MessageAPI {
 
     const options = {
       method: 'GET' as const,
-      url: getURL('messagesURI'),
+      url: getURL(this.config.sandbox)('messagesURI'),
       rest: {
         channelID,
       },
@@ -44,7 +47,7 @@ export default class Message implements MessageAPI {
   public postMessage(channelID: string, message: MessageToCreate): Promise<RestyResponse<IMessage>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('messagesURI'),
+      url: getURL(this.config.sandbox)('messagesURI'),
       rest: {
         channelID,
       },
@@ -57,7 +60,7 @@ export default class Message implements MessageAPI {
   public deleteMessage(channelID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('messageURI'),
+      url: getURL(this.config.sandbox)('messageURI'),
       rest: {
         channelID,
         messageID,

@@ -19,7 +19,6 @@ export interface HeartbeatParam {
 
 // 事件分发类型
 export interface EventTypes {
-  retry?: number;
   eventType: string;
   eventMsg?: object;
 }
@@ -28,6 +27,7 @@ export interface EventTypes {
 export interface GetWsParam {
   appID: string;
   token: string;
+  sandbox:boolean;
   shards?: Array<number>;
   intents?: Array<AvailableIntentsEventsEnum>;
 }
@@ -256,9 +256,9 @@ export const SessionEvents = {
 };
 
 // ws地址配置
-export const WsObjRequestOptions = {
+export const WsObjRequestOptions =(sandbox:boolean)=>( {
   method: 'GET' as const,
-  url: getURL('wsInfo'),
+  url: getURL(sandbox)('wsInfo'),
   headers: {
     Accept: '*/*',
     'Accept-Encoding': 'utf-8',
@@ -267,4 +267,4 @@ export const WsObjRequestOptions = {
     'User-Agent': apiVersion,
     Authorization: '',
   },
-};
+});

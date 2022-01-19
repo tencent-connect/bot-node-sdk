@@ -14,7 +14,7 @@ export default class Announce implements AnnounceAPI {
   public postGuildAnnounce(guildID: string, channelID: string, messageID: string): Promise<RestyResponse<IAnnounce>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('guildAnnouncesURI'),
+      url: getURL(this.config.sandbox)('guildAnnouncesURI'),
       rest: {
         guildID,
       },
@@ -30,7 +30,7 @@ export default class Announce implements AnnounceAPI {
   public deleteGuildAnnounce(guildID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('guildAnnounceURI'),
+      url: getURL(this.config.sandbox)('guildAnnounceURI'),
       rest: {
         guildID,
         messageID,
@@ -43,7 +43,7 @@ export default class Announce implements AnnounceAPI {
   public postChannelAnnounce(channelID: string, messageID: string): Promise<RestyResponse<IAnnounce>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('channelAnnouncesURI'),
+      url: getURL(this.config.sandbox)('channelAnnouncesURI'),
       rest: {
         channelID,
       },
@@ -58,7 +58,7 @@ export default class Announce implements AnnounceAPI {
   public deleteChannelAnnounce(channelID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('channelAnnounceURI'),
+      url: getURL(this.config.sandbox)('channelAnnounceURI'),
       rest: {
         channelID,
         messageID,

@@ -14,7 +14,7 @@ export default class Channel implements ChannelAPI {
   public channel(channelID: string): Promise<RestyResponse<IChannel>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('channelURI'),
+      url: getURL(this.config.sandbox)('channelURI'),
       rest: {
         channelID,
       },
@@ -26,7 +26,7 @@ export default class Channel implements ChannelAPI {
   public channels(guildID: string): Promise<RestyResponse<IChannel[]>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('channelsURI'),
+      url: getURL(this.config.sandbox)('channelsURI'),
       rest: {
         guildID,
       },
@@ -41,7 +41,7 @@ export default class Channel implements ChannelAPI {
     }
     const options = {
       method: 'POST' as const,
-      url: getURL('channelsURI'),
+      url: getURL(this.config.sandbox)('channelsURI'),
       rest: {
         guildID,
       },
@@ -57,7 +57,7 @@ export default class Channel implements ChannelAPI {
     }
     const options = {
       method: 'PATCH' as const,
-      url: getURL('channelURI'),
+      url: getURL(this.config.sandbox)('channelURI'),
       rest: {
         channelID,
       },
@@ -69,7 +69,7 @@ export default class Channel implements ChannelAPI {
   public deleteChannel(channelID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('channelURI'),
+      url: getURL(this.config.sandbox)('channelURI'),
       rest: {
         channelID,
       },

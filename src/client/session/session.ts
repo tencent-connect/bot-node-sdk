@@ -55,32 +55,26 @@ export default class Session {
   createSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
-    WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
-    this.getWsInfo(WsObjRequestOptions)
-      .then(wsData => {
+    const reqOptions = WsObjRequestOptions(this.config.sandbox)
+    reqOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
+    resty.create(reqOptions)
+      .get(reqOptions.url as string, {})
+      .then(r => {
+        const wsData = r.data
         if (!wsData) throw new Error()
         this.ws.createWebsocket(wsData);
-        return this.ws
-      }).then(() => {
-      this.retry = 0
-    }).catch(e => {
+        this.retry = 0
+      }).catch(e => {
+      console.log('[ERROR] createSession: ', e)
       this.event.emit(SessionEvents.EVENT_WS, {
         eventType: SessionEvents.DISCONNECT,
-        eventMsg: this.sessionRecord,
-        retry: this.retry
+        eventMsg: this.sessionRecord
       })
     })
-    // 连接到 ws
   }
 
   // 关闭会话
   closeSession() {
     this.ws.closeWs();
-  }
-
-  // 拿到 ws地址等信息
-  async getWsInfo(options: RequestOptions) {
-    return resty.create(options).get(options.url as string, {})
-      .then((res) => res.data)
   }
 }

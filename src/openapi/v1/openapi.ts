@@ -39,8 +39,9 @@ export class OpenAPI implements IOpenAPI {
   }
 
   config: Config = {
+    sandbox: false,
     appID: '',
-    token: '',
+    token: ''
   };
   public guildApi!: GuildAPI;
   public channelApi!: ChannelAPI;

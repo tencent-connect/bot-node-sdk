@@ -1,10 +1,11 @@
-import { Config, OpenAPIRequest, MuteAPI, MuteOptions } from '@src/types';
-import { RestyResponse } from 'resty-client';
-import { getURL } from './resource';
+import {Config, OpenAPIRequest, MuteAPI, MuteOptions} from '@src/types';
+import {RestyResponse} from 'resty-client';
+import {getURL} from './resource';
 
 export default class Mute implements MuteAPI {
   public request: OpenAPIRequest;
   public config: Config;
+
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
@@ -18,7 +19,7 @@ export default class Mute implements MuteAPI {
 
     const reqOptions = {
       method: 'PATCH' as const,
-      url: getURL('muteMemberURI'),
+      url: getURL(this.config.sandbox)('muteMemberURI'),
       rest: {
         guildID,
         userID,
@@ -39,7 +40,7 @@ export default class Mute implements MuteAPI {
 
     const reqOptions = {
       method: 'PATCH' as const,
-      url: getURL('muteURI'),
+      url: getURL(this.config.sandbox)('muteURI'),
       rest: {
         guildID,
       },

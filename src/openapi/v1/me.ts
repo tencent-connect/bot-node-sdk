@@ -1,10 +1,11 @@
-import { Config, OpenAPIRequest, IUser, MeAPI, IGuild, MeGuildsReq } from '@src/types';
-import { RestyResponse } from 'resty-client';
-import { getURL } from './resource';
+import {Config, OpenAPIRequest, IUser, MeAPI, IGuild, MeGuildsReq} from '@src/types';
+import {RestyResponse} from 'resty-client';
+import {getURL} from './resource';
 
 export default class Me implements MeAPI {
   public request: OpenAPIRequest;
   public config: Config;
+
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
@@ -14,7 +15,7 @@ export default class Me implements MeAPI {
   public me(): Promise<RestyResponse<IUser>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('userMeURI'),
+      url: getURL(this.config.sandbox)('userMeURI'),
     };
     return this.request<IUser>(options);
   }
@@ -23,7 +24,7 @@ export default class Me implements MeAPI {
   public meGuilds(options?: MeGuildsReq): Promise<RestyResponse<IGuild[]>> {
     const reqOptions = {
       method: 'GET' as const,
-      url: getURL('userMeGuildsURI'),
+      url: getURL(this.config.sandbox)('userMeGuildsURI'),
       params: options,
     };
     return this.request<IGuild[]>(reqOptions);

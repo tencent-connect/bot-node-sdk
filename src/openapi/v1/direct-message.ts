@@ -21,7 +21,7 @@ export default class DirectMessage implements DirectMessageAPI {
   public createDirectMessage(dm: DirectMessageToCreate): Promise<RestyResponse<IDirectMessage>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('userMeDMURI'),
+      url: getURL(this.config.sandbox)('userMeDMURI'),
       data: dm,
     };
     return this.request<IDirectMessage>(options);
@@ -31,7 +31,7 @@ export default class DirectMessage implements DirectMessageAPI {
   public postDirectMessage(dm: IDirectMessage, msg: MessageToCreate): Promise<RestyResponse<IMessage>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('dmsURI'),
+      url: getURL(this.config.sandbox)('dmsURI'),
       rest: {
         guildID: dm.guild_id,
       },

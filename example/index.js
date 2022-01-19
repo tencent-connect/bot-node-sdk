@@ -1,8 +1,8 @@
-import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
+const {createOpenAPI, createWebsocket} = require('../lib');
 
 const testConfig = {
-  BotAppID: '',
-  BotToken: '',
+  appID: '',
+  token: '',
 };
 
 const client = createOpenAPI(testConfig);
@@ -10,6 +10,7 @@ const client = createOpenAPI(testConfig);
 const testConfigWs = {
   appID: '',
   token: '',
+  intents: ['GUILDS', 'GUILD_MEMBERS', 'AUDIO_ACTION', 'AT_MESSAGES'],
   timeout: 3000,
 };
 const ws = createWebsocket(testConfigWs);
@@ -40,6 +41,6 @@ client.guildApi.guild('').then((data) => {
 });
 
 // ✅
-client.channelApi.channels(guildID).then((res) => {
-  console.log(res.data);
-});
+// client.channelApi.channels(guildID).then((res) => {
+//   console.log(res.data);
+// });

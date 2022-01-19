@@ -1,10 +1,11 @@
-import { Config, ISchedule, OpenAPIRequest, ScheduleAPI, ScheduleToCreate, ScheduleToPatch } from '@src/types';
-import { RestyResponse } from 'resty-client';
-import { getURL } from './resource';
+import {Config, ISchedule, OpenAPIRequest, ScheduleAPI, ScheduleToCreate, ScheduleToPatch} from '@src/types';
+import {RestyResponse} from 'resty-client';
+import {getURL} from './resource';
 
 export default class Schedule implements ScheduleAPI {
   public request: OpenAPIRequest;
   public config: Config;
+
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
@@ -17,7 +18,7 @@ export default class Schedule implements ScheduleAPI {
     }
     const options = {
       method: 'GET' as const,
-      url: getURL('schedulesURI'),
+      url: getURL(this.config.sandbox)('schedulesURI'),
       rest: {
         channelID,
       },
@@ -32,7 +33,7 @@ export default class Schedule implements ScheduleAPI {
   public schedule(channelID: string, scheduleID: string): Promise<RestyResponse<ISchedule>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('scheduleURI'),
+      url: getURL(this.config.sandbox)('scheduleURI'),
       rest: {
         channelID,
         scheduleID,
@@ -45,7 +46,7 @@ export default class Schedule implements ScheduleAPI {
   public postSchedule(channelID: string, schedule: ScheduleToCreate): Promise<RestyResponse<ISchedule>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('schedulesURI'),
+      url: getURL(this.config.sandbox)('schedulesURI'),
       rest: {
         channelID,
       },
@@ -64,7 +65,7 @@ export default class Schedule implements ScheduleAPI {
   ): Promise<RestyResponse<ISchedule>> {
     const options = {
       method: 'PATCH' as const,
-      url: getURL('scheduleURI'),
+      url: getURL(this.config.sandbox)('scheduleURI'),
       rest: {
         channelID,
         scheduleID,
@@ -80,7 +81,7 @@ export default class Schedule implements ScheduleAPI {
   public deleteSchedule(channelID: string, scheduleID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL('scheduleURI'),
+      url: getURL(this.config.sandbox)('scheduleURI'),
       rest: {
         channelID,
         scheduleID,

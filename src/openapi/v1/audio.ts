@@ -13,7 +13,7 @@ export default class Audio implements AudioAPI {
   postAudio(channelID: string, audioControl: AudioControl): Promise<RestyResponse<AudioControl>> {
     const options = {
       method: 'POST' as const,
-      url: getURL('audioControlURI'),
+      url: getURL(this.config.sandbox)('audioControlURI'),
       rest: {
         channelID,
       },

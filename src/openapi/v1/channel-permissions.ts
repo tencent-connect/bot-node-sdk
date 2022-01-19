@@ -20,7 +20,7 @@ export default class ChannelPermissions implements ChannelPermissionsAPI {
   public channelPermissions(channelID: string, userID: string): Promise<RestyResponse<IChannelPermissions>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('channelPermissionsURI'),
+      url: getURL(this.config.sandbox)('channelPermissionsURI'),
       rest: {
         channelID,
         userID,
@@ -44,7 +44,7 @@ export default class ChannelPermissions implements ChannelPermissionsAPI {
     }
     const options = {
       method: 'PUT' as const,
-      url: getURL('channelPermissionsURI'),
+      url: getURL(this.config.sandbox)('channelPermissionsURI'),
       rest: {
         channelID,
         userID,
@@ -58,7 +58,7 @@ export default class ChannelPermissions implements ChannelPermissionsAPI {
   public channelRolePermissions(channelID: string, roleID: string): Promise<RestyResponse<IChannelRolePermissions>> {
     const options = {
       method: 'GET' as const,
-      url: getURL('channelRolePermissionsURI'),
+      url: getURL(this.config.sandbox)('channelRolePermissionsURI'),
       rest: {
         channelID,
         roleID,
@@ -82,7 +82,7 @@ export default class ChannelPermissions implements ChannelPermissionsAPI {
     }
     const options = {
       method: 'PUT' as const,
-      url: getURL('channelRolePermissionsURI'),
+      url: getURL(this.config.sandbox)('channelRolePermissionsURI'),
       rest: {
         channelID,
         roleID,
