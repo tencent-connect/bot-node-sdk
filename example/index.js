@@ -1,18 +1,15 @@
 import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
 
 const testConfig = {
-  BotAppID: '',
-  BotToken: '',
+  appID: '',
+  token: '',
+  intents: ['GUILDS'],
 };
 
 const client = createOpenAPI(testConfig);
 
-const testConfigWs = {
-  appID: '',
-  token: '',
-  timeout: 3000,
-};
-const ws = createWebsocket(testConfigWs);
+const ws = createWebsocket(testConfig);
+
 ws.on('READY', (data) => {
   console.log('[READY] 事件接收 :', data);
 });
