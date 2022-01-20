@@ -8,7 +8,7 @@ export interface DirectMessageAPI {
   // CreateDirectMessage 创建私信频道
   createDirectMessage: (dm: DirectMessageToCreate) => Promise<RestyResponse<IDirectMessage>>;
   // PostDirectMessage 在私信频道内发消息
-  postDirectMessage: (dm: IDirectMessage, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
+  postDirectMessage: (guildID: string, msg: MessageToCreate) => Promise<RestyResponse<IMessage>>;
 }
 
 // DirectMessageToCreate 创建私信频道的结构体定义

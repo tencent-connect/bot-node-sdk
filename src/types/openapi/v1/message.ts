@@ -80,9 +80,9 @@ export interface MessagesPager {
 
 // 消息体结构
 export interface MessageToCreate {
-  content: string;
-  embed: Embed;
-  ark: Ark;
-  image: string;
-  msg_id: string; // 要回复的消息id,不为空则认为是被动消息
+  content?: string;
+  embed?: Embed;
+  ark?: Ark;
+  image?: string;
+  msg_id?: string; // 要回复的消息id,不为空则认为是被动消息
 }
