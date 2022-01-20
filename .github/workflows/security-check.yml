@@ -16,14 +16,6 @@ jobs:
         uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
-      - name: SecureStack Secrets Analysis
-        uses: SecureStackCo/actions-secrets@v0.1.0
-        with:
-          # SecureStack API key - generate one at https://app.securestack.com
-          securestack_api_key: ${{ secrets.SECURESTACK_API_KEY_SECRET }}
-          securestack_app_id: '063501a3-d525-420b-9653-b1ba093f9ec8'
-          severity: critical
-          flags: '-d 999'
       - name: npm audit action
         uses: oke-py/npm-audit-action@v1.8.3
         with:
