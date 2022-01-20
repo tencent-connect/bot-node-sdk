@@ -1,0 +1,37 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo for running secrets analysis within workflow
+        id: checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: SecureStack Secrets Analysis
+        uses: SecureStackCo/actions-secrets@v0.1.0
+        with:
+          # SecureStack API key - generate one at https://app.securestack.com
+          securestack_api_key: ${{ secrets.SECURESTACK_API_KEY_SECRET }}
+          securestack_app_id: '063501a3-d525-420b-9653-b1ba093f9ec8'
+          severity: critical
+          flags: '-d 999'
+      - name: npm audit action
+        uses: oke-py/npm-audit-action@v1.8.3
+        with:
+          # The value of `--audit-level` flag
+          audit_level: low
+          production_flag: false
+          json_flag: false
+          github_context: ${{ toJson(github) }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: ostwindli,zoswing
+          issue_labels: 'npm audit'
