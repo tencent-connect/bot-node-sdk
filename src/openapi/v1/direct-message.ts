@@ -28,12 +28,12 @@ export default class DirectMessage implements DirectMessageAPI {
   }
 
   // 在私信频道内发消息
-  public postDirectMessage(dm: IDirectMessage, msg: MessageToCreate): Promise<RestyResponse<IMessage>> {
+  public postDirectMessage(guildID: string, msg: MessageToCreate): Promise<RestyResponse<IMessage>> {
     const options = {
       method: 'POST' as const,
       url: getURL('dmsURI'),
       rest: {
-        guildID: dm.guild_id,
+        guildID,
       },
       data: msg,
     };
