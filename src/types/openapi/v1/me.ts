@@ -6,7 +6,7 @@ import { IGuild } from './guild';
  */
 export interface MeAPI {
   me: () => Promise<RestyResponse<IUser>>;
-  meGuilds: (options: MeGuildsReq) => Promise<RestyResponse<IGuild[]>>;
+  meGuilds: (options?: MeGuildsReq) => Promise<RestyResponse<IGuild[]>>;
 }
 export interface IUser {
   id: string;

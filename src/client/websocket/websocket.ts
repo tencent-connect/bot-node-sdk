@@ -47,13 +47,13 @@ export class Ws {
   // 创建一个websocket连接
   async createWebsocket(wsData: WsAddressObj) {
     // 先链接到ws
-    await this.connectWs(wsData);
+    this.connectWs(wsData);
     // 对消息进行监听
     this.createListening();
   }
 
   // 创建监听
-  async createListening() {
+  createListening() {
     // websocket连接已开启
     this.ws.on('open', () => {
       console.log(`[CLIENT] 开启`);
@@ -137,7 +137,7 @@ export class Ws {
   }
 
   // 连接ws
-  async connectWs(wsData: WsAddressObj) {
+  connectWs(wsData: WsAddressObj) {
     // 创建websocket连接
     this.ws = new WebSocket(wsData.url);
   }
@@ -202,8 +202,7 @@ export class Ws {
     const typeIn = intentsIn.every((item) => typeof item === 'string');
     if (!typeIn) {
       console.log('[CLIENT] intents中存在不合法类型，仅开启有效监听事件');
-      const intentsArr = intentsIn.filter((item) => typeof item === 'string');
-      return intentsArr;
+      return intentsIn.filter((item) => typeof item === 'string');
     }
     return intentsIn;
   }
@@ -211,7 +210,7 @@ export class Ws {
   // 校验shards
   checkShards(shardsArr: Array<number> | undefined) {
     // 没有传shards进来
-    if (!shardsArr || shardsArr === undefined) {
+    if (!shardsArr) {
       return console.log('shards 不存在');
     }
     // 传进来的符合要求
@@ -225,8 +224,7 @@ export class Ws {
   sendWs(msg: unknown) {
     try {
       // 先将消息转为字符串
-      if (typeof msg === 'string') return this.ws.send(msg);
-      this.ws.send(JSON.stringify(msg));
+      this.ws.send(typeof msg === 'string' ? msg : JSON.stringify(msg));
     } catch (e) {
       console.log(e);
     }
@@ -244,7 +242,7 @@ export class Ws {
 
   // 重新重连Ws
   reconnectWs() {
-    const recconectParam = {
+    const reconnectParam = {
       op: OpCode.RESUME,
       d: {
         token: `Bot ${this.config.appID}.${this.config.token}`,
@@ -252,7 +250,7 @@ export class Ws {
         seq: this.sessionRecord.seq,
       },
     };
-    this.sendWs(recconectParam);
+    this.sendWs(reconnectParam);
   }
 
   // OpenAPI事件分发
