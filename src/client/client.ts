@@ -25,7 +25,7 @@ export default class WebsocketClient extends EventEmitter {
               WebsocketCloseReason[indexOf(WebsocketCloseReason, data, "code")]?.resume ? data.eventMsg : null)
             this.retry += 1
           } else {
-            console.log('[CLIENT] 摆烂了，不连了');
+            console.log('[CLIENT] 超过重试次数，连接终止');
             this.emit(SessionEvents.DEAD, {eventType: SessionEvents.ERROR, msg: "连接已死亡，请检查网络或重启"})
           }
           break;
