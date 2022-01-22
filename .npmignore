@@ -1,0 +1,10 @@
+.git
+.gitignore
+.npmignore
+.DS_Store
+.vscode
+dist
+webpack.config.js
+test
+docs
+

@@ -1,0 +1,23 @@
+name: Issues Notifier
+on:
+  issues:
+    types: [opened, reopened]
+jobs:
+  add-assigness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Work Weixin Notifier
+        uses: jerray/work-weixin-notifier@v1.1.0
+        with:
+          key: ${{ secrets.weixin_bot_key }}
+          content: |
+            # 【NodeSDK】 <font color="warning">ISSUE</font> [ <font color="info">${{github.event.issue.state}}</font> ] 
+
+            > Detail： [${{ github.event.issue.html_url }}](${{ github.event.issue.html_url }})
+            > Title： ${{ github.event.issue.title }} 
+            > Body： ${{github.event.issue.body}}
+            > User： ${{ github.event.issue.user.login }}
+            > Attention： <@shaohuizuo> <@ostwindli>
+
+          type: markdown
+          status: ${{ job.status }}
