@@ -1,13 +1,21 @@
+// 以下仅为用法示意，详情请参照文档：https://bot.q.qq.com/wiki/develop/nodesdk/
+
 import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
 
 const testConfig = {
-  appID: '',
-  token: '',
-  intents: ['GUILDS'],
+  appID: 'APP_ID',
+  token: 'TOKEN',
+  // https://bot.q.qq.com/wiki/develop/api/gateway/intents.html
+  intents: ['GUILDS', 'GUILD_MEMBERS', 'AUDIO_ACTION', 'AT_MESSAGES'],
 };
 
+// API
 const client = createOpenAPI(testConfig);
+client.guildApi.guild('GUILD_ID').then((data) => {
+  console.log(data);
+});
 
+//WS
 const ws = createWebsocket(testConfig);
 
 ws.on('READY', (data) => {
@@ -32,11 +40,3 @@ ws.on('AT_MESSAGES', (data) => {
   console.log('[AT_MESSAGES] 事件接收 :', data);
 });
 
-client.guildApi.guild('').then((data) => {
-  console.log(data);
-});
-
-// ✅
-client.channelApi.channels(guildID).then((res) => {
-  console.log(res.data);
-});
