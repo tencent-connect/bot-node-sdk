@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const {createOpenAPI, createWebsocket} = require('../lib/index.js');
+const { createOpenAPI, createWebsocket } = require('../lib/index.js');
 
 let config = {};
 // config.json需要您用自己的机器人信息配置
@@ -51,6 +51,3 @@ ws.on('AT_MESSAGES', (data) => {
     msg_id: msg.id
   });
 });
-ws.on('DEAD', (data) => {
-  console.log('[DEAD] 事件接收 :', data);
-})

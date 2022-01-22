@@ -1,6 +1,6 @@
 /* eslint-disable prefer-promise-reject-errors */
-import {register} from '@src/openapi/openapi';
-import resty, {RequestOptions, RestyResponse} from 'resty-client';
+import { register } from '@src/openapi/openapi';
+import resty, { RequestOptions, RestyResponse } from 'resty-client';
 import Guild from './guild';
 import Channel from './channel';
 import Me from './me';
@@ -13,7 +13,7 @@ import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
-import {addUserAgent, addAuthorization, buildUrl} from '@src/utils/utils';
+import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
   ChannelAPI,
@@ -75,12 +75,11 @@ export class OpenAPI implements IOpenAPI {
     client.channelPermissionsApi = new ChannelPermissions(this.request, this.config);
     client.audioApi = new Audio(this.request, this.config);
   }
-
   // 基础rest请求
   public request<T extends Record<any, any> = any>(options: RequestOptions): Promise<RestyResponse<T>> {
-    const {appID, token} = this.config;
+    const { appID, token } = this.config;
 
-    options.headers = {...options.headers};
+    options.headers = { ...options.headers };
 
     // 添加 UA
     addUserAgent(options.headers);
