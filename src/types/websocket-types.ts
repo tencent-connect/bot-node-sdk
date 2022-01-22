@@ -29,6 +29,7 @@ export interface GetWsParam {
   token: string;
   shards?: Array<number>;
   intents?: Array<AvailableIntentsEventsEnum>;
+  sandbox?: boolean;
 }
 
 // 请求ws地址回包对象

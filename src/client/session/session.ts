@@ -2,6 +2,7 @@ import { WsObjRequestOptions, EventTypes, SessionEvents, GetWsParam, SessionReco
 import { Ws } from '@src/client/websocket/websocket';
 import { EventEmitter } from 'ws';
 import resty, { RequestOptions } from 'resty-client';
+import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 
 export default class Session {
   config: GetWsParam;
@@ -23,7 +24,9 @@ export default class Session {
   async createSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
-    WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
+    // 添加鉴权信息
+    addAuthorization(WsObjRequestOptions.headers, this.config.appID, this.config.token);
+
     const wsData = await this.getWsInfo(WsObjRequestOptions);
     // 连接到 ws
     this.ws.createWebsocket(wsData);
@@ -48,7 +51,10 @@ export default class Session {
     const wsData: any = {
       data: {},
     };
-    await wsService.get(options.url as string, {}).then((res) => {
+
+    const botUrl = buildUrl(options.url, this.config.sandbox);
+
+    await wsService.get(botUrl, {}).then((res) => {
       wsData.data = res.data;
     });
     return wsData.data;

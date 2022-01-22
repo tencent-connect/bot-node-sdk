@@ -4,12 +4,8 @@ import { APIVersion, Config } from './types/openapi';
 import { GetWsParam } from '@src/types';
 import WebsocketClient from './client/client';
 
-function init() {
-  // 注册v1接口
-  v1Setup();
-}
-// 进行初始化
-init();
+// 注册v1接口
+v1Setup();
 
 let defaultImpl = versionMapping[apiVersion] as typeof OpenAPI;
 

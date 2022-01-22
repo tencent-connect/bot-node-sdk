@@ -17,6 +17,7 @@ export type OpenAPIRequest = <T extends Record<any, any> = any>(options: Request
 export interface Config {
   appID: string;
   token: string;
+  sandbox?: boolean;
 }
 
 export interface IOpenAPI {
