@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strict": true,
+    "lib": ["esnext"],
+    "typeRoots": ["src/types"],
+    "types": ["node", "@types/jest"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "noEmit": true,
+    "allowJs": true,
+    "paths": {
+      "@src/*": ["src/*"]
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", "js"]
+      }
+    }
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "example"]
+}

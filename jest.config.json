@@ -1,0 +1,26 @@
+{
+  "verbose": true,
+  "collectCoverage": true,
+  "cacheDirectory": ".cache",
+  "roots": ["<rootDir>"],
+  "transform": {
+    "^.+\\.(t|j)s?x?$": "babel-jest"
+  },
+  "testEnvironment": "node",
+  "coverageDirectory": "coverage",
+  "coverageProvider": "v8",
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  },
+  "moduleNameMapper": {
+    "^@src/(.+)$": "<rootDir>/src/$1"
+  },
+  "moduleFileExtensions": ["ts", "js"],
+  "transformIgnorePatterns":["/node_modules/(?!(map-obj|quick-lru))"],
+  "testRegex": "(spec)\\.(ts|js)?$"
+}

@@ -1,0 +1,91 @@
+{
+  "name": "qq-guild-bot",
+  "version": "2.6.0",
+  "description": "QQ频道机器人NodeSDK",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "tencent",
+    "nodejs",
+    "qq",
+    "channel",
+    "guild",
+    "bot"
+  ],
+  "files": [
+    "es",
+    "lib",
+    "typings"
+  ],
+  "module": "es/index.js",
+  "main": "lib/index.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "npm run clean & cross-env NODE_ENV=dev rollup -c rollup.config.js -w",
+    "build": "npm run clean &cross-env NODE_ENV=production rollup -c rollup.config.js",
+    "lint": "npx eslint \"./**/*.{js,ts}\" --fix",
+    "format": "prettier --write ./src",
+    "test": "jest --config jest.config.json",
+    "example": "cd example && npm run dev",
+    "gc": "git-cz",
+    "release": "standard-version",
+    "clean": "rimraf lib es typings",
+    "linkdev": "node scripts/dev.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@types/jest": "^27.0.2",
+    "@types/lodash.assignin": "^4.2.6",
+    "@types/ws": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "commitizen": "^4.2.4",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-alloy": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "jest": "^25.3.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.56.2",
+    "rollup-plugin-dts": "^4.0.0",
+    "rollup-plugin-typescript-paths": "^1.3.0",
+    "standard-version": "^9.3.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "resty-client": "0.0.5",
+    "ws": "^7.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tencent-connect/bot-node-sdk.git"
+  },
+  "author": "joyqwang",
+  "license": "MIT",
+  "homepage": "",
+  "lint-staged": {
+    "src/**/*.ts?(x)": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
