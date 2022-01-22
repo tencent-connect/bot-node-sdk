@@ -1,6 +1,6 @@
-import {Config, OpenAPIRequest, GuildRoles, IRole, IRoleFilter, RoleAPI, UpdateRoleRes} from '@src/types';
-import {RestyResponse} from 'resty-client';
-import {getURL} from './resource';
+import { Config, OpenAPIRequest, GuildRoles, IRole, IRoleFilter, RoleAPI, UpdateRoleRes } from '@src/types';
+import { RestyResponse } from 'resty-client';
+import { getURL } from './resource';
 
 // 默认的filter：0 1 代表是否设置 0-否 1-是
 export const defaultFilter: IRoleFilter = {
@@ -14,17 +14,15 @@ export const defaultColor = 4278245297;
 export default class Role implements RoleAPI {
   public request: OpenAPIRequest;
   public config: Config;
-
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
   }
-
   // 获取频道身份组列表
   public roles(guildID: string): Promise<RestyResponse<GuildRoles>> {
     const options = {
       method: 'GET' as const,
-      url: getURL(this.config.sandbox)('rolesURI'),
+      url: getURL('rolesURI'),
       rest: {
         guildID,
       },
@@ -43,7 +41,7 @@ export default class Role implements RoleAPI {
     }
     const options = {
       method: 'POST' as const,
-      url: getURL(this.config.sandbox)('rolesURI'),
+      url: getURL('rolesURI'),
       rest: {
         guildID,
       },
@@ -69,7 +67,7 @@ export default class Role implements RoleAPI {
 
     const options = {
       method: 'PATCH' as const,
-      url: getURL(this.config.sandbox)('roleURI'),
+      url: getURL('roleURI'),
       rest: {
         guildID,
         roleID,
@@ -87,7 +85,7 @@ export default class Role implements RoleAPI {
   public deleteRole(guildID: string, roleID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: getURL(this.config.sandbox)('roleURI'),
+      url: getURL('roleURI'),
       rest: {
         guildID,
         roleID,

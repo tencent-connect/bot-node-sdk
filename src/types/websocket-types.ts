@@ -1,5 +1,6 @@
 import {apiVersion} from '@src/openapi/v1/openapi';
 import {getURL} from '@src/openapi/v1/resource';
+import {buildUrl} from "@src/utils/utils";
 
 // websocket建立成功回包
 export interface wsResData {
@@ -263,7 +264,7 @@ export const SessionEvents = {
 // ws地址配置
 export const WsObjRequestOptions = (sandbox: boolean) => ({
   method: 'GET' as const,
-  url: getURL(sandbox)('wsInfo'),
+  url: buildUrl(getURL('wsInfo'), sandbox),
   headers: {
     Accept: '*/*',
     'Accept-Encoding': 'utf-8',

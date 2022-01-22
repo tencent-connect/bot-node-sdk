@@ -1,22 +1,20 @@
-import {Config, OpenAPIRequest, AnnounceAPI, IAnnounce} from '@src/types';
-import {RestyResponse} from 'resty-client';
-import {apiMap, getURL} from "@src/openapi/v1/resource"
+import { Config, OpenAPIRequest, AnnounceAPI, IAnnounce } from '@src/types';
+import { RestyResponse } from 'resty-client';
+import { getURL } from './resource';
 
 export default class Announce implements AnnounceAPI {
   public request: OpenAPIRequest;
   public config: Config;
-
   constructor(request: OpenAPIRequest, config: Config) {
     this.request = request;
     this.config = config;
   }
 
-
   // 创建guild公告
   public postGuildAnnounce(guildID: string, channelID: string, messageID: string): Promise<RestyResponse<IAnnounce>> {
     const options = {
       method: 'POST' as const,
-      url: this.getURL('guildAnnouncesURI'),
+      url: getURL('guildAnnouncesURI'),
       rest: {
         guildID,
       },
@@ -32,7 +30,7 @@ export default class Announce implements AnnounceAPI {
   public deleteGuildAnnounce(guildID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: this.getURL('guildAnnounceURI'),
+      url: getURL('guildAnnounceURI'),
       rest: {
         guildID,
         messageID,
@@ -45,7 +43,7 @@ export default class Announce implements AnnounceAPI {
   public postChannelAnnounce(channelID: string, messageID: string): Promise<RestyResponse<IAnnounce>> {
     const options = {
       method: 'POST' as const,
-      url: this.getURL('channelAnnouncesURI'),
+      url: getURL('channelAnnouncesURI'),
       rest: {
         channelID,
       },
@@ -60,15 +58,12 @@ export default class Announce implements AnnounceAPI {
   public deleteChannelAnnounce(channelID: string, messageID: string): Promise<RestyResponse<any>> {
     const options = {
       method: 'DELETE' as const,
-      url: this.getURL('channelAnnounceURI'),
+      url: getURL('channelAnnounceURI'),
       rest: {
         channelID,
         messageID,
       },
     };
     return this.request(options);
-  }
-  private getURL(url: keyof typeof apiMap) {
-    return getURL(this.config.sandbox)(url)
   }
 }

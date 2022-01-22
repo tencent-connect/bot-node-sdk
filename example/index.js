@@ -1,15 +1,30 @@
-import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
+// 以下仅为用法示意，详情请参照文档：https://bot.q.qq.com/wiki/develop/nodesdk/
 
-const testConfig = {
-  appID: '',
-  token: '',
-  intents: ['GUILDS'],
-};
+const fs = require('fs');
+const path = require('path');
+const {createOpenAPI, createWebsocket} = require('../lib/index.js');
 
-const client = createOpenAPI(testConfig);
+let config = {};
+// config.json需要您用自己的机器人信息配置
+const configPath = path.join(__dirname, 'config.json');
+if (fs.existsSync(configPath)) {
+  config = fs.readFileSync(configPath).toString();
+  config = JSON.parse(config);
+}
 
-const ws = createWebsocket(testConfig);
+console.log(`config信息：\n\n ${JSON.stringify(config)} \n`);
 
+
+// API Demo
+const client = createOpenAPI(config);
+let res = await client.meApi.me();
+console.log(`\n meApi.me() res: \n\n ${JSON.stringify(res.data)} \n`);
+
+res = await client.meApi.meGuilds();
+console.log(`\n meApi.meGuilds() res: \n\n ${JSON.stringify(res.data)} \n`);
+
+//WS Demo
+const ws = createWebsocket(config);
 ws.on('READY', (data) => {
   console.log('[READY] 事件接收 :', data);
 });
@@ -30,17 +45,12 @@ ws.on('AUDIO_ACTION', (data) => {
 });
 ws.on('AT_MESSAGES', (data) => {
   console.log('[AT_MESSAGES] 事件接收 :', data);
+  const msg = data.msg;
+  client.messageApi.postMessage(msg.channel_id, {
+    content: `<@!${msg.author.id}> hi 收到你的消息啦`,
+    msg_id: msg.id
+  });
 });
-
-ws.on('DEAD', data => {
-  console.info('[DEAD] 事件接收 :', data);
+ws.on('DEAD', (data) => {
+  console.log('[DEAD] 事件接收 :', data);
 })
-
-client.guildApi.guild('').then((data) => {
-  console.log(data);
-});
-
-// ✅
-client.channelApi.channels(guildID).then((res) => {
-  console.log(res.data);
-});
