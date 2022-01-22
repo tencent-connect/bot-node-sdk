@@ -13,7 +13,7 @@ import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
-import { addUserAgent } from '@src/utils/utils';
+import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
   ChannelAPI,
@@ -35,8 +35,7 @@ export const apiVersion = 'v1';
 
 export class OpenAPI implements IOpenAPI {
   static newClient(config: Config) {
-    const client = new OpenAPI(config);
-    return client;
+    return new OpenAPI(config);
   }
 
   config: Config = {
@@ -55,10 +54,12 @@ export class OpenAPI implements IOpenAPI {
   public directMessageApi!: DirectMessageAPI;
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
+
   constructor(config: Config) {
     this.config = config;
     this.register(this);
   }
+
   public register(client: IOpenAPI) {
     // 注册聚合client
     client.guildApi = new Guild(this.request, this.config);
@@ -77,12 +78,15 @@ export class OpenAPI implements IOpenAPI {
   // 基础rest请求
   public request<T extends Record<any, any> = any>(options: RequestOptions): Promise<RestyResponse<T>> {
     const { appID, token } = this.config;
-    options.headers = {
-      ...options.headers,
-      Authorization: `Bot ${appID}.${token}`,
-    };
+
+    options.headers = { ...options.headers };
+
     // 添加 UA
     addUserAgent(options.headers);
+    // 添加鉴权信息
+    addAuthorization(options.headers, appID, token);
+    // 组装完整Url
+    const botUrl = buildUrl(options.url, this.config.sandbox);
 
     // 简化错误信息，后续可考虑通过中间件形式暴露给用户自行处理
     resty.useRes(
@@ -106,7 +110,7 @@ export class OpenAPI implements IOpenAPI {
     );
 
     const client = resty.create(options);
-    return client.request<T>(options.url!, options);
+    return client.request<T>(botUrl!, options);
   }
 }
 

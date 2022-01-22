@@ -40,3 +40,11 @@ export const addUserAgent = (header: AxiosRequestHeaders) => {
   const sdkVersion = version;
   header['User-Agent'] = `BotNodeSDK/v${sdkVersion}`;
 };
+// 添加 User-Agent
+export const addAuthorization = (header: AxiosRequestHeaders, appID: string, token: string) => {
+  header['Authorization'] = `Bot ${appID}.${token}`;
+};
+// 组装完整Url
+export const buildUrl = (path = '', isSandbox?: boolean) => {
+  return `${isSandbox ? 'https://sandbox.api.sgroup.qq.com' : 'https://api.sgroup.qq.com'}${path}`;
+};

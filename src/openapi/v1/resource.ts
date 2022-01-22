@@ -1,7 +1,3 @@
-const domain = 'api.sgroup.qq.com';
-const sandBoxDomain = 'sandbox.api.sgroup.qq.com';
-const scheme = 'https';
-
 const apiMap = {
   guildURI: '/guilds/:guildID',
   guildMembersURI: '/guilds/:guildID/members',
@@ -33,10 +29,4 @@ const apiMap = {
   wsInfo: '/gateway/bot',
 };
 
-export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
-  let d = domain;
-  if (sanbox) {
-    d = sandBoxDomain;
-  }
-  return `${scheme}://${d}${apiMap[endpoint]}`;
-}
+export const getURL = (endpoint: keyof typeof apiMap) => apiMap[endpoint];
