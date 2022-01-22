@@ -1,0 +1,6 @@
+{
+  "appID": "xxx",
+  "token": "yyyyyy",
+  "intents": ["GUILDS", "GUILD_MEMBERS", "AUDIO_ACTION", "AT_MESSAGES"],
+  "sandbox": false
+}
