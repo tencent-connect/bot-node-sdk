@@ -1,23 +1,30 @@
 // 以下仅为用法示意，详情请参照文档：https://bot.q.qq.com/wiki/develop/nodesdk/
 
-import { createOpenAPI, createWebsocket } from 'qq-guild-bot';
+const fs = require('fs');
+const path = require('path');
+const { createOpenAPI, createWebsocket } = require('../lib/index.js');
 
-const testConfig = {
-  appID: 'APP_ID',
-  token: 'TOKEN',
-  // https://bot.q.qq.com/wiki/develop/api/gateway/intents.html
-  intents: ['GUILDS', 'GUILD_MEMBERS', 'AUDIO_ACTION', 'AT_MESSAGES'],
-};
+let config = {};
+// config.json需要您用自己的机器人信息配置
+const configPath = path.join(__dirname, 'config.json');
+if (fs.existsSync(configPath)) {
+  config = fs.readFileSync(configPath).toString();
+  config = JSON.parse(config);
+}
 
-// API
-const client = createOpenAPI(testConfig);
-client.guildApi.guild('GUILD_ID').then((data) => {
-  console.log(data);
-});
+console.log(`config信息：\n\n ${JSON.stringify(config)} \n`);
 
-//WS
-const ws = createWebsocket(testConfig);
 
+// API Demo
+const client = createOpenAPI(config);
+let res = await client.meApi.me();
+console.log(`\n meApi.me() res: \n\n ${JSON.stringify(res.data)} \n`);
+
+res = await client.meApi.meGuilds();
+console.log(`\n meApi.meGuilds() res: \n\n ${JSON.stringify(res.data)} \n`);
+
+//WS Demo
+const ws = createWebsocket(config);
 ws.on('READY', (data) => {
   console.log('[READY] 事件接收 :', data);
 });
@@ -38,5 +45,9 @@ ws.on('AUDIO_ACTION', (data) => {
 });
 ws.on('AT_MESSAGES', (data) => {
   console.log('[AT_MESSAGES] 事件接收 :', data);
+  const msg = data.msg;
+  client.messageApi.postMessage(msg.channel_id, {
+    content: `<@!${msg.author.id}> hi 收到你的消息啦`,
+    msg_id: msg.id
+  });
 });
-
