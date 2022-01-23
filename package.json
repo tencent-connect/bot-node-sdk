@@ -1,6 +1,6 @@
 {
   "name": "qq-guild-bot",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

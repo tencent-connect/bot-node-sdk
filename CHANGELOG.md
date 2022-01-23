@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.6.0...v2.7.0) (2022-01-23)
+
+
+### Features
+
+* readme增加贡献者展示 ([0398bff](https://github.com/tencent-connect/bot-node-sdk/commit/0398bff84a0bbdf46c0652f8f4f903d557e5bd09))
+* 支持沙箱 ([a6339fa](https://github.com/tencent-connect/bot-node-sdk/commit/a6339fa9d32c3fd427ea204b306ea03b1478f320))
+
+
+### Bug Fixes
+
+* 接收数据类型为buffer时不被识别问题 ([dbe2bce](https://github.com/tencent-connect/bot-node-sdk/commit/dbe2bce45259c58c3cd802ef64f83ee0104d6112)), closes [#733e6111bdc3b853b252f3c0defc819f3e83309](https://github.com/tencent-connect/bot-node-sdk/issues/733e6111bdc3b853b252f3c0defc819f3e83309)
+
 ## [2.6.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.5.1...v2.6.0) (2022-01-21)
 
 
