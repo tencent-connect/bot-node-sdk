@@ -1,27 +1,46 @@
-import { GetWsParam, EventTypes, SessionEvents, SessionRecord } from '@src/types/websocket-types';
+import { GetWsParam, SessionEvents, SessionRecord, WebsocketCloseReason } from '@src/types/websocket-types';
 import Session from '@src/client/session/session';
 import { EventEmitter } from 'ws';
 
+const MAX_RETRY = 5;
+
 export default class WebsocketClient extends EventEmitter {
   session!: Session;
+  retry = 0;
+
   constructor(config: GetWsParam) {
     super();
     this.connect(config);
+
+    this.on(SessionEvents.EVENT_WS, (data) => {
+      switch (data.eventType) {
+        case SessionEvents.RECONNECT:
+          console.log('[CLIENT] 等待断线重连中。。。');
+          break;
+        case SessionEvents.DISCONNECT:
+          if (this.retry < (config.maxRetry || MAX_RETRY)) {
+            console.log('[CLIENT] 重新连接中，尝试次数：', this.retry + 1);
+            this.connect(config, WebsocketCloseReason.find((v) => v.code === data.code)?.resume ? data.eventMsg : null);
+            this.retry += 1;
+          } else {
+            console.log('[CLIENT] 超过重试次数，连接终止');
+            this.emit(SessionEvents.DEAD, { eventType: SessionEvents.ERROR, msg: '连接已死亡，请检查网络或重启' });
+          }
+          break;
+        case SessionEvents.READY:
+          console.log('[CLIENT] 连接成功');
+          this.retry = 0;
+          break;
+        default:
+      }
+    });
   }
 
   // 连接
-  async connect(config: GetWsParam) {
+  connect(config: GetWsParam, sessionRecord?: SessionRecord) {
     const event = this;
     // 新建一个会话
-    this.session = new Session(config, event);
-    event.on(SessionEvents.EVENT_WS, (data: EventTypes) => {
-      // 断线重连
-      if (data.eventType === SessionEvents.DISCONNECT) {
-        console.log('[CLIENT] 断线重连');
-        // 传入会话记录
-        this.session = new Session(config, event, data.eventMsg as SessionRecord);
-      }
-    });
+    this.session = new Session(config, event, sessionRecord);
     return this.session;
   }
 
