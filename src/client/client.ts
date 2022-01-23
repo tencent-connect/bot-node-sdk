@@ -2,11 +2,11 @@ import { GetWsParam, SessionEvents, SessionRecord, WebsocketCloseReason } from '
 import Session from '@src/client/session/session';
 import { EventEmitter } from 'ws';
 
-const MAX_RETRY = 5
+const MAX_RETRY = 5;
 
 export default class WebsocketClient extends EventEmitter {
   session!: Session;
-  retry = 0
+  retry = 0;
 
   constructor(config: GetWsParam) {
     super();
@@ -19,12 +19,12 @@ export default class WebsocketClient extends EventEmitter {
           break;
         case SessionEvents.DISCONNECT:
           if (this.retry < (config.maxRetry || MAX_RETRY)) {
-            console.log('[CLIENT] 重新连接中，尝试次数：', (this.retry + 1));
-            this.connect(config, WebsocketCloseReason.find(v => v.code === data)?.resume ? data.eventMsg : null)
-            this.retry += 1
+            console.log('[CLIENT] 重新连接中，尝试次数：', this.retry + 1);
+            this.connect(config, WebsocketCloseReason.find((v) => v.code === data.code)?.resume ? data.eventMsg : null);
+            this.retry += 1;
           } else {
             console.log('[CLIENT] 超过重试次数，连接终止');
-            this.emit(SessionEvents.DEAD, {eventType: SessionEvents.ERROR, msg: "连接已死亡，请检查网络或重启"})
+            this.emit(SessionEvents.DEAD, { eventType: SessionEvents.ERROR, msg: '连接已死亡，请检查网络或重启' });
           }
           break;
         case SessionEvents.READY:
@@ -33,7 +33,7 @@ export default class WebsocketClient extends EventEmitter {
           break;
         default:
       }
-    })
+    });
   }
 
   // 连接
