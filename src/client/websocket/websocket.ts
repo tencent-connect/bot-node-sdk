@@ -10,9 +10,9 @@ import {
   WsEventType,
   wsResData,
 } from '@src/types/websocket-types';
-import WebSocket, { EventEmitter } from 'ws';
-import { toObject } from '@src/utils/utils';
-import { Properties } from '@src/utils/constants';
+import WebSocket, {EventEmitter} from 'ws';
+import {toObject} from '@src/utils/utils';
+import {Properties} from '@src/utils/constants';
 
 // websocket连接
 export class Ws {
@@ -32,6 +32,7 @@ export class Ws {
     sessionID: '',
     seq: 0,
   };
+  alive = false;
 
   constructor(config: GetWsParam, event: EventEmitter, sessionRecord?: SessionRecord) {
     this.config = config;
@@ -69,7 +70,6 @@ export class Ws {
       const wsRes = toObject(data);
       // 先判断websocket连接是否成功
       if (wsRes?.op === OpCode.HELLO && wsRes?.d?.heartbeat_interval) {
-        this.event.emit(SessionEvents.EVENT_WS, {eventType: SessionEvents.READY});
         // websocket连接成功，拿到心跳周期
         this.heartbeatInterval = wsRes?.d?.heartbeat_interval;
         // 非断线重连时，需要鉴权
@@ -97,6 +97,10 @@ export class Ws {
 
       // 心跳测试
       if (wsRes.op === OpCode.HEARTBEAT_ACK || wsRes.t === SessionEvents.RESUMED) {
+        if (!this.alive) {
+          this.alive = true
+          this.event.emit(SessionEvents.EVENT_WS, {eventType: SessionEvents.READY});
+        }
         console.log('[CLIENT] 心跳校验', this.heartbeatParam);
         setTimeout(() => {
           this.sendWs(this.heartbeatParam);
@@ -126,6 +130,7 @@ export class Ws {
     this.ws.on('close', (data: number) => {
       console.log('[CLIENT] 连接关闭', data);
       // 通知会话，当前已断线
+      this.alive = false
       this.event.emit(SessionEvents.EVENT_WS, {
         eventType: SessionEvents.DISCONNECT,
         eventMsg: this.sessionRecord,
