@@ -34,8 +34,8 @@ console.log(`config信息：\n\n ${JSON.stringify(config)} \n`);
   ws.on('GUILDS', (data) => {
     console.log('[GUILDS] 事件接收 :', data);
   });
-  ws.on('GUILGUILD_MEMBERSDS', (data) => {
-    console.log('[GUILGUILD_MEMBERSDS] 事件接收 :', data);
+  ws.on('GUILD_MEMBERS', (data) => {
+    console.log('[GUILD_MEMBERS] 事件接收 :', data);
   });
   ws.on('DIRECT_MESSAGE', (data) => {
     console.log('[DIRECT_MESSAGE] 事件接收 :', data);
