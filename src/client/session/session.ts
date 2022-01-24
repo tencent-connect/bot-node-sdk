@@ -1,8 +1,8 @@
-import {GetWsParam, SessionEvents, SessionRecord, WsObjRequestOptions} from '@src/types/websocket-types';
-import {Ws} from '@src/client/websocket/websocket';
-import {EventEmitter} from 'ws';
+import { GetWsParam, SessionEvents, SessionRecord, WsObjRequestOptions } from '@src/types/websocket-types';
+import { Ws } from '@src/client/websocket/websocket';
+import { EventEmitter } from 'ws';
 import resty from 'resty-client';
-import {addAuthorization} from "@src/utils/utils";
+import { addAuthorization } from '@src/utils/utils';
 
 export default class Session {
   config: GetWsParam;
@@ -18,28 +18,32 @@ export default class Session {
     if (sessionRecord) {
       this.sessionRecord = sessionRecord;
     }
-    this.createSession()
+    this.createSession();
   }
 
   // 新建会话
   createSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
-    const reqOptions = WsObjRequestOptions(this.config.sandbox)
-    addAuthorization(reqOptions.headers, this.config.appID, this.config.token)
-    resty.create(reqOptions)
+    const reqOptions = WsObjRequestOptions(this.config.sandbox as boolean);
+
+    addAuthorization(reqOptions.headers, this.config.appID, this.config.token);
+
+    resty
+      .create(reqOptions)
       .get(reqOptions.url as string, {})
-      .then(r => {
-        const wsData = r.data
-        if (!wsData) throw new Error("获取ws连接信息异常")
+      .then((r) => {
+        const wsData = r.data;
+        if (!wsData) throw new Error('获取ws连接信息异常');
         this.ws.createWebsocket(wsData);
-      }).catch(e => {
-      console.log('[ERROR] createSession: ', e)
-      this.event.emit(SessionEvents.EVENT_WS, {
-        eventType: SessionEvents.DISCONNECT,
-        eventMsg: this.sessionRecord
       })
-    })
+      .catch((e) => {
+        console.log('[ERROR] createSession: ', e);
+        this.event.emit(SessionEvents.EVENT_WS, {
+          eventType: SessionEvents.DISCONNECT,
+          eventMsg: this.sessionRecord,
+        });
+      });
   }
 
   // 关闭会话

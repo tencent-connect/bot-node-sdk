@@ -2,7 +2,7 @@ import { GetWsParam, SessionEvents, SessionRecord, WebsocketCloseReason } from '
 import Session from '@src/client/session/session';
 import { EventEmitter } from 'ws';
 
-const MAX_RETRY = 5;
+const MAX_RETRY = 10;
 
 export default class WebsocketClient extends EventEmitter {
   session!: Session;
@@ -15,7 +15,7 @@ export default class WebsocketClient extends EventEmitter {
     this.on(SessionEvents.EVENT_WS, (data) => {
       switch (data.eventType) {
         case SessionEvents.RECONNECT:
-          console.log('[CLIENT] 等待断线重连中。。。');
+          console.log('[CLIENT] 等待断线重连中...');
           break;
         case SessionEvents.DISCONNECT:
           if (this.retry < (config.maxRetry || MAX_RETRY)) {

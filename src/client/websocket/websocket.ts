@@ -10,9 +10,9 @@ import {
   WsEventType,
   wsResData,
 } from '@src/types/websocket-types';
-import WebSocket, {EventEmitter} from 'ws';
-import {toObject} from '@src/utils/utils';
-import {Properties} from '@src/utils/constants';
+import WebSocket, { EventEmitter } from 'ws';
+import { toObject } from '@src/utils/utils';
+import { Properties } from '@src/utils/constants';
 
 // websocket连接
 export class Ws {
@@ -56,7 +56,6 @@ export class Ws {
 
   // 创建监听
   createListening() {
-
     // websocket连接已开启
     this.ws.on('open', () => {
       console.log(`[CLIENT] 开启`);
@@ -80,15 +79,15 @@ export class Ws {
       // 鉴权通过
       if (wsRes.t === SessionEvents.READY) {
         console.log(`[CLIENT] 鉴权通过`);
-        const {d, s} = wsRes;
-        const {session_id} = d;
+        const { d, s } = wsRes;
+        const { session_id } = d;
         // 获取当前会话参数
         if (session_id && s) {
           this.sessionRecord.sessionID = session_id;
           this.sessionRecord.seq = s;
           this.heartbeatParam.d = s;
         }
-        this.event.emit(SessionEvents.READY, {eventType: SessionEvents.READY, msg: d || ''});
+        this.event.emit(SessionEvents.READY, { eventType: SessionEvents.READY, msg: d || '' });
         // 第一次发送心跳
         console.log(`[CLIENT] 发送第一次心跳`, this.heartbeatParam);
         this.sendWs(this.heartbeatParam);
@@ -98,8 +97,8 @@ export class Ws {
       // 心跳测试
       if (wsRes.op === OpCode.HEARTBEAT_ACK || wsRes.t === SessionEvents.RESUMED) {
         if (!this.alive) {
-          this.alive = true
-          this.event.emit(SessionEvents.EVENT_WS, {eventType: SessionEvents.READY});
+          this.alive = true;
+          this.event.emit(SessionEvents.EVENT_WS, { eventType: SessionEvents.READY });
         }
         console.log('[CLIENT] 心跳校验', this.heartbeatParam);
         setTimeout(() => {
@@ -110,13 +109,13 @@ export class Ws {
       // 收到服务端锻炼重连的通知
       if (wsRes.op === OpCode.RECONNECT) {
         // 通知会话，当前已断线
-        this.event.emit(SessionEvents.EVENT_WS, {eventType: SessionEvents.RECONNECT});
+        this.event.emit(SessionEvents.EVENT_WS, { eventType: SessionEvents.RECONNECT });
       }
 
       // 服务端主动推送的消息
       if (wsRes.op === OpCode.DISPATCH) {
         // 更新心跳唯一值
-        const {s} = wsRes;
+        const { s } = wsRes;
         if (s) {
           this.sessionRecord.seq = s;
           this.heartbeatParam.d = s;
@@ -130,11 +129,11 @@ export class Ws {
     this.ws.on('close', (data: number) => {
       console.log('[CLIENT] 连接关闭', data);
       // 通知会话，当前已断线
-      this.alive = false
+      this.alive = false;
       this.event.emit(SessionEvents.EVENT_WS, {
         eventType: SessionEvents.DISCONNECT,
         eventMsg: this.sessionRecord,
-        code: data
+        code: data,
       });
       if (data) {
         this.handleWsCloseEvent(data);
@@ -144,10 +143,10 @@ export class Ws {
     // 监听websocket错误
     this.ws.on('error', () => {
       console.log(`[CLIENT] 连接错误`);
-      this.event.emit(SessionEvents.CLOSED, {eventType: SessionEvents.CLOSED});
+      this.event.emit(SessionEvents.CLOSED, { eventType: SessionEvents.CLOSED });
     });
 
-    return this.ws
+    return this.ws;
   }
 
   // 连接ws
@@ -181,7 +180,7 @@ export class Ws {
     // 判断用户有没有给到需要监听的事件类型
     const intentsIn = this.getValidIntentsType();
     if (intentsIn.length > 0) {
-      const intents = {value: 0};
+      const intents = { value: 0 };
       if (intentsIn.length === 1) {
         intents.value = IntentEvents[intentsIn[0]];
         return intents.value;
@@ -267,7 +266,7 @@ export class Ws {
     const msg = wsRes.d;
     // 如果没有事件，即刻退出
     if (!msg || !eventType) return;
-    this.event.emit(WsEventType[eventType], {eventType, msg});
+    this.event.emit(WsEventType[eventType], { eventType, msg });
   }
 
   // 主动关闭会话
@@ -279,7 +278,7 @@ export class Ws {
   handleWsCloseEvent(code: number) {
     WebsocketCloseReason.forEach((e) => {
       if (e.code === code) {
-        this.event.emit(SessionEvents.ERROR, {eventType: SessionEvents.ERROR, msg: e.reason});
+        this.event.emit(SessionEvents.ERROR, { eventType: SessionEvents.ERROR, msg: e.reason });
       }
     });
   }
