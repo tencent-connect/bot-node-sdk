@@ -1,6 +1,6 @@
-import {apiVersion} from '@src/openapi/v1/openapi';
-import {getURL} from '@src/openapi/v1/resource';
-import {buildUrl} from "@src/utils/utils";
+import { apiVersion } from '@src/openapi/v1/openapi';
+import { getURL } from '@src/openapi/v1/resource';
+import { buildUrl } from '@src/utils/utils';
 
 // websocket建立成功回包
 export interface wsResData {
@@ -29,7 +29,7 @@ export interface EventTypes {
 export interface GetWsParam {
   appID: string;
   token: string;
-  sandbox: boolean;
+  sandbox?: boolean;
   shards?: Array<number>;
   intents?: Array<AvailableIntentsEventsEnum>;
   maxRetry?: number;
@@ -171,12 +171,12 @@ export const WebsocketCloseReason = [
   {
     code: 4008,
     reason: '发送 payload 过快，请重新连接，并遵守连接后返回的频控信息',
-    resume: true
+    resume: true,
   },
   {
     code: 4009,
     reason: '连接过期，请重连',
-    resume: true
+    resume: true,
   },
   {
     code: 4010,
@@ -258,7 +258,7 @@ export const SessionEvents = {
   DISCONNECT: 'DISCONNECT', // 断线
   EVENT_WS: 'EVENT_WS', // 内部通信
   RESUMED: 'RESUMED', // 重连
-  DEAD: 'DEAD'// 连接已死亡，请检查网络或重启
+  DEAD: 'DEAD', // 连接已死亡，请检查网络或重启
 };
 
 // ws地址配置
