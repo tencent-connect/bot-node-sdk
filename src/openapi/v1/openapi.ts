@@ -13,6 +13,7 @@ import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
+import GuildPermissions from './guiild-permissions';
 import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
@@ -29,6 +30,7 @@ import {
   MuteAPI,
   ScheduleAPI,
   AnnounceAPI,
+  GuildPermissionsAPI,
 } from '@src/types';
 
 export const apiVersion = 'v1';
@@ -54,6 +56,7 @@ export class OpenAPI implements IOpenAPI {
   public directMessageApi!: DirectMessageAPI;
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
+  public guildPermissionsApi!: GuildPermissionsAPI;
 
   constructor(config: Config) {
     this.config = config;
@@ -74,6 +77,7 @@ export class OpenAPI implements IOpenAPI {
     client.directMessageApi = new DirectMessage(this.request, this.config);
     client.channelPermissionsApi = new ChannelPermissions(this.request, this.config);
     client.audioApi = new Audio(this.request, this.config);
+    client.guildPermissionsApi = new GuildPermissions(this.request, this.config);
   }
   // 基础rest请求
   public request<T extends Record<any, any> = any>(options: RequestOptions): Promise<RestyResponse<T>> {

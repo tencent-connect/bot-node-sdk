@@ -26,6 +26,8 @@ const apiMap = {
   channelRolePermissionsURI: '/channels/:channelID/roles/:roleID/permissions',
   schedulesURI: '/channels/:channelID/schedules',
   scheduleURI: '/channels/:channelID/schedules/:scheduleID',
+  guildPermissionURI: '/guilds/:guildID/api_permission',
+  guildPermissionDemandURI: '/guilds/:guildID/api_permission/demand',
   wsInfo: '/gateway/bot',
 };
 
