@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.7.0...v2.8.0) (2022-01-27)
+
+
+### Features
+
+* 添加频道权限API ([8d8c5d0](https://github.com/tencent-connect/bot-node-sdk/commit/8d8c5d0dddc0d5f44820d587ea8f86794d542516))
+
+
+### Bug Fixes
+
+* 修复无限重连以及ws重复监听的问题 ([1203f94](https://github.com/tencent-connect/bot-node-sdk/commit/1203f947af7ad5f90916d030177076c9cde94d1d))
+* 修正example ([bc11bb3](https://github.com/tencent-connect/bot-node-sdk/commit/bc11bb3e4c2938d2061904b8d827621d5db0030b))
+* 修正example ([d19ac9c](https://github.com/tencent-connect/bot-node-sdk/commit/d19ac9cbeaf63e070e592fe5341f78bfc0d6fbf7))
+
 ## [2.7.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.6.0...v2.7.0) (2022-01-23)
 
 
