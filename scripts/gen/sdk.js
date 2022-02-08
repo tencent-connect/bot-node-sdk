@@ -8,8 +8,6 @@ const t = require('@babel/types');
 const traverse = require('@babel/traverse').default;
 const generate = require('@babel/generator').default;
 const cloneDeep = require('lodash.clonedeep');
-const { clone } = require('lodash');
-const { parseJsonText } = require('typescript');
 
 // AST操作参考文档
 // https://babeljs.io/docs/en/babel-types
@@ -44,7 +42,7 @@ const genFileByTemplate = (tplFileName, targetFilePath, tplArgs) => {
 };
 
 /**
- * 传入文件路径，读取文件内容 生成ast，支持修改ast，最后根据ast生成代码ƒ
+ * 传入文件路径，读取文件内容 生成ast，支持修改ast，最后根据ast生成代码
  *
  * @param {*} filePath
  * @param {*} patch
@@ -60,7 +58,10 @@ const genCodeByAST = (filePath, patch) => {
       patch(path);
     },
   });
-  const newContent = generate(ast).code;
+  const newContent = generate(ast, {
+    // retainFunctionParens:true,
+    comments: false,
+  }).code;
   fs.writeFileSync(filePath, newContent);
 };
 
@@ -146,7 +147,10 @@ const patchDefinitionFile = () => {
     // 导入类名
     if (path.isImportDeclaration() && path.node.source.value === 'resty-client') {
       path.insertAfter(
-        t.importDeclaration([t.importDefaultSpecifier(t.identifier(apiClassName))], t.stringLiteral(`./${apiFileName}`)),
+        t.importDeclaration(
+          [t.importDefaultSpecifier(t.identifier(apiClassName))],
+          t.stringLiteral(`./${apiFileName}`),
+        ),
       );
     }
     // 导入类型
