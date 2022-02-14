@@ -1,4 +1,4 @@
-import { createOpenAPI, createWebsocket } from '@tencent-connect/bot-node-sdk';
+// 以下仅为用法示意，详情请参照文档：https://bot.q.qq.com/wiki/develop/nodesdk/
 
 const testConfigWs = {
   appID: '',
@@ -8,8 +8,7 @@ const testConfigWs = {
 const arkData42 = {
   "ark": {
     "template_id": 42,
-    "kv": [
-      {
+    "kv": [{
         "key": "#PROMPT#",
         "value": "消息提示信息"
       },
@@ -19,31 +18,63 @@ const arkData42 = {
       },
       {
         "key": "#MESSAGE#",
-        "obj": [
-            {
-                "obj_kv": [
-                    { "key": "fontSize", "value": "large"},
-                    { "key": "fontWeight", "value": "bold"},
-                    { "key": "color", "value": "purple"},
-                    { "key": "value", "value": "#机器人使用指南#"}
-                ]
-            },
-            {
-                "obj_kv": [
-                    { "key": "fontSize", "value": "normal"},
-                    { "key": "fontWeight", "value": "bold"},
-                    { "key": "color", "value": "pink"},
-                    { "key": "value", "value": "问：如何撤回消息？"}
-                ]
-            },
-            {
-                "obj_kv": [
-                    { "key": "fontSize", "value": "normal"},
-                    { "key": "fontWeight", "value": "normal"},
-                    { "key": "color", "value": "gray"},
-                    { "key": "value", "value": "最后更新于2021/12/110"}
-                ]
-            }
+        "obj": [{
+            "obj_kv": [{
+                "key": "fontSize",
+                "value": "large"
+              },
+              {
+                "key": "fontWeight",
+                "value": "bold"
+              },
+              {
+                "key": "color",
+                "value": "purple"
+              },
+              {
+                "key": "value",
+                "value": "#机器人使用指南#"
+              }
+            ]
+          },
+          {
+            "obj_kv": [{
+                "key": "fontSize",
+                "value": "normal"
+              },
+              {
+                "key": "fontWeight",
+                "value": "bold"
+              },
+              {
+                "key": "color",
+                "value": "pink"
+              },
+              {
+                "key": "value",
+                "value": "问：如何撤回消息？"
+              }
+            ]
+          },
+          {
+            "obj_kv": [{
+                "key": "fontSize",
+                "value": "normal"
+              },
+              {
+                "key": "fontWeight",
+                "value": "normal"
+              },
+              {
+                "key": "color",
+                "value": "gray"
+              },
+              {
+                "key": "value",
+                "value": "最后更新于2021/12/110"
+              }
+            ]
+          }
         ]
       }
     ]
@@ -53,8 +84,7 @@ const arkData42 = {
 const arkData43 = {
   "ark": {
     "template_id": 43,
-    "kv": [
-      {
+    "kv": [{
         "key": "#PROMPT#",
         "value": "promptaaaa"
       },
@@ -68,18 +98,29 @@ const arkData43 = {
       },
       {
         "key": "#LIST#",
-        "obj": [
-          {
-            "obj_kv": [{"key": "value","value": "eStar11"}]
+        "obj": [{
+            "obj_kv": [{
+              "key": "value",
+              "value": "eStar11"
+            }]
           },
           {
-            "obj_kv": [{"key": "value","value": "AG超玩会"}]
+            "obj_kv": [{
+              "key": "value",
+              "value": "AG超玩会"
+            }]
           },
           {
-            "obj_kv": [{"key": "value","value": "QGhappy"}]
+            "obj_kv": [{
+              "key": "value",
+              "value": "QGhappy"
+            }]
           },
           {
-            "obj_kv": [{"key": "value","value": "RNGM"}]
+            "obj_kv": [{
+              "key": "value",
+              "value": "RNGM"
+            }]
           }
         ]
       }
@@ -122,7 +163,9 @@ ws.on('AUDIO_ACTION', (data) => {
 });
 ws.on('AT_MESSAGES', (data) => {
   console.log('[AT_MESSAGES] 事件接收 :', data);
-  const { content } = data.msg;
+  const {
+    content
+  } = data.msg;
   const s = content.split(' ')[1];
   if (s === 'ark') {
     testArk();

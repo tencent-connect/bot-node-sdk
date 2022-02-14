@@ -15,3 +15,5 @@ typings
 es
 lib
 test-config
+package-lock.json
+example/config.json

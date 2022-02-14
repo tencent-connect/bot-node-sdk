@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 import replace from '@rollup/plugin-replace';
 import dts from 'rollup-plugin-dts';
+import json from '@rollup/plugin-json';
 
 const ENV = process.env.NODE_ENV;
 const extensions = ['.ts', '.js'];
@@ -18,6 +19,7 @@ export default [
       sourcemap: ENV === 'dev',
     },
     plugins: [
+      json(),
       babel({
         exclude: 'node_modules/**',
         extensions,
@@ -43,6 +45,7 @@ export default [
       sourcemap: ENV === 'dev',
     },
     plugins: [
+      json(),
       babel({
         exclude: 'node_modules/**',
         extensions,
@@ -64,6 +67,7 @@ export default [
     input: 'src/index.ts',
     output: [{ file: 'typings/index.d.ts', format: 'es' }],
     plugins: [
+      json(),
       typescriptPaths({
         preserveExtensions: true,
       }),

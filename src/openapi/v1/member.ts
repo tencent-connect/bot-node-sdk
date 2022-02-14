@@ -1,9 +1,7 @@
-import { Config, MemberAPI, OpenAPIRequest } from '@src/types/openapi';
+import { Config, OpenAPIRequest, MemberAddRoleBody, MemberAPI } from '@src/types';
 import { RestyResponse } from 'resty-client';
-import { IChannel } from './channel';
 import { getURL } from './resource';
 
-export interface MemberAddRoleBody extends IChannel {}
 export default class Member implements MemberAPI {
   public request: OpenAPIRequest;
   public config: Config;
@@ -16,8 +14,17 @@ export default class Member implements MemberAPI {
     guildID: string,
     roleID: string,
     userID: string,
-    channel?: MemberAddRoleBody,
+    channel?: string | MemberAddRoleBody, // 兼容原来传递 channel 对象的逻辑，后续仅支持 string
   ): Promise<RestyResponse<any>> {
+    const channelObj =
+      typeof channel === 'string'
+        ? {
+            channel: {
+              id: channel,
+            },
+          }
+        : channel;
+
     const options = {
       method: 'PUT' as const,
       url: getURL('memberRoleURI'),
@@ -26,7 +33,7 @@ export default class Member implements MemberAPI {
         userID,
         roleID,
       },
-      data: channel,
+      data: channelObj,
     };
     return this.request(options);
   }
@@ -35,8 +42,17 @@ export default class Member implements MemberAPI {
     guildID: string,
     roleID: string,
     userID: string,
-    channel?: MemberAddRoleBody,
+    channel?: string | MemberAddRoleBody, // 兼容原来传递 channel 对象的逻辑，后续仅支持 string
   ): Promise<RestyResponse<any>> {
+    const channelObj =
+      typeof channel === 'string'
+        ? {
+            channel: {
+              id: channel,
+            },
+          }
+        : channel;
+
     const options = {
       method: 'DELETE' as const,
       url: getURL('memberRoleURI'),
@@ -45,7 +61,7 @@ export default class Member implements MemberAPI {
         userID,
         roleID,
       },
-      data: channel,
+      data: channelObj,
     };
     return this.request(options);
   }

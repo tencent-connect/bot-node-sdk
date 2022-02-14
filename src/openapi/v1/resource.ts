@@ -1,17 +1,19 @@
-const domain = 'api.sgroup.qq.com';
-const sandBoxDomain = 'sandbox.api.sgroup.qq.com';
-const scheme = 'https';
-
 const apiMap = {
   guildURI: '/guilds/:guildID',
   guildMembersURI: '/guilds/:guildID/members',
   guildMemberURI: '/guilds/:guildID/members/:userID',
   channelsURI: '/guilds/:guildID/channels',
   channelURI: '/channels/:channelID',
+  guildAnnouncesURI: '/guilds/:guildID/announces',
+  guildAnnounceURI: '/guilds/:guildID/announces/:messageID',
+  channelAnnouncesURI: '/channels/:channelID/announces',
+  channelAnnounceURI: '/channels/:channelID/announces/:messageID',
   messagesURI: '/channels/:channelID/messages',
   messageURI: '/channels/:channelID/messages/:messageID',
   userMeURI: '/users/@me',
   userMeGuildsURI: '/users/@me/guilds',
+  muteURI: '/guilds/:guildID/mute',
+  muteMemberURI: '/guilds/:guildID/members/:userID/mute',
   gatewayURI: '/gateway',
   gatewayBotURI: '/gateway/bot',
   audioControlURI: '/channels/:channelID/audio',
@@ -21,13 +23,12 @@ const apiMap = {
   userMeDMURI: '/users/@me/dms',
   dmsURI: '/dms/:guildID/messages',
   channelPermissionsURI: '/channels/:channelID/members/:userID/permissions',
+  channelRolePermissionsURI: '/channels/:channelID/roles/:roleID/permissions',
+  schedulesURI: '/channels/:channelID/schedules',
+  scheduleURI: '/channels/:channelID/schedules/:scheduleID',
+  guildPermissionURI: '/guilds/:guildID/api_permission',
+  guildPermissionDemandURI: '/guilds/:guildID/api_permission/demand',
   wsInfo: '/gateway/bot',
 };
 
-export function getURL(endpoint: keyof typeof apiMap, sanbox?: boolean): string {
-  let d = domain;
-  if (sanbox) {
-    d = sandBoxDomain;
-  }
-  return `${scheme}://${d}${apiMap[endpoint]}`;
-}
+export const getURL = (endpoint: keyof typeof apiMap) => apiMap[endpoint];

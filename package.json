@@ -1,12 +1,17 @@
 {
-  "name": "@tencent-connect/bot-node-sdk",
-  "version": "1.1.2",
+  "name": "qq-guild-bot",
+  "version": "2.8.0",
   "description": "QQ频道机器人NodeSDK",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "bot-sdk"
+    "tencent",
+    "nodejs",
+    "qq",
+    "channel",
+    "guild",
+    "bot"
   ],
   "files": [
     "es",
@@ -24,6 +29,7 @@
     "format": "prettier --write ./src",
     "test": "jest --config jest.config.json",
     "example": "cd example && npm run dev",
+    "publish:npm":"node scripts/publish.js",
     "gc": "git-cz",
     "release": "standard-version",
     "clean": "rimraf lib es typings",
@@ -39,6 +45,7 @@
     "@commitlint/config-conventional": "^13.1.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^3.0.0",
     "@types/jest": "^27.0.2",
@@ -46,6 +53,7 @@
     "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
+    "chalk": "^4.1.2",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -58,6 +66,7 @@
     "jest": "^25.3.0",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
+    "readline-sync": "^1.4.10",
     "rimraf": "^3.0.2",
     "rollup": "^2.56.2",
     "rollup-plugin-dts": "^4.0.0",
@@ -74,7 +83,7 @@
     "url": "https://github.com/tencent-connect/bot-node-sdk.git"
   },
   "author": "joyqwang",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "",
   "lint-staged": {
     "src/**/*.ts?(x)": [

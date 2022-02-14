@@ -1,7 +1,8 @@
-import { WsObjRequestOptions, EventTypes, SessionEvents, GetWsParam, SessionRecord } from '@src/types/websocket-types';
+import { GetWsParam, SessionEvents, SessionRecord, WsObjRequestOptions } from '@src/types/websocket-types';
 import { Ws } from '@src/client/websocket/websocket';
 import { EventEmitter } from 'ws';
-import resty, { RequestOptions } from 'resty-client';
+import resty from 'resty-client';
+import { addAuthorization } from '@src/utils/utils';
 
 export default class Session {
   config: GetWsParam;
@@ -9,6 +10,7 @@ export default class Session {
   ws!: Ws;
   event!: EventEmitter;
   sessionRecord: SessionRecord | undefined;
+
   constructor(config: GetWsParam, event: EventEmitter, sessionRecord?: SessionRecord) {
     this.config = config;
     this.event = event;
@@ -16,41 +18,36 @@ export default class Session {
     if (sessionRecord) {
       this.sessionRecord = sessionRecord;
     }
-    this.creatSession();
+    this.createSession();
   }
 
   // 新建会话
-  async creatSession() {
+  createSession() {
     this.ws = new Ws(this.config, this.event, this.sessionRecord || undefined);
     // 拿到 ws地址等信息
-    WsObjRequestOptions.headers.Authorization = `Bot ${this.config.appID}.${this.config.token}`;
-    const wsData = await this.getWsInfo(WsObjRequestOptions);
-    // 连接到 ws
-    this.ws.createWebsocket(wsData);
+    const reqOptions = WsObjRequestOptions(this.config.sandbox as boolean);
 
-    this.event.on(SessionEvents.EVENT_WS, (data: EventTypes) => {
-      // 服务端通知重连
-      if (data.eventType === SessionEvents.RECONNECT) {
-        this.ws.reconnect();
-      }
-    });
-    return this.ws;
+    addAuthorization(reqOptions.headers, this.config.appID, this.config.token);
+
+    resty
+      .create(reqOptions)
+      .get(reqOptions.url as string, {})
+      .then((r) => {
+        const wsData = r.data;
+        if (!wsData) throw new Error('获取ws连接信息异常');
+        this.ws.createWebsocket(wsData);
+      })
+      .catch((e) => {
+        console.log('[ERROR] createSession: ', e);
+        this.event.emit(SessionEvents.EVENT_WS, {
+          eventType: SessionEvents.DISCONNECT,
+          eventMsg: this.sessionRecord,
+        });
+      });
   }
 
   // 关闭会话
-  async closeSession() {
+  closeSession() {
     this.ws.closeWs();
-  }
-
-  // 拿到 ws地址等信息
-  async getWsInfo(options: RequestOptions) {
-    const wsService = resty.create(options);
-    const wsData: any = {
-      data: {},
-    };
-    await wsService.get(options.url as string, {}).then((res) => {
-      wsData.data = res.data;
-    });
-    return wsData.data;
   }
 }

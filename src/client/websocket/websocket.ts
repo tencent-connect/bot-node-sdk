@@ -1,13 +1,14 @@
 import {
-  wsResData,
+  AvailableIntentsEventsEnum,
+  GetWsParam,
+  IntentEvents,
   OpCode,
   SessionEvents,
-  WebsocketCloseReason,
-  IntentEvents,
-  WsEventType,
-  WsAddressObj,
-  GetWsParam,
   SessionRecord,
+  WebsocketCloseReason,
+  WsAddressObj,
+  WsEventType,
+  wsResData,
 } from '@src/types/websocket-types';
 import WebSocket, { EventEmitter } from 'ws';
 import { toObject } from '@src/utils/utils';
@@ -31,6 +32,8 @@ export class Ws {
     sessionID: '',
     seq: 0,
   };
+  alive = false;
+
   constructor(config: GetWsParam, event: EventEmitter, sessionRecord?: SessionRecord) {
     this.config = config;
     this.isReconnect = false;
@@ -42,15 +45,17 @@ export class Ws {
       this.isReconnect = true;
     }
   }
+
   // 创建一个websocket连接
-  async createWebsocket(wsData: WsAddressObj) {
+  createWebsocket(wsData: WsAddressObj) {
     // 先链接到ws
-    await this.connectWs(wsData);
+    this.connectWs(wsData);
     // 对消息进行监听
-    this.creatListening();
+    return this.createListening();
   }
+
   // 创建监听
-  async creatListening() {
+  createListening() {
     // websocket连接已开启
     this.ws.on('open', () => {
       console.log(`[CLIENT] 开启`);
@@ -91,6 +96,10 @@ export class Ws {
 
       // 心跳测试
       if (wsRes.op === OpCode.HEARTBEAT_ACK || wsRes.t === SessionEvents.RESUMED) {
+        if (!this.alive) {
+          this.alive = true;
+          this.event.emit(SessionEvents.EVENT_WS, { eventType: SessionEvents.READY });
+        }
         console.log('[CLIENT] 心跳校验', this.heartbeatParam);
         setTimeout(() => {
           this.sendWs(this.heartbeatParam);
@@ -120,7 +129,12 @@ export class Ws {
     this.ws.on('close', (data: number) => {
       console.log('[CLIENT] 连接关闭', data);
       // 通知会话，当前已断线
-      this.event.emit(SessionEvents.EVENT_WS, { eventType: SessionEvents.DISCONNECT, eventMsg: this.sessionRecord });
+      this.alive = false;
+      this.event.emit(SessionEvents.EVENT_WS, {
+        eventType: SessionEvents.DISCONNECT,
+        eventMsg: this.sessionRecord,
+        code: data,
+      });
       if (data) {
         this.handleWsCloseEvent(data);
       }
@@ -131,10 +145,12 @@ export class Ws {
       console.log(`[CLIENT] 连接错误`);
       this.event.emit(SessionEvents.CLOSED, { eventType: SessionEvents.CLOSED });
     });
+
+    return this.ws;
   }
 
   // 连接ws
-  async connectWs(wsData: WsAddressObj) {
+  connectWs(wsData: WsAddressObj) {
     // 创建websocket连接
     this.ws = new WebSocket(wsData.url);
   }
@@ -177,10 +193,10 @@ export class Ws {
   }
 
   // 校验intents格式
-  getValidIntentsType() {
+  getValidIntentsType(): AvailableIntentsEventsEnum[] {
     const intentsIn = this.config.intents;
     // 全部可监听事件
-    const defaultIntents = ['GUILDS', 'GUILD_MEMBERS', 'DIRECT_MESSAGE', 'AUDIO_ACTION', 'AT_MESSAGES'];
+    const defaultIntents = Object.keys(AvailableIntentsEventsEnum) as AvailableIntentsEventsEnum[];
     // 如果开发者没传intents，我们默认给他开启全部监听事件
     if (!intentsIn) {
       console.log('[CLIENT] intents不存在，默认开启全部监听事件');
@@ -199,8 +215,7 @@ export class Ws {
     const typeIn = intentsIn.every((item) => typeof item === 'string');
     if (!typeIn) {
       console.log('[CLIENT] intents中存在不合法类型，仅开启有效监听事件');
-      const intentsArr = intentsIn.filter((item) => typeof item === 'string');
-      return intentsArr;
+      return intentsIn.filter((item) => typeof item === 'string');
     }
     return intentsIn;
   }
@@ -208,7 +223,7 @@ export class Ws {
   // 校验shards
   checkShards(shardsArr: Array<number> | undefined) {
     // 没有传shards进来
-    if (!shardsArr || shardsArr === undefined) {
+    if (!shardsArr) {
       return console.log('shards 不存在');
     }
     // 传进来的符合要求
@@ -222,8 +237,7 @@ export class Ws {
   sendWs(msg: unknown) {
     try {
       // 先将消息转为字符串
-      if (typeof msg === 'string') return this.ws.send(msg);
-      this.ws.send(JSON.stringify(msg));
+      this.ws.send(typeof msg === 'string' ? msg : JSON.stringify(msg));
     } catch (e) {
       console.log(e);
     }
@@ -231,17 +245,12 @@ export class Ws {
 
   // 重新连接
   reconnect() {
-    console.log('[CLIENT] 开始断线重连');
-    this.isReconnect = true;
-    // 断线后需要 1s后再重新连接
-    setTimeout(() => {
-      this.creatListening();
-    }, 1000);
+    console.log('[CLIENT] 等待断线重连');
   }
 
   // 重新重连Ws
   reconnectWs() {
-    const recconectParam = {
+    const reconnectParam = {
       op: OpCode.RESUME,
       d: {
         token: `Bot ${this.config.appID}.${this.config.token}`,
@@ -249,7 +258,7 @@ export class Ws {
         seq: this.sessionRecord.seq,
       },
     };
-    this.sendWs(recconectParam);
+    this.sendWs(reconnectParam);
   }
 
   // OpenAPI事件分发

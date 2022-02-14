@@ -2,8 +2,144 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.1.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.2) (2021-12-22)
+## [2.8.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.7.0...v2.8.0) (2022-01-27)
 
+
+### Features
+
+* 添加频道权限API ([8d8c5d0](https://github.com/tencent-connect/bot-node-sdk/commit/8d8c5d0dddc0d5f44820d587ea8f86794d542516))
+
+
+### Bug Fixes
+
+* 修复无限重连以及ws重复监听的问题 ([1203f94](https://github.com/tencent-connect/bot-node-sdk/commit/1203f947af7ad5f90916d030177076c9cde94d1d))
+* 修正example ([bc11bb3](https://github.com/tencent-connect/bot-node-sdk/commit/bc11bb3e4c2938d2061904b8d827621d5db0030b))
+* 修正example ([d19ac9c](https://github.com/tencent-connect/bot-node-sdk/commit/d19ac9cbeaf63e070e592fe5341f78bfc0d6fbf7))
+
+## [2.7.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.6.0...v2.7.0) (2022-01-23)
+
+
+### Features
+
+* readme增加贡献者展示 ([0398bff](https://github.com/tencent-connect/bot-node-sdk/commit/0398bff84a0bbdf46c0652f8f4f903d557e5bd09))
+* 支持沙箱 ([a6339fa](https://github.com/tencent-connect/bot-node-sdk/commit/a6339fa9d32c3fd427ea204b306ea03b1478f320))
+
+
+### Bug Fixes
+
+* 接收数据类型为buffer时不被识别问题 ([dbe2bce](https://github.com/tencent-connect/bot-node-sdk/commit/dbe2bce45259c58c3cd802ef64f83ee0104d6112)), closes [#733e6111bdc3b853b252f3c0defc819f3e83309](https://github.com/tencent-connect/bot-node-sdk/issues/733e6111bdc3b853b252f3c0defc819f3e83309)
+
+## [2.6.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.5.1...v2.6.0) (2022-01-21)
+
+
+### Features
+
+* 完善私信API ([68f6b03](https://github.com/tencent-connect/bot-node-sdk/commit/68f6b03af0cdf65b3afe91832f81854a52f03e3f))
+
+
+### Bug Fixes
+
+* 修复example中的config拼写错误 ([6965b88](https://github.com/tencent-connect/bot-node-sdk/commit/6965b88024acc8431c71b0c5944baf4fd67b3c1a))
+
+### [2.5.1](https://github.com/tencent-connect/bot-node-sdk/compare/v2.5.0...v2.5.1) (2022-01-14)
+
+
+### Refactors
+
+* **license:** 调整license ([5fae53a](https://github.com/tencent-connect/bot-node-sdk/commit/5fae53a8a13b89c01d926c7dd06a79c738864ab9))
+
+## [2.5.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.4.0...v2.5.0) (2022-01-12)
+
+### Features
+
+* 完善intents事件 ([fdd8569](https://github.com/tencent-connect/bot-node-sdk/commit/fdd8569ab3c7256ceb0125f62a60f45544f3f1ac))
+
+## [2.4.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.3.0...v2.4.0) (2022-01-12)
+
+### Features
+
+* 获取频道列表参数补齐 ([bbfc4e7](https://github.com/tencent-connect/bot-node-sdk/commit/bbfc4e72c9766a1487089cfda4f0897dbb53eb08))
+* 扩展创建子频道参数，支持创建私密子频道 ([38ee7a4](https://github.com/tencent-connect/bot-node-sdk/commit/38ee7a42237d0deb7ae70a8ca2aeb2d826fe8d16))
+
+## [2.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.2.0...v2.3.0) (2022-01-11)
+
+### Features
+
+* 添加日程API ([ad05262](https://github.com/tencent-connect/bot-node-sdk/commit/ad05262947b045c93dd68502f7f74c0c0bf7d478))
+
+## [2.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.1.0...v2.2.0) (2022-01-08)
+
+### Features
+
+* 添加公告API ([dfd33c9](https://github.com/tencent-connect/bot-node-sdk/commit/dfd33c97b1475278c258cb3d992dcbc0108d839b))
+
+## [2.1.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.5.0...v2.1.0) (2022-01-08)
+
+### Features
+
+* 添加禁言API ([9d5e47b](https://github.com/tencent-connect/bot-node-sdk/commit/9d5e47bf56ad90358c4c8cba1ceb7dc18e765ad4))
+* 重命名sdk ([5d7e22e](https://github.com/tencent-connect/bot-node-sdk/commit/5d7e22efb29c7d60a9432fb0d225db17415894fd))
+* sdk中添加撤回消息API ([69058d6](https://github.com/tencent-connect/bot-node-sdk/commit/69058d6a8a4ad20fa634f9d89c58470f415b0459))
+
+### Bug Fixes
+
+* 修复MuteAPI返回类型问题 ([7ab3a8f](https://github.com/tencent-connect/bot-node-sdk/commit/7ab3a8f45de62f6d9bfd7ed29c706b4c7fefba5b))
+
+## [2.0.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.5.0...v2.0.0) (2022-01-05)
+
+### Features
+
+* 重命名sdk ([f755cc0](https://github.com/tencent-connect/bot-node-sdk/commit/f755cc0584c75a90fa18ab32f76617373d93a445))
+
+## [1.5.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.4.0...v1.5.0) (2022-01-01)
+
+### Features
+
+* 将类型定义导出到打包结果 ([99b2c57](https://github.com/tencent-connect/bot-node-sdk/commit/99b2c57642f386881b694d032605e538586566b6))
+
+## [1.4.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.3.1...v1.4.0) (2022-01-01)
+
+### Features
+
+* 添加子频道身份组权限api(测试用例待补充)' ([400fc34](https://github.com/tencent-connect/bot-node-sdk/commit/400fc34232069f740a88af6e19113cf3b550a353))
+
+### [1.3.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.3.0...v1.3.1) (2021-12-31)
+
+### Features
+
+* 异常返回带上traceid ([b151628](https://github.com/tencent-connect/bot-node-sdk/commit/b1516285bfe1ac3bed798266e5b40c7dcabf9900))
+
+## [1.3.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.2...v1.3.0) (2021-12-30)
+
+### Features
+
+* 补充'身份组成员'接口传参方式 ([cb0ae47](https://github.com/tencent-connect/bot-node-sdk/commit/cb0ae47aea7c1edeebaec58d70e7f28f6a10417d))
+
+### [1.2.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.0...v1.2.2) (2021-12-28)
+
+### Bug Fixes
+
+* err返回值兼容response.data不存在的情况 ([fe7c7cc](https://github.com/tencent-connect/bot-node-sdk/commit/fe7c7cce93869e9a7d360b052d64394a57fe84be))
+
+### [1.2.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.2.0...v1.2.1) (2021-12-25)
+
+### Bug Fixes
+
+* err返回值兼容response.data不存在的情况 ([fe7c7cc](https://github.com/tencent-connect/bot-node-sdk/commit/fe7c7cce93869e9a7d360b052d64394a57fe84be))
+
+## [1.2.0](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.2...v1.2.0) (2021-12-24)
+
+### Features
+
+* 修改shards与intents入参为可选 ([29d5c96](https://github.com/tencent-connect/bot-node-sdk/commit/29d5c961ee4fe11faea840264057ba8ddd4cb2da))
+
+### Bug Fixes
+
+* 修复ws模块拼写错误 ([dd3a85b](https://github.com/tencent-connect/bot-node-sdk/commit/dd3a85b97dcd044e679052e061d87ad1052939b7))
+* 修改错误拼写 ([56a7270](https://github.com/tencent-connect/bot-node-sdk/commit/56a7270d86221354a846d0603ba2ea70ced78467))
+* ws相关方法参数类型修复 ([2ed828d](https://github.com/tencent-connect/bot-node-sdk/commit/2ed828d95c6c9b1564524c3d3ca24d03ef6f7327))
+
+### [1.1.2](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.2) (2021-12-22)
 
 ### Bug Fixes
 
@@ -13,7 +149,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.1.1](https://github.com/tencent-connect/bot-node-sdk/compare/v1.1.0...v1.1.1) (2021-12-22)
 
-
 ### Bug Fixes
 
 * support for  passing  filter params when post & patch role ([1f66b6c](https://github.com/tencent-connect/bot-node-sdk/commit/1f66b6cf0ec3b7c903092e364365b9d738de2531))
@@ -22,7 +157,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.1.0](https://git.woa.com/qq-channel-bot/bot-node-sdk/compare/v1.0.0...v1.1.0) (2021-12-09)
 
-
 ### Features
 
 * 去除APPID/token等信息 ([9997c5b](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/9997c5b4a972cbb3c1e399f3ee6259594d8af587))
@@ -30,7 +164,6 @@ All notable changes to this project will be documented in this file. See [standa
 * ws断线优化,事件分发优化 ([ccfab14](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/ccfab14faa843156c543e8526a1226df26d22622))
 
 ## 1.0.0 (2021-12-03)
-
 
 ### Features
 
@@ -64,7 +197,6 @@ All notable changes to this project will be documented in this file. See [standa
 * ws优化 ([0105a85](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/0105a8514ab13db3dc125ec7b7578041ec7d9233))
 * wss请求地址优化 ([9fd4bcd](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/9fd4bcd475e0eb28ee9ece7fab9ea5dfc301bc4e))
 * wss优化 ([6bb374e](https://git.woa.com/qq-channel-bot/bot-node-sdk/commit/6bb374e75c0e81360a2e17c04261336fa6cb808a))
-
 
 ### Bug Fixes
 
