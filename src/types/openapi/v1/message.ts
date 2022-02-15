@@ -78,11 +78,17 @@ export interface MessagesPager {
   limit: string; // 最大20
 }
 
+export interface MessageReference {
+  message_id: string; // 需要引用回复的消息 ID
+  ignore_get_message_error?: boolean; // 是否忽略获取引用消息详情错误，默认否（如不忽略，当获取引用消息详情出错时，消息将不会发出）
+}
+
 // 消息体结构
 export interface MessageToCreate {
   content?: string;
   embed?: Embed;
   ark?: Ark;
+  message_reference?: MessageReference;
   image?: string;
   msg_id?: string; // 要回复的消息id,不为空则认为是被动消息
 }
