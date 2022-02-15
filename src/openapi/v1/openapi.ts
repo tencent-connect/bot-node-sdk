@@ -13,7 +13,7 @@ import Audio from './audio';
 import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
-import GuildPermissions from './guiild-permissions';
+import GuildPermissions from './guild-permissions';
 import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
