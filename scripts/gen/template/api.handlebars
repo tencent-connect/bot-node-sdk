@@ -1,0 +1,21 @@
+import { Config, OpenAPIRequest, {{classType}} } from '@src/types';
+import { RestyResponse } from 'resty-client';
+import { getURL } from './resource';
+
+export default class {{className}} implements {{classType}} {
+  public request: OpenAPIRequest;
+  public config: Config;
+  constructor(request: OpenAPIRequest, config: Config) {
+    this.request = request;
+    this.config = config;
+  }
+
+  // TODO:添加注释，补全内容，补全类型
+  public {{methodName}}(): Promise<RestyResponse<any>> {
+    const options = {
+      method: 'GET' as const,
+      url: getURL('{{uriName}}'),
+    };
+    return this.request(options);
+  }
+}
