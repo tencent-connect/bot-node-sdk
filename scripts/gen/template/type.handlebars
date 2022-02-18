@@ -1,0 +1,9 @@
+import { RestyResponse } from 'resty-client';
+
+/**
+ * =============  {{className}} 接口  =============
+ */
+export interface {{classType}} {
+  {{methodName}}: () => Promise<RestyResponse<any>>;
+}
+
