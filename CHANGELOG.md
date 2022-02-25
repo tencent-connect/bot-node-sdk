@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.8.2](https://github.com/tencent-connect/bot-node-sdk/compare/v2.8.0...v2.8.2) (2022-02-25)
+
+
+### Features
+
+* 添加api辅助生成脚本 ([176fe90](https://github.com/tencent-connect/bot-node-sdk/commit/176fe908f6d5b6cf47e431a23c95b7485148c6ea))
+* 添加npm发布脚本 ([2f8af4b](https://github.com/tencent-connect/bot-node-sdk/commit/2f8af4b3ee8355c012f5a46f67a182d0e4a00d49))
+* 完善messageAPI类型定义 ([5b89807](https://github.com/tencent-connect/bot-node-sdk/commit/5b89807311e629a363a1ce933f2f69ffdf6e8290))
+* 消息API类型完善 ([91ec2bf](https://github.com/tencent-connect/bot-node-sdk/commit/91ec2bf124a3005793fdc4266c61e1bcac84ff12))
+
+
+### Bug Fixes
+
+* 修正文件命名 ([bb3b4c2](https://github.com/tencent-connect/bot-node-sdk/commit/bb3b4c2f98994f272145d0b421a5a8d423c9f2ac))
+
 ## [2.8.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.7.0...v2.8.0) (2022-01-27)
 
 
