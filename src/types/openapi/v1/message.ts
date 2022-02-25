@@ -17,10 +17,20 @@ export interface MessageAttachment {
   url: string;
 }
 
+export interface EmbedThumbnail {
+  url: string;
+}
 // EmbedField Embed字段描述
+
+export interface EmbedField {
+  name: string; // 字段名
+}
 export interface Embed {
-  name: string;
-  value: string;
+  title: string;
+  description?: string;
+  prompt?: string;
+  thumbnail?: EmbedThumbnail;
+  fields?: EmbedField[];
 }
 
 // Ark 消息模版
@@ -62,7 +72,8 @@ export interface IMessage {
   embeds: Embed[]; // 结构化消息-embeds
   mentions: IUser[]; // 消息中的提醒信息(@)列表
   ark: Ark; // ark 消息
-  direct_message: boolean; // 私信消息
+  seq?: number; // 用于消息间的排序
+  seq_in_channel?: string; // 子频道消息 seq
 }
 
 // 接口返回的数据多一层message
