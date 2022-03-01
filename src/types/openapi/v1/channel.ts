@@ -24,6 +24,8 @@ export interface IChannel extends PostChannelObj {
   id: string; // 频道 ID
   guild_id: string; // 群 ID
   owner_id: string; // 拥有者 ID
+  speak_permission?: number; // 子频道发言权限
+  application_id?: string; // 用于标识应用子频道应用类型
 }
 
 export interface PostChannelObj {
