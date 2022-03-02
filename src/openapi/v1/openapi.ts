@@ -1,6 +1,8 @@
 /* eslint-disable prefer-promise-reject-errors */
 import { register } from '@src/openapi/openapi';
 import resty, { RequestOptions, RestyResponse } from 'resty-client';
+import PinsMessage from './pins-message';
+import Reaction from './reaction';
 import Guild from './guild';
 import Channel from './channel';
 import Me from './me';
@@ -31,10 +33,10 @@ import {
   ScheduleAPI,
   AnnounceAPI,
   GuildPermissionsAPI,
+  ReactionAPI,
+  PinsMessageAPI,
 } from '@src/types';
-
 export const apiVersion = 'v1';
-
 export class OpenAPI implements IOpenAPI {
   static newClient(config: Config) {
     return new OpenAPI(config);
@@ -56,6 +58,8 @@ export class OpenAPI implements IOpenAPI {
   public directMessageApi!: DirectMessageAPI;
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
+  public reactionApi!: ReactionAPI;
+  public pinsMessageApi!: PinsMessageAPI;
   public guildPermissionsApi!: GuildPermissionsAPI;
 
   constructor(config: Config) {
@@ -78,6 +82,8 @@ export class OpenAPI implements IOpenAPI {
     client.channelPermissionsApi = new ChannelPermissions(this.request, this.config);
     client.audioApi = new Audio(this.request, this.config);
     client.guildPermissionsApi = new GuildPermissions(this.request, this.config);
+    client.reactionApi = new Reaction(this.request, this.config);
+    client.pinsMessageApi = new PinsMessage(this.request, this.config);
   }
   // 基础rest请求
   public request<T extends Record<any, any> = any>(options: RequestOptions): Promise<RestyResponse<T>> {
