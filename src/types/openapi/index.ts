@@ -11,6 +11,8 @@ import { RoleAPI } from './v1/role';
 import { MuteAPI } from './v1/mute';
 import { AnnounceAPI } from './v1/announce';
 import { ScheduleAPI } from './v1/schedule';
+import { ReactionAPI } from './v1/reaction';
+import { PinsMessageAPI } from './v1/pins-message';
 import { GuildPermissionsAPI } from './v1/guild-permission';
 
 export type OpenAPIRequest = <T extends Record<any, any> = any>(options: RequestOptions) => Promise<RestyResponse<T>>;
@@ -37,6 +39,8 @@ export interface IOpenAPI {
   channelPermissionsApi: ChannelPermissionsAPI;
   audioApi: AudioAPI;
   guildPermissionsApi: GuildPermissionsAPI;
+  reactionApi: ReactionAPI;
+  pinsMessageApi: PinsMessageAPI;
 }
 
 export type APIVersion = `v${number}`;
@@ -64,4 +68,6 @@ export * from './v1/role';
 export * from './v1/mute';
 export * from './v1/announce';
 export * from './v1/schedule';
+export * from './v1/reaction';
+export * from './v1/pins-message';
 export * from './v1/guild-permission';

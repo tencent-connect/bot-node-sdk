@@ -36,6 +36,7 @@ export interface PostChannelObj {
   parent_id: string; // 父频道的ID
   private_type?: number; // 子频道私密类型
   private_user_ids?: string[]; // 子频道私密类型成员 ID
+  permissions?: string; // 用户拥有的子频道权限
 }
 
 export type PatchChannelObj = Partial<Omit<PostChannelObj, 'sub_type' | 'private_user_ids'>>;
