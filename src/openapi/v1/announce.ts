@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, AnnounceAPI, IAnnounce } from '@src/types';
+import { Config, OpenAPIRequest, AnnounceAPI, IAnnounce, RecommendObj } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -37,6 +37,19 @@ export default class Announce implements AnnounceAPI {
       },
     };
     return this.request(options);
+  }
+
+  // 创建频道公告推荐子频道
+  public postGuildRecommend(guildID: string, recommendObj: RecommendObj): Promise<RestyResponse<IAnnounce>> {
+    const options = {
+      method: 'POST' as const,
+      url: getURL('guildAnnouncesURI'),
+      rest: {
+        guildID,
+      },
+      data: recommendObj,
+    };
+    return this.request<IAnnounce>(options);
   }
 
   // 创建channel公告
