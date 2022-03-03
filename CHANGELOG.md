@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.8.2...v2.9.0) (2022-03-03)
+
+
+### Features
+
+* 补充ChannelAPI相关字段类型 ([7839499](https://github.com/tencent-connect/bot-node-sdk/commit/783949960b305e7099e9d6fd3c93df8c5189073e))
+* 添加设置公告推荐子频道API ([b085c23](https://github.com/tencent-connect/bot-node-sdk/commit/b085c23ae3e9e04ec6ea072e3c5a634b4701beca))
+* 新增发表表情表态,设置精华消息API ([a2bed09](https://github.com/tencent-connect/bot-node-sdk/commit/a2bed09ab365bc5c0b777a7e537b6de5652cb9f0))
+
 ### [2.8.2](https://github.com/tencent-connect/bot-node-sdk/compare/v2.8.0...v2.8.2) (2022-02-25)
 
 
