@@ -10,6 +10,6 @@ export interface ReactionAPI {
 
 export interface ReactionObj {
   message_id: string;
-  emojy_type: number;
-  emojy_id: string;
+  emoji_type: number;
+  emoji_id: string;
 }

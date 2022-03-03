@@ -18,8 +18,8 @@ export default class Reaction implements ReactionAPI {
       rest: {
         channelID: channelId,
         messageID: reactionToCreate?.message_id,
-        emojyType: reactionToCreate?.emojy_type,
-        emojyID: reactionToCreate?.emojy_id,
+        emojiType: reactionToCreate?.emoji_type,
+        emojiID: reactionToCreate?.emoji_id,
       },
     };
     return this.request(options);
@@ -33,8 +33,8 @@ export default class Reaction implements ReactionAPI {
       rest: {
         channelID: channelId,
         messageID: reactionToDelete?.message_id,
-        emojyType: reactionToDelete?.emojy_type,
-        emojyID: reactionToDelete?.emojy_id,
+        emojiType: reactionToDelete?.emoji_type,
+        emojiID: reactionToDelete?.emoji_id,
       },
     };
     return this.request(options);

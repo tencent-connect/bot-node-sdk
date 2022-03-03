@@ -29,7 +29,7 @@ const apiMap = {
   guildPermissionURI: '/guilds/:guildID/api_permission',
   guildPermissionDemandURI: '/guilds/:guildID/api_permission/demand',
   wsInfo: '/gateway/bot',
-  reactionURI: '/channels/:channelID/messages/:messageID/reactions/:emojyType/:emojyID',
+  reactionURI: '/channels/:channelID/messages/:messageID/reactions/:emojiType/:emojiID',
   pinsMessageIdURI: '/channels/:channelID/pins/:messageID',
   pinsMessageURI: '/channels/:channelID/pins',
 };
