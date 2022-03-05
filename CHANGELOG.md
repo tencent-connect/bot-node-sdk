@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.1](https://github.com/tencent-connect/bot-node-sdk/compare/v2.9.0...v2.9.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* 修正表情表态类型定义 ([6d65236](https://github.com/tencent-connect/bot-node-sdk/commit/6d652366150be5e276a3dc4efcea8e182b8a7335))
+* 修正拼写错误 ([ff4133f](https://github.com/tencent-connect/bot-node-sdk/commit/ff4133fd4c43f5ca95fa268ec5ca928d07a2e8f2))
+
 ## [2.9.0](https://github.com/tencent-connect/bot-node-sdk/compare/v2.8.2...v2.9.0) (2022-03-03)
 
 
