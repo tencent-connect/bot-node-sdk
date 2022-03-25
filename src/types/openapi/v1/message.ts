@@ -9,7 +9,7 @@ export interface MessageAPI {
   message: (channelID: string, messageID: string) => Promise<RestyResponse<IMessageRes>>;
   messages: (channelID: string, pager: MessagesPager) => Promise<RestyResponse<IMessage[]>>;
   postMessage: (channelID: string, message: MessageToCreate) => Promise<RestyResponse<IMessage>>;
-  deleteMessage: (channelID: string, messageID: string) => Promise<RestyResponse<any>>;
+  deleteMessage: (channelID: string, messageID: string, hidetip?: HideTip) => Promise<RestyResponse<any>>;
 }
 
 // MessageAttachment 附件定义
@@ -102,4 +102,8 @@ export interface MessageToCreate {
   message_reference?: MessageReference;
   image?: string;
   msg_id?: string; // 要回复的消息id,不为空则认为是被动消息
+}
+
+export interface HideTip {
+  hidetip?: boolean;
 }
