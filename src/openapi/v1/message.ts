@@ -1,13 +1,4 @@
-import {
-  Config,
-  OpenAPIRequest,
-  IMessage,
-  IMessageRes,
-  MessageAPI,
-  MessagesPager,
-  MessageToCreate,
-  HideTip,
-} from '@src/types';
+import { Config, OpenAPIRequest, IMessage, IMessageRes, MessageAPI, MessagesPager, MessageToCreate } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -63,10 +54,10 @@ export default class Message implements MessageAPI {
   }
 
   // 撤回消息
-  public deleteMessage(channelID: string, messageID: string, hidetip?: HideTip): Promise<RestyResponse<any>> {
+  public deleteMessage(channelID: string, messageID: string, hideTip?: boolean): Promise<RestyResponse<any>> {
     const params = Object.create(null);
-    if (hidetip) {
-      params.hidetip = hidetip.hidetip || false;
+    if (hideTip) {
+      params.hidetip = hideTip || false;
     }
     const options = {
       method: 'DELETE' as const,
