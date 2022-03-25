@@ -57,7 +57,7 @@ export default class Message implements MessageAPI {
   public deleteMessage(channelID: string, messageID: string, hideTip?: boolean): Promise<RestyResponse<any>> {
     const params = Object.create(null);
     if (hideTip) {
-      params.hidetip = hideTip || false;
+      params.hidetip = hideTip;
     }
     const options = {
       method: 'DELETE' as const,
