@@ -54,7 +54,11 @@ export default class Message implements MessageAPI {
   }
 
   // 撤回消息
-  public deleteMessage(channelID: string, messageID: string): Promise<RestyResponse<any>> {
+  public deleteMessage(channelID: string, messageID: string, hideTip?: boolean): Promise<RestyResponse<any>> {
+    const params = Object.create(null);
+    if (hideTip) {
+      params.hidetip = hideTip;
+    }
     const options = {
       method: 'DELETE' as const,
       url: getURL('messageURI'),
@@ -62,6 +66,7 @@ export default class Message implements MessageAPI {
         channelID,
         messageID,
       },
+      params,
     };
     return this.request(options);
   }

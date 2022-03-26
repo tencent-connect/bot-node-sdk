@@ -9,7 +9,7 @@ export interface MessageAPI {
   message: (channelID: string, messageID: string) => Promise<RestyResponse<IMessageRes>>;
   messages: (channelID: string, pager: MessagesPager) => Promise<RestyResponse<IMessage[]>>;
   postMessage: (channelID: string, message: MessageToCreate) => Promise<RestyResponse<IMessage>>;
-  deleteMessage: (channelID: string, messageID: string) => Promise<RestyResponse<any>>;
+  deleteMessage: (channelID: string, messageID: string, hideTip?: boolean) => Promise<RestyResponse<any>>;
 }
 
 // MessageAttachment 附件定义
