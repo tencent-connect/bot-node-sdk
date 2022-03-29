@@ -94,12 +94,23 @@ export interface MessageReference {
   ignore_get_message_error?: boolean; // 是否忽略获取引用消息详情错误，默认否（如不忽略，当获取引用消息详情出错时，消息将不会发出）
 }
 
+export interface MessageMarkdownParams {
+  key: string; // markdown 模版 key
+  values: string[]; // markdown 模版 key 对应的 values ，列表长度大小为 1 代表单 value 值，长度大于1则为列表类型的参数 values 传参数
+}
+export interface MessageMarkdown {
+  template_id?: number; // markdown 模板 id
+  params?: MessageMarkdownParams; // markdown 模板模板参数
+  content?: string; // 原生 markdown 内容,与 template_id 和 params参数互斥,参数都传值将报错。
+}
+
 // 消息体结构
 export interface MessageToCreate {
   content?: string;
   embed?: Embed;
   ark?: Ark;
   message_reference?: MessageReference;
+  markdown?: MessageMarkdown;
   image?: string;
   msg_id?: string; // 要回复的消息id,不为空则认为是被动消息
 }
