@@ -24,6 +24,8 @@ export interface IChannel extends PostChannelObj {
   id: string; // 频道 ID
   guild_id: string; // 群 ID
   owner_id: string; // 拥有者 ID
+  speak_permission?: number; // 子频道发言权限
+  application_id?: string; // 用于标识应用子频道应用类型
 }
 
 export interface PostChannelObj {
@@ -34,6 +36,7 @@ export interface PostChannelObj {
   parent_id: string; // 父频道的ID
   private_type?: number; // 子频道私密类型
   private_user_ids?: string[]; // 子频道私密类型成员 ID
+  permissions?: string; // 用户拥有的子频道权限
 }
 
 export type PatchChannelObj = Partial<Omit<PostChannelObj, 'sub_type' | 'private_user_ids'>>;

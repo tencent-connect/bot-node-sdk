@@ -48,6 +48,7 @@ const runRelease = (version) => {
     const extractVersion = /tagging release (v[0-9]+\.[0-9]+\.[0-9]+)/.exec(output)[1];
     if (extractVersion) {
       preVersion = extractVersion;
+      console.log(chalk.yellow(`preVersion: ${preVersion}`));
     }
   }
   log('----- release(end) -----', true, true);
