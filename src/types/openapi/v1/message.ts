@@ -74,6 +74,7 @@ export interface IMessage {
   ark: Ark; // ark 消息
   seq?: number; // 用于消息间的排序
   seq_in_channel?: string; // 子频道消息 seq
+  message_reference?: MessageReference;
 }
 
 // 接口返回的数据多一层message
