@@ -35,7 +35,9 @@ import {
   GuildPermissionsAPI,
   ReactionAPI,
   PinsMessageAPI,
+  InteractionAPI,
 } from '@src/types';
+import Interaction from '@src/openapi/v1/interaction';
 export const apiVersion = 'v1';
 export class OpenAPI implements IOpenAPI {
   static newClient(config: Config) {
@@ -59,6 +61,7 @@ export class OpenAPI implements IOpenAPI {
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
   public reactionApi!: ReactionAPI;
+  public interactionApi!: InteractionAPI;
   public pinsMessageApi!: PinsMessageAPI;
   public guildPermissionsApi!: GuildPermissionsAPI;
 
@@ -83,6 +86,7 @@ export class OpenAPI implements IOpenAPI {
     client.audioApi = new Audio(this.request, this.config);
     client.guildPermissionsApi = new GuildPermissions(this.request, this.config);
     client.reactionApi = new Reaction(this.request, this.config);
+    client.interactionApi = new Interaction(this.request, this.config);
     client.pinsMessageApi = new PinsMessage(this.request, this.config);
   }
   // 基础rest请求
