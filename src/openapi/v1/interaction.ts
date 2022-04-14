@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, InteractionAPI } from '@src/types';
+import { Config, OpenAPIRequest, InteractionAPI, CodeObj } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -11,20 +11,17 @@ export default class Interaction implements InteractionAPI {
   }
 
   // 异步更新交互数据
-  public postInteraction(interactionID: string, code: boolean): Promise<RestyResponse<any>> {
-    const params = Object.create(null);
-    if (code) {
-      params.code = 1;
-    } else {
-      params.code = 0;
-    }
+  public putInteraction(interactionID: string, code: CodeObj): Promise<RestyResponse<any>> {
     const options = {
       method: 'PUT' as const,
       url: getURL('interactionURI'),
-      rest: {
-        interactionID: interactionID,
+      headers: {
+        'Content-Type': 'none',
       },
-      data: params,
+      rest: {
+        interactionID,
+      },
+      data: code,
     };
     return this.request(options);
   }

@@ -16,6 +16,7 @@ import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
 import GuildPermissions from './guild-permissions';
+import Interaction from './interaction';
 import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
@@ -37,7 +38,6 @@ import {
   PinsMessageAPI,
   InteractionAPI,
 } from '@src/types';
-import Interaction from '@src/openapi/v1/interaction';
 export const apiVersion = 'v1';
 export class OpenAPI implements IOpenAPI {
   static newClient(config: Config) {
