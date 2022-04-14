@@ -24,7 +24,7 @@ export default class Interaction implements InteractionAPI {
       rest: {
         interactionID: interactionID,
       },
-      params,
+      data: params,
     };
     return this.request(options);
   }
