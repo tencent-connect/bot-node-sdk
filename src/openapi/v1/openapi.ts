@@ -16,7 +16,6 @@ import Mute from './mute';
 import Announce from './announce';
 import Schedule from './schedule';
 import GuildPermissions from './guild-permissions';
-import Interaction from './interaction';
 import { addUserAgent, addAuthorization, buildUrl } from '@src/utils/utils';
 import {
   GuildAPI,
@@ -36,7 +35,6 @@ import {
   GuildPermissionsAPI,
   ReactionAPI,
   PinsMessageAPI,
-  InteractionAPI,
 } from '@src/types';
 export const apiVersion = 'v1';
 export class OpenAPI implements IOpenAPI {
@@ -61,7 +59,6 @@ export class OpenAPI implements IOpenAPI {
   public channelPermissionsApi!: ChannelPermissionsAPI;
   public audioApi!: AudioAPI;
   public reactionApi!: ReactionAPI;
-  public interactionApi!: InteractionAPI;
   public pinsMessageApi!: PinsMessageAPI;
   public guildPermissionsApi!: GuildPermissionsAPI;
 
@@ -86,7 +83,6 @@ export class OpenAPI implements IOpenAPI {
     client.audioApi = new Audio(this.request, this.config);
     client.guildPermissionsApi = new GuildPermissions(this.request, this.config);
     client.reactionApi = new Reaction(this.request, this.config);
-    client.interactionApi = new Interaction(this.request, this.config);
     client.pinsMessageApi = new PinsMessage(this.request, this.config);
   }
   // 基础rest请求

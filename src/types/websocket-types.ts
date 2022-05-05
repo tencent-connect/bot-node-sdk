@@ -81,7 +81,6 @@ export enum AvailableIntentsEventsEnum {
   AUDIO_ACTION = 'AUDIO_ACTION',
   AT_MESSAGES = 'AT_MESSAGES',
   MESSAGE_AUDIT = 'MESSAGE_AUDIT',
-  INTERACTION = 'INTERACTION',
 }
 
 // OpenAPI传过来的事件类型
@@ -109,15 +108,12 @@ export const WsEventType: { [key: string]: AvailableIntentsEventsEnum } = {
   MESSAGE_REACTION_ADD: AvailableIntentsEventsEnum.GUILD_MESSAGE_REACTIONS, // 为消息添加表情表态
   MESSAGE_REACTION_REMOVE: AvailableIntentsEventsEnum.GUILD_MESSAGE_REACTIONS, // 为消息删除表情表态
 
-  //  ======= INTERACTION ======
-  INTERACTION_CREATE: AvailableIntentsEventsEnum.INTERACTION, // 互动事件创建时
-
   //  ======= MESSAGE_AUDIT ======
-  MESSAGE_AUDIT_PASS: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // 消息审核通过
-  MESSAGE_AUDIT_REJECT: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // 消息审核不通过
+  MESSAGE_AUDIT_PASS: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // / 消息审核通过
+  MESSAGE_AUDIT_REJECT: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // / 消息审核不通过
 
   //  ======= FORUM_EVENT ======
-  THREAD_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户创建主题时
+  THREAD_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // / 当用户创建主题时
   THREAD_UPDATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户删除主题时
   POST_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户创建帖子时
   POST_DELETE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户删除帖子时
@@ -227,7 +223,6 @@ export const IntentEvents: IntentEventsMapType = {
   GUILD_MESSAGES: 1 << 9,
   GUILD_MESSAGE_REACTIONS: 1 << 10,
   DIRECT_MESSAGE: 1 << 12,
-  INTERACTION: 1 << 26,
   MESSAGE_AUDIT: 1 << 27,
   FORUM_EVENT: 1 << 28,
   AUDIO_ACTION: 1 << 29,

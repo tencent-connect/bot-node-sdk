@@ -12,7 +12,6 @@ import { MuteAPI } from './v1/mute';
 import { AnnounceAPI } from './v1/announce';
 import { ScheduleAPI } from './v1/schedule';
 import { ReactionAPI } from './v1/reaction';
-import { InteractionAPI } from './v1/interaction';
 import { PinsMessageAPI } from './v1/pins-message';
 import { GuildPermissionsAPI } from './v1/guild-permission';
 
@@ -41,7 +40,6 @@ export interface IOpenAPI {
   audioApi: AudioAPI;
   guildPermissionsApi: GuildPermissionsAPI;
   reactionApi: ReactionAPI;
-  interactionApi: InteractionAPI;
   pinsMessageApi: PinsMessageAPI;
 }
 
@@ -71,6 +69,5 @@ export * from './v1/mute';
 export * from './v1/announce';
 export * from './v1/schedule';
 export * from './v1/reaction';
-export * from './v1/interaction';
 export * from './v1/pins-message';
 export * from './v1/guild-permission';

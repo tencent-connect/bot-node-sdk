@@ -32,6 +32,5 @@ const apiMap = {
   reactionURI: '/channels/:channelID/messages/:messageID/reactions/:emojiType/:emojiID',
   pinsMessageIdURI: '/channels/:channelID/pins/:messageID',
   pinsMessageURI: '/channels/:channelID/pins',
-  interactionURI: '/interactions/:interactionID',
 };
 export const getURL = (endpoint: keyof typeof apiMap) => apiMap[endpoint];
