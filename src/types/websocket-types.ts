@@ -77,9 +77,9 @@ export enum AvailableIntentsEventsEnum {
   GUILD_MESSAGES = 'GUILD_MESSAGES',
   GUILD_MESSAGE_REACTIONS = 'GUILD_MESSAGE_REACTIONS',
   DIRECT_MESSAGE = 'DIRECT_MESSAGE',
-  FORUM_EVENT = 'FORUM_EVENT',
+  FORUMS_EVENT = 'FORUMS_EVENT',
   AUDIO_ACTION = 'AUDIO_ACTION',
-  AT_MESSAGES = 'AT_MESSAGES',
+  PUBLIC_GUILD_MESSAGES = 'PUBLIC_GUILD_MESSAGES',
   MESSAGE_AUDIT = 'MESSAGE_AUDIT',
   INTERACTION = 'INTERACTION',
 }
@@ -99,15 +99,17 @@ export const WsEventType: { [key: string]: AvailableIntentsEventsEnum } = {
   GUILD_MEMBER_UPDATE: AvailableIntentsEventsEnum.GUILD_MEMBERS, // 频道成员更新
   GUILD_MEMBER_REMOVE: AvailableIntentsEventsEnum.GUILD_MEMBERS, // 频道成员移除
 
-  //  ======= AUDIO_ACTION ======
-  AUDIO_START: AvailableIntentsEventsEnum.AUDIO_ACTION, // 音频开始播放
-  AUDIO_FINISH: AvailableIntentsEventsEnum.AUDIO_ACTION, // 音频结束播放
-  AUDIO_ON_MIC: AvailableIntentsEventsEnum.AUDIO_ACTION, // 机器人上麦
-  AUDIO_OFF_MIC: AvailableIntentsEventsEnum.AUDIO_ACTION, // 机器人下麦
+  //  ======= GUILD_MESSAGES ======
+  MESSAGE_CREATE: AvailableIntentsEventsEnum.GUILD_MESSAGES, // 机器人收到频道消息时触发
+  MESSAGE_DELETE: AvailableIntentsEventsEnum.GUILD_MESSAGES, // 删除（撤回）消息事件
 
   //  ======= GUILD_MESSAGE_REACTIONS ======
   MESSAGE_REACTION_ADD: AvailableIntentsEventsEnum.GUILD_MESSAGE_REACTIONS, // 为消息添加表情表态
   MESSAGE_REACTION_REMOVE: AvailableIntentsEventsEnum.GUILD_MESSAGE_REACTIONS, // 为消息删除表情表态
+
+  //  ======= DIRECT_MESSAGE ======
+  DIRECT_MESSAGE_CREATE: AvailableIntentsEventsEnum.DIRECT_MESSAGE, // 当收到用户发给机器人的私信消息时
+  DIRECT_MESSAGE_DELETE: AvailableIntentsEventsEnum.DIRECT_MESSAGE, // 删除（撤回）消息事件
 
   //  ======= INTERACTION ======
   INTERACTION_CREATE: AvailableIntentsEventsEnum.INTERACTION, // 互动事件创建时
@@ -116,22 +118,25 @@ export const WsEventType: { [key: string]: AvailableIntentsEventsEnum } = {
   MESSAGE_AUDIT_PASS: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // 消息审核通过
   MESSAGE_AUDIT_REJECT: AvailableIntentsEventsEnum.MESSAGE_AUDIT, // 消息审核不通过
 
-  //  ======= FORUM_EVENT ======
-  THREAD_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户创建主题时
-  THREAD_UPDATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户删除主题时
-  POST_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户创建帖子时
-  POST_DELETE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户删除帖子时
-  REPLY_CREATE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户回复评论时
-  REPLY_DELETE: AvailableIntentsEventsEnum.FORUM_EVENT, // 当用户回复评论时
+  //  ======= FORUMS_EVENT ======
+  FORUM_THREAD_CREATE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户创建帖子时
+  FORUM_THREAD_UPDATE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户更新帖子时
+  FORUM_THREAD_DELETE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户删除帖子题时
+  FORUM_POST_CREATE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户创建回帖时
+  FORUM_POST_DELETE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户删除回帖时
+  FORUM_REPLY_CREATE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户回复评论时
+  FORUM_REPLY_DELETE: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户删除评论时
+  FORUM_PUBLISH_AUDIT_RESULT: AvailableIntentsEventsEnum.FORUMS_EVENT, // 当用户发表审核通过时
 
-  //  ======= DIRECT_MESSAGE ======
-  DIRECT_MESSAGE_CREATE: AvailableIntentsEventsEnum.DIRECT_MESSAGE, // 当收到用户发给机器人的私信消息时
+  //  ======= AUDIO_ACTION ======
+  AUDIO_START: AvailableIntentsEventsEnum.AUDIO_ACTION, // 音频开始播放
+  AUDIO_FINISH: AvailableIntentsEventsEnum.AUDIO_ACTION, // 音频结束播放
+  AUDIO_ON_MIC: AvailableIntentsEventsEnum.AUDIO_ACTION, // 机器人上麦
+  AUDIO_OFF_MIC: AvailableIntentsEventsEnum.AUDIO_ACTION, // 机器人下麦
 
-  //  ======= AT_MESSAGES ======
-  AT_MESSAGE_CREATE: AvailableIntentsEventsEnum.AT_MESSAGES, // 机器人被@时触发
-
-  //  ======= GUILD_MESSAGES ======
-  MESSAGE_CREATE: AvailableIntentsEventsEnum.GUILD_MESSAGES, // 机器人收到频道消息时触发
+  //  ======= PUBLIC_GUILD_MESSAGES ======
+  AT_MESSAGE_CREATE: AvailableIntentsEventsEnum.PUBLIC_GUILD_MESSAGES, // 机器人被@时触发
+  PUBLIC_MESSAGE_DELETE: AvailableIntentsEventsEnum.PUBLIC_GUILD_MESSAGES, // 当频道的消息被删除时
 };
 
 export const WSCodes = {
@@ -229,9 +234,9 @@ export const IntentEvents: IntentEventsMapType = {
   DIRECT_MESSAGE: 1 << 12,
   INTERACTION: 1 << 26,
   MESSAGE_AUDIT: 1 << 27,
-  FORUM_EVENT: 1 << 28,
+  FORUMS_EVENT: 1 << 28,
   AUDIO_ACTION: 1 << 29,
-  AT_MESSAGES: 1 << 30,
+  PUBLIC_GUILD_MESSAGES: 1 << 30,
 };
 
 // intents

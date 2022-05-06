@@ -14,6 +14,7 @@ const apiMap = {
   userMeGuildsURI: '/users/@me/guilds',
   muteURI: '/guilds/:guildID/mute',
   muteMemberURI: '/guilds/:guildID/members/:userID/mute',
+  muteMembersURI: '/guilds/:guildID/mute',
   gatewayURI: '/gateway',
   gatewayBotURI: '/gateway/bot',
   audioControlURI: '/channels/:channelID/audio',
