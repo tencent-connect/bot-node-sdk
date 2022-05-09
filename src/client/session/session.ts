@@ -3,6 +3,7 @@ import { Ws } from '@src/client/websocket/websocket';
 import { EventEmitter } from 'ws';
 import resty from 'resty-client';
 import { addAuthorization } from '@src/utils/utils';
+import { BotLogger } from '@src/utils/logger';
 
 export default class Session {
   config: GetWsParam;
@@ -38,7 +39,7 @@ export default class Session {
         this.ws.createWebsocket(wsData);
       })
       .catch((e) => {
-        console.log('[ERROR] createSession: ', e);
+        BotLogger.info('[ERROR] createSession: ', e);
         this.event.emit(SessionEvents.EVENT_WS, {
           eventType: SessionEvents.DISCONNECT,
           eventMsg: this.sessionRecord,

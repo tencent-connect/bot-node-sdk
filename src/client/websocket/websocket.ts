@@ -13,6 +13,7 @@ import {
 import WebSocket, { EventEmitter } from 'ws';
 import { toObject } from '@src/utils/utils';
 import { Properties } from '@src/utils/constants';
+import { BotLogger } from '@src/utils/logger';
 
 // websocket连接
 export class Ws {
@@ -58,12 +59,12 @@ export class Ws {
   createListening() {
     // websocket连接已开启
     this.ws.on('open', () => {
-      console.log(`[CLIENT] 开启`);
+      BotLogger.info(`[CLIENT] 开启`);
     });
 
     // 接受消息
     this.ws.on('message', (data: wsResData) => {
-      // console.log(`[CLIENT] 收到消息: ${data}`);
+      // BotLogger.info(`[CLIENT] 收到消息: ${data}`);
 
       // 先将消息解析
       const wsRes = toObject(data);
@@ -78,7 +79,7 @@ export class Ws {
 
       // 鉴权通过
       if (wsRes.t === SessionEvents.READY) {
-        console.log(`[CLIENT] 鉴权通过`);
+        BotLogger.info(`[CLIENT] 鉴权通过`);
         const { d, s } = wsRes;
         const { session_id } = d;
         // 获取当前会话参数
@@ -89,7 +90,7 @@ export class Ws {
         }
         this.event.emit(SessionEvents.READY, { eventType: SessionEvents.READY, msg: d || '' });
         // 第一次发送心跳
-        console.log(`[CLIENT] 发送第一次心跳`, this.heartbeatParam);
+        BotLogger.info(`[CLIENT] 发送第一次心跳`, this.heartbeatParam);
         this.sendWs(this.heartbeatParam);
         return;
       }
@@ -100,7 +101,7 @@ export class Ws {
           this.alive = true;
           this.event.emit(SessionEvents.EVENT_WS, { eventType: SessionEvents.READY });
         }
-        console.log('[CLIENT] 心跳校验', this.heartbeatParam);
+        BotLogger.info('[CLIENT] 心跳校验', this.heartbeatParam);
         setTimeout(() => {
           this.sendWs(this.heartbeatParam);
         }, this.heartbeatInterval);
@@ -127,7 +128,7 @@ export class Ws {
 
     // 监听websocket关闭事件
     this.ws.on('close', (data: number) => {
-      console.log('[CLIENT] 连接关闭', data);
+      BotLogger.info('[CLIENT] 连接关闭', data);
       // 通知会话，当前已断线
       this.alive = false;
       this.event.emit(SessionEvents.EVENT_WS, {
@@ -142,7 +143,7 @@ export class Ws {
 
     // 监听websocket错误
     this.ws.on('error', () => {
-      console.log(`[CLIENT] 连接错误`);
+      BotLogger.info(`[CLIENT] 连接错误`);
       this.event.emit(SessionEvents.CLOSED, { eventType: SessionEvents.CLOSED });
     });
 
@@ -199,22 +200,22 @@ export class Ws {
     const defaultIntents = Object.keys(AvailableIntentsEventsEnum) as AvailableIntentsEventsEnum[];
     // 如果开发者没传intents，我们默认给他开启全部监听事件
     if (!intentsIn) {
-      console.log('[CLIENT] intents不存在，默认开启全部监听事件');
+      BotLogger.info('[CLIENT] intents不存在，默认开启全部监听事件');
       return defaultIntents;
     }
     // 如果开发者传入intents为空数组，我们默认给他开启全部监听事件
     if (intentsIn.length === 0) {
-      console.log('[CLIENT] intents为空，默认开启全部监听事件');
+      BotLogger.info('[CLIENT] intents为空，默认开启全部监听事件');
       return defaultIntents;
     }
     // 如果intents大于可监听数
     if (intentsIn.length > defaultIntents.length) {
-      console.log('[CLIENT] intents中的监听事件大于可监听数，仅开启有效监听事件');
+      BotLogger.info('[CLIENT] intents中的监听事件大于可监听数，仅开启有效监听事件');
     }
     // 如果intents中数据格式不对
     const typeIn = intentsIn.every((item) => typeof item === 'string');
     if (!typeIn) {
-      console.log('[CLIENT] intents中存在不合法类型，仅开启有效监听事件');
+      BotLogger.info('[CLIENT] intents中存在不合法类型，仅开启有效监听事件');
       return intentsIn.filter((item) => typeof item === 'string');
     }
     return intentsIn;
@@ -224,13 +225,13 @@ export class Ws {
   checkShards(shardsArr: Array<number> | undefined) {
     // 没有传shards进来
     if (!shardsArr) {
-      return console.log('shards 不存在');
+      return BotLogger.info('shards 不存在');
     }
     // 传进来的符合要求
     if (Array.isArray(shardsArr) && shardsArr.length === 2 && shardsArr[0] < shardsArr[1]) {
       return shardsArr;
     }
-    return console.log('shards 错误');
+    return BotLogger.info('shards 错误');
   }
 
   // 发送websocket
@@ -239,13 +240,13 @@ export class Ws {
       // 先将消息转为字符串
       this.ws.send(typeof msg === 'string' ? msg : JSON.stringify(msg));
     } catch (e) {
-      console.log(e);
+      BotLogger.info(e);
     }
   }
 
   // 重新连接
   reconnect() {
-    console.log('[CLIENT] 等待断线重连');
+    BotLogger.info('[CLIENT] 等待断线重连');
   }
 
   // 重新重连Ws
