@@ -1,6 +1,7 @@
 import { GetWsParam, SessionEvents, SessionRecord, WebsocketCloseReason } from '@src/types/websocket-types';
 import Session from '@src/client/session/session';
 import { EventEmitter } from 'ws';
+import { BotLogger } from '@src/utils/logger';
 
 const MAX_RETRY = 10;
 
@@ -15,20 +16,20 @@ export default class WebsocketClient extends EventEmitter {
     this.on(SessionEvents.EVENT_WS, (data) => {
       switch (data.eventType) {
         case SessionEvents.RECONNECT:
-          console.log('[CLIENT] 等待断线重连中...');
+          BotLogger.info('[CLIENT] 等待断线重连中...');
           break;
         case SessionEvents.DISCONNECT:
           if (this.retry < (config.maxRetry || MAX_RETRY)) {
-            console.log('[CLIENT] 重新连接中，尝试次数：', this.retry + 1);
+            BotLogger.info('[CLIENT] 重新连接中，尝试次数：', this.retry + 1);
             this.connect(config, WebsocketCloseReason.find((v) => v.code === data.code)?.resume ? data.eventMsg : null);
             this.retry += 1;
           } else {
-            console.log('[CLIENT] 超过重试次数，连接终止');
+            BotLogger.info('[CLIENT] 超过重试次数，连接终止');
             this.emit(SessionEvents.DEAD, { eventType: SessionEvents.ERROR, msg: '连接已死亡，请检查网络或重启' });
           }
           break;
         case SessionEvents.READY:
-          console.log('[CLIENT] 连接成功');
+          BotLogger.info('[CLIENT] 连接成功');
           this.retry = 0;
           break;
         default:

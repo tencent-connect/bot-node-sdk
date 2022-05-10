@@ -6,6 +6,7 @@ import { RestyResponse } from 'resty-client';
 export interface MuteAPI {
   muteMember: (guildID: string, userID: string, options: MuteOptions) => Promise<RestyResponse<any>>;
   muteAll: (guildID: string, options: MuteOptions) => Promise<RestyResponse<any>>;
+  muteMembers: (guildID: string, userIDList: Array<string>, options: MuteOptions) => Promise<RestyResponse<any>>;
 }
 
 export interface MuteOptions {

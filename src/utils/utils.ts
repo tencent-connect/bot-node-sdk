@@ -1,5 +1,6 @@
 import { AxiosRequestHeaders } from 'axios';
 import { version } from '../../package.json';
+import { BotLogger } from '@src/utils/logger';
 
 // 延迟
 export const delayTime = (ms: number) => {
@@ -12,7 +13,7 @@ export const delayTime = (ms: number) => {
 export const randomDelay = (min: number, max: number) => {
   let ms = Math.random() * (max - min) + min;
   ms = Math.ceil(ms);
-  console.log(`delay for ${ms} ms ...`);
+  BotLogger.info(`delay for ${ms} ms ...`);
   return delayTime(ms);
 };
 

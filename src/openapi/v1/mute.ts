@@ -50,4 +50,25 @@ export default class Mute implements MuteAPI {
     };
     return this.request(reqOptions);
   }
+
+  // 禁言批量member
+  public muteMembers(guildID: string, userIDList: Array<string>, options: MuteOptions): Promise<RestyResponse<any>> {
+    if (!options) {
+      return Promise.reject(new Error("'options' required!"));
+    }
+
+    const reqOptions = {
+      method: 'PATCH' as const,
+      url: getURL('muteMembersURI'),
+      rest: {
+        guildID,
+      },
+      data: {
+        mute_end_timestamp: options?.timeTo,
+        mute_seconds: options?.seconds,
+        user_ids: userIDList,
+      },
+    };
+    return this.request(reqOptions);
+  }
 }
