@@ -265,9 +265,10 @@ export class Ws {
   // OpenAPI事件分发
   dispatchEvent(eventType: string, wsRes: wsResData) {
     const msg = wsRes.d;
+    const eventId = wsRes.id || '';
     // 如果没有事件，即刻退出
     if (!msg || !eventType) return;
-    this.event.emit(WsEventType[eventType], { eventType, msg });
+    this.event.emit(WsEventType[eventType], { eventType, eventId, msg });
   }
 
   // 主动关闭会话
