@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.3](https://github.com/tencent-connect/bot-node-sdk/compare/v2.9.1...v2.9.3) (2022-05-12)
+
+
+### Features
+
+* 事件分发添加事件ID ([0e5d4fb](https://github.com/tencent-connect/bot-node-sdk/commit/0e5d4fbbb8745b8628b037ad8c2d6d58676b176e))
+* 撤回消息API补充hidetip参数 ([#57](https://github.com/tencent-connect/bot-node-sdk/issues/57)) ([2bddf51](https://github.com/tencent-connect/bot-node-sdk/commit/2bddf513b4ee490f669f638abb7cc371e799b5a9))
+* 补齐INTERACTION事件，增加异步更新交互数据接口 ([#59](https://github.com/tencent-connect/bot-node-sdk/issues/59)) ([2f1f184](https://github.com/tencent-connect/bot-node-sdk/commit/2f1f18446553ab9943ece7d97eb1603e9c05ac93))
+
 ### [2.9.1](https://github.com/tencent-connect/bot-node-sdk/compare/v2.9.0...v2.9.1) (2022-03-05)
 
 
