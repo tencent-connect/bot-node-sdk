@@ -11,6 +11,7 @@ export interface wsResData {
   };
   s: number; // 心跳的唯一标识
   t: string; // 事件类型
+  id?: string; // 事件ID
 }
 
 // 发送心跳入参
