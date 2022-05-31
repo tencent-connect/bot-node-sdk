@@ -1,4 +1,4 @@
-import { Config, OpenAPIRequest, GuildAPI, GuildMembersPager, IGuild, IMember } from '@src/types';
+import { Config, OpenAPIRequest, GuildAPI, GuildMembersPager, IGuild, IMember, IVoiceMember } from '@src/types';
 import { RestyResponse } from 'resty-client';
 import { getURL } from './resource';
 
@@ -56,5 +56,16 @@ export default class Guild implements GuildAPI {
       },
     };
     return this.request(options);
+  }
+  // 语音子频道在线成员列表
+  public guildVoiceMembers(channelID: string): Promise<RestyResponse<IVoiceMember[]>> {
+    const options = {
+      method: 'GET' as const,
+      url: getURL('guildVoiceMembersURI'),
+      rest: {
+        channelID,
+      },
+    };
+    return this.request<IVoiceMember[]>(options);
   }
 }
