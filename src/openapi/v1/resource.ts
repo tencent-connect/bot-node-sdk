@@ -35,5 +35,6 @@ const apiMap = {
   pinsMessageURI: '/channels/:channelID/pins',
   interactionURI: '/interactions/:interactionID',
   guildVoiceMembersURI: '/channels/:channelID/voice/members', // 语音子频道在线成员车查询
+  botMic: '/channels/:channelID/mic', // 机器人上麦|下麦
 };
 export const getURL = (endpoint: keyof typeof apiMap) => apiMap[endpoint];
