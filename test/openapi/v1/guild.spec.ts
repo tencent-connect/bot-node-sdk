@@ -1,4 +1,10 @@
-import { client, guildID, userID, REQUEST_SUCCESS_CODE, REQUEST_SUCCESS_CODE_WITH_NO_CONTENT } from '../config';
+import {
+  client,
+  guildID,
+  channelID,
+  userID,
+  REQUEST_SUCCESS_CODE,
+  REQUEST_SUCCESS_CODE_WITH_NO_CONTENT } from '../config';
 
 describe('guild测试', () => {
   test('【 guild方法 】=== 获取频道信息', async () => {
@@ -30,5 +36,11 @@ describe('guild测试', () => {
     const testUserId = '5283226123397135603';
     const res = await client.guildApi.deleteGuildMember(guildID, testUserId);
     expect(res?.status).toStrictEqual(REQUEST_SUCCESS_CODE_WITH_NO_CONTENT);
+  });
+
+  test('【 guildVoiceMembers 】=== 语音子频道内参与语音的频道成员列表', async () => {
+    const res = await client.guildApi.guildVoiceMembers(channelID);
+    expect(res?.status).toStrictEqual(REQUEST_SUCCESS_CODE);
+    expect(Array.isArray(res?.data)).toStrictEqual(true);
   });
 });

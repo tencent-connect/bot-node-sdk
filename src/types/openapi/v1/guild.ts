@@ -10,6 +10,7 @@ export interface GuildAPI {
   guildMember: (guildID: string, userID: string) => Promise<RestyResponse<IMember>>;
   guildMembers: (guildID: string, pager?: GuildMembersPager) => Promise<RestyResponse<IMember[]>>;
   deleteGuildMember: (guildID: string, userID: string) => Promise<RestyResponse<any>>;
+  guildVoiceMembers: (channelID: string) => Promise<RestyResponse<IVoiceMember[]>>;
 }
 
 // 频道对象(Guild)
@@ -36,6 +37,14 @@ export interface IMember {
   user: IUser;
   roles: string[];
   deaf: boolean;
+  mute: boolean;
+}
+
+// 语音子频道参与语音的Member群成员
+export interface IVoiceMember {
+  user: IUser;
+  nick: string;
+  joined_at: string;
   mute: boolean;
 }
 

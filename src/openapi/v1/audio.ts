@@ -21,4 +21,28 @@ export default class Audio implements AudioAPI {
     };
     return this.request<AudioControl>(options);
   }
+  // 机器人上麦
+  botOnMic(channelID: string): Promise<RestyResponse<{}>> {
+    const options = {
+      method: 'PUT' as const,
+      url: getURL('botMic'),
+      rest: {
+        channelID,
+      },
+      data: {},
+    };
+    return this.request<{}>(options);
+  }
+  // 机器人下麦
+  botOffMic(channelID: string): Promise<RestyResponse<{}>> {
+    const options = {
+      method: 'DELETE' as const,
+      url: getURL('botMic'),
+      rest: {
+        channelID,
+      },
+      data: {},
+    };
+    return this.request<{}>(options);
+  }
 }

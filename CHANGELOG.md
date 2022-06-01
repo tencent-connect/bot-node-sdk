@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.4](https://github.com/tencent-connect/bot-node-sdk/compare/v2.9.3...v2.9.4) (2022-05-18)
+
+
+### Features
+
+* 事件分发添加事件ID ([dd9800e](https://github.com/tencent-connect/bot-node-sdk/commit/dd9800ec1cc8e0f305d70baab60dc31bf5fc9d91))
+* 修复依赖版本问题 ([1be18a3](https://github.com/tencent-connect/bot-node-sdk/commit/1be18a300ec6241b08dcdf56ae7560a0f5863cb2))
+* 新增机器人获取表情表态成员列表接口 ([b4739d7](https://github.com/tencent-connect/bot-node-sdk/commit/b4739d719db4d860d2d96fb5f7a6476fc4788053))
+
 ### [2.9.3](https://github.com/tencent-connect/bot-node-sdk/compare/v2.9.1...v2.9.3) (2022-05-12)
 
 
