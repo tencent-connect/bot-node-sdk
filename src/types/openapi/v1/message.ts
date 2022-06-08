@@ -101,5 +101,52 @@ export interface MessageToCreate {
   ark?: Ark;
   message_reference?: MessageReference;
   image?: string;
-  msg_id?: string; // 要回复的消息id,不为空则认为是被动消息
+  msg_id?: string; // 要回复的消息id,不为空则认为是被动消息,公域机器人会异步审核，不为空是被动消息，公域机器人会校验语料
+  keyboard?: MessageKeyboard;
+}
+
+// MessageKeyboard 消息按钮组件
+export interface MessageKeyboard {
+  id?: string;
+  content?: CustomKeyboard;
+}
+
+// CustomKeyboard 自定义 Keyboard
+export interface CustomKeyboard {
+  rows?: Row[];
+}
+
+// Row 每行结构
+export interface Row {
+  buttons?: Button[];
+}
+
+// Button 单个按纽
+export interface Button {
+  id?: string; // 按钮 ID
+  render_data?: RenderData; // 渲染展示字段
+  action?: Action; // 该按纽操作相关字段
+}
+
+// RenderData  按纽渲染展示
+export interface RenderData {
+  label?: string; // 按纽上的文字
+  visited_label?: string; // 点击后按纽上文字
+  style?: number; // 按钮样式，0：灰色线框，1：蓝色线框
+}
+
+// Action 按纽点击操作
+export interface Action {
+  type?: number; // 操作类型
+  permission?: Permission; // 可操作
+  click_limit?: number; // 可点击的次数, 默认不限
+  data?: string; // 操作相关数据
+  at_bot_show_channel_list?: boolean; // false:当前 true:弹出展示子频道选择器
+}
+
+// Permission 按纽操作权限
+export interface Permission {
+  type?: number; // PermissionType 按钮的权限类型
+  specify_role_ids?: string[]; // SpecifyRoleIDs 身份组
+  specify_user_ids?: string[]; // SpecifyUserIDs 指定 UserID
 }
