@@ -53,6 +53,24 @@ export default class Message implements MessageAPI {
     return this.request<IMessage>(options);
   }
 
+  // 修改消息
+  public patchMessage(
+    channelID: string,
+    messageID: string,
+    message: MessageToCreate,
+  ): Promise<RestyResponse<IMessage>> {
+    const options = {
+      method: 'PATCH' as const,
+      url: getURL('messageURI'),
+      rest: {
+        channelID,
+        messageID,
+      },
+      data: message,
+    };
+    return this.request<IMessage>(options);
+  }
+
   // 撤回消息
   public deleteMessage(channelID: string, messageID: string, hideTip?: boolean): Promise<RestyResponse<any>> {
     const params = Object.create(null);
