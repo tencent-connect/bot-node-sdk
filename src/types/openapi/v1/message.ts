@@ -42,8 +42,8 @@ export interface Ark {
 // ArkKV Ark 键值对
 export interface ArkKV {
   key: string;
-  value: string;
-  obj: ArkObj[];
+  value?: string;
+  obj?: ArkObj[]; //更好的适配API给出的模板
 }
 
 // ArkObj Ark 对象
@@ -74,6 +74,8 @@ export interface IMessage {
   ark: Ark; // ark 消息
   seq?: number; // 用于消息间的排序
   seq_in_channel?: string; // 子频道消息 seq
+  direct_message?:boolean; //是否私聊消息
+  src_guild_id?:string; //私聊消息实际来源频道ID
 }
 
 // 接口返回的数据多一层message
