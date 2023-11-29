@@ -83,6 +83,7 @@ export enum AvailableIntentsEventsEnum {
   PUBLIC_GUILD_MESSAGES = 'PUBLIC_GUILD_MESSAGES',
   MESSAGE_AUDIT = 'MESSAGE_AUDIT',
   INTERACTION = 'INTERACTION',
+  GROUP = 'GROUP',
 }
 
 // OpenAPI传过来的事件类型
@@ -138,6 +139,13 @@ export const WsEventType: { [key: string]: AvailableIntentsEventsEnum } = {
   //  ======= PUBLIC_GUILD_MESSAGES ======
   AT_MESSAGE_CREATE: AvailableIntentsEventsEnum.PUBLIC_GUILD_MESSAGES, // 机器人被@时触发
   PUBLIC_MESSAGE_DELETE: AvailableIntentsEventsEnum.PUBLIC_GUILD_MESSAGES, // 当频道的消息被删除时
+
+  //  ======= GROUP ======
+  GROUP_ADD_ROBOT: AvailableIntentsEventsEnum.GROUP,
+  GROUP_DEL_ROBOT: AvailableIntentsEventsEnum.GROUP,
+  GROUP_MSG_REJECT: AvailableIntentsEventsEnum.GROUP,
+  GROUP_MSG_RECEIVE: AvailableIntentsEventsEnum.GROUP,
+  GROUP_AT_MESSAGE_CREATE: AvailableIntentsEventsEnum.GROUP,
 };
 
 export const WSCodes = {
@@ -233,6 +241,7 @@ export const IntentEvents: IntentEventsMapType = {
   GUILD_MESSAGES: 1 << 9,
   GUILD_MESSAGE_REACTIONS: 1 << 10,
   DIRECT_MESSAGE: 1 << 12,
+  GROUP: 1 << 25,
   INTERACTION: 1 << 26,
   MESSAGE_AUDIT: 1 << 27,
   FORUMS_EVENT: 1 << 28,
